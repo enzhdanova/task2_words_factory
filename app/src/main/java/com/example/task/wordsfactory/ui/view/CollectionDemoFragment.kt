@@ -1,5 +1,6 @@
-package com.example.task.wordsfactory
+package com.example.task.wordsfactory.ui.view
 
+import androidx.lifecycle.ViewModel
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,49 +8,38 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.example.task.wordsfactory.R
+import com.example.task.wordsfactory.data.InformationRepository
+import com.example.task.wordsfactory.data.MockFile
+import com.example.task.wordsfactory.ui.viewmodal.OnBoardingScreenViewModel
 
 
 class DemoCollectionAdapter(fragmentActivity: FragmentActivity) :
     FragmentStateAdapter(fragmentActivity) {
-    //TODO: это лучше убрать в data слой
-    data class Information(
-        @StringRes val title: Int,
-        @StringRes val subtitle: Int,
-        @DrawableRes val image: Int
-    )
-    //TODO: это лучше убрать в data слой
-    private val listOfInformation = listOf(
-        Information(
-            title = R.string.learn,
-            subtitle = R.string.subtitle,
-            image = R.drawable.ic_cool_kids_long_distance_relationship
-        ),
-        Information(
-            title = R.string.find,
-            subtitle = R.string.subtitle,
-            image = R.drawable.ic_cool_kids_staying_home
-        ),
-        Information(
-            title = R.string.improve,
-            subtitle = R.string.subtitle,
-            image = R.drawable.ic_cool_kids_high_tech
-        )
-    )
 
-    override fun getItemCount(): Int = listOfInformation.size
+    val _viewModel: OnBoardingScreenViewModel = OnBoardingScreenViewModel(InformationRepository())
+   // val _viewModel: OnBoardingScreenViewModel by ViewModel()
+
+    override fun getItemCount(): Int = MockFile.listOfInformation.size
 
     override fun createFragment(position: Int): Fragment {
         val fragment = DemoObjectFragment()
         fragment.arguments = Bundle().apply {
-            putInt(ARG_OBJECT_TITLE, listOfInformation[position].title)
-            putInt(ARG_OBJECT_SUBTITLE, listOfInformation[position].subtitle)
-            putInt(ARG_OBJECT_IMAGE, listOfInformation[position].image)
+            _viewModel.fetchInfo(position)
+
+            putInt(ARG_OBJECT_TITLE, _viewModel.uiState.value.title)
+            putInt(ARG_OBJECT_SUBTITLE, _viewModel.uiState.value.subtitle)
+            putInt(ARG_OBJECT_IMAGE, _viewModel.uiState.value.image)
             putInt(ARG_OBJECT_POSITION, position)
+
+//            putInt(ARG_OBJECT_TITLE, information.title)
+//            putInt(ARG_OBJECT_SUBTITLE, information.subtitle)
+//            putInt(ARG_OBJECT_IMAGE, information.image)
+//            putInt(ARG_OBJECT_POSITION, position)
         }
         return fragment
     }
@@ -62,6 +52,7 @@ private const val ARG_OBJECT_IMAGE = "image"
 private const val ARG_OBJECT_POSITION = "position"
 
 class DemoObjectFragment : Fragment() {
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -71,17 +62,18 @@ class DemoObjectFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
+        // TODO: кнопки Next и Skip -  часть активити или часть фрагмента?
         val textViewTitle: TextView = view.findViewById(R.id.fragment_collection_object_title)
         val textViewSubtitle: TextView = view.findViewById(R.id.fragment_collection_object_subtitle)
         val imageView: ImageView = view.findViewById(R.id.fragment_collection_object_image)
+        val textViewSkip: TextView = view.findViewById(R.id.fragment_collection_object_button_skip)
         val imageViewPositionList: List<ImageView> = listOf(
             view.findViewById(R.id.fragment_collection_object_position1),
             view.findViewById(R.id.fragment_collection_object_position2),
             view.findViewById(R.id.fragment_collection_object_position3)
         )
         val buttonNext: Button = view.findViewById(R.id.fragment_collection_object_button_next)
-        var position: Int = 0
+        var position = 0
 
         arguments?.takeIf {
             it.containsKey(ARG_OBJECT_TITLE)
@@ -97,6 +89,11 @@ class DemoObjectFragment : Fragment() {
         imageViewPositionList[position].setImageResource(R.drawable.ic_current)
         if (position == 2){
             buttonNext.setText(R.string.start)
+        }
+
+        textViewSkip.setOnClickListener {
+            Toast.makeText(context,"Вы нажали на Skip", Toast.LENGTH_LONG).show()
+
         }
 
     }
