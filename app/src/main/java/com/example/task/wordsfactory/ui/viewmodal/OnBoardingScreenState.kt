@@ -9,3 +9,4 @@ data class OnBoardingScreenState(
     @StringRes val subtitle: Int = R.string.subtitle,
     @DrawableRes val image: Int = R.drawable.ic_cool_kids_long_distance_relationship
 )
+

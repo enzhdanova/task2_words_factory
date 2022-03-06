@@ -1,5 +1,7 @@
 package com.example.task.wordsfactory.data
 
-class InformationRepository {
+import javax.inject.Inject
+
+class InformationRepository @Inject constructor() {
     val information = MockFile2.listOfInformation
 }
