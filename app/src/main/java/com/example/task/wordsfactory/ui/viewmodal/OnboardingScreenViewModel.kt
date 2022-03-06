@@ -2,7 +2,6 @@ package com.example.task.wordsfactory.ui.viewmodal
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.task.wordsfactory.R
 import com.example.task.wordsfactory.data.InformationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -26,7 +25,7 @@ class OnBoardingScreenViewModel @Inject constructor(
         fetchJob = viewModelScope.launch {
             try {
                 val inf = informationRepository.getInfo(position)
-                val buttonNextText = if (position == 2) R.string.next else R.string.start
+
                 _uiState.update {
                     it.copy(
                         title = inf.title, subtitle = inf.subtitle,

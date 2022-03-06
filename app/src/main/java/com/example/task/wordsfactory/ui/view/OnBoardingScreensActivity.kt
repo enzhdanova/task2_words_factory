@@ -29,7 +29,7 @@ class OnBoardingScreensActivity : AppCompatActivity() {
         viewPager.adapter = demoCollectionAdapter
 
         buttonNext.setOnClickListener {
-            if (viewPager.currentItem == 2){
+            if (viewPager.currentItem == 2) {
                 Toast.makeText(this, "Дальше нельзя", Toast.LENGTH_LONG).show()
 
             } else {

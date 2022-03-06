@@ -30,7 +30,6 @@ class OnBoardingScreenCollectionAdapter(fragmentActivity: FragmentActivity) :
     }
 
 
-
 }
 
 private const val ARG_OBJECT_POSITION = "position"
