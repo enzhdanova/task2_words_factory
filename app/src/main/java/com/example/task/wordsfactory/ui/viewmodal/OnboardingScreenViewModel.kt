@@ -34,7 +34,6 @@ class OnBoardingScreenViewModel @Inject constructor(
                     )
                 }
             } catch (ioe: IOException) {
-                println("IOException in fetchInfo(position: Int)") // TODO: исправить сообщение
             }
         }
     }
