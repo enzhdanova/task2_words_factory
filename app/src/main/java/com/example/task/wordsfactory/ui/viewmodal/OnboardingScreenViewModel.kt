@@ -2,13 +2,11 @@ package com.example.task.wordsfactory.ui.viewmodal
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.task.wordsfactory.R
 import com.example.task.wordsfactory.data.InformationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.io.IOException
 import javax.inject.Inject
@@ -27,12 +25,16 @@ class OnBoardingScreenViewModel @Inject constructor(
         fetchJob?.cancel()
         fetchJob = viewModelScope.launch {
             try {
-                val inf = informationRepository.information[position]
+                val inf = informationRepository.getInfo(position)
+                val buttonNextText = if (position == 2) R.string.next else R.string.start
                 _uiState.update {
-                    it.copy(title = inf.title, subtitle = inf.subtitle, image = inf.image)
+                    it.copy(
+                        title = inf.title, subtitle = inf.subtitle,
+                        image = inf.image
+                    )
                 }
             } catch (ioe: IOException) {
-                println("IOException in fetchInfo(position: Int)")
+                println("IOException in fetchInfo(position: Int)") // TODO: исправить сообщение
             }
         }
     }

@@ -10,4 +10,5 @@
     <color name="round_button_color">#E3562A</color>
     <color name="dark">#3C3A36</color>
     <color name="dark_gray">#78746D</color>
+    <color name="button_skip_color">#00000000</color>
 </resources>
