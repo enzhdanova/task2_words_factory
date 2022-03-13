@@ -9,4 +9,5 @@
     <dimen name="sign_up_edit_text_height">50dp</dimen>
     <dimen name="sign_up_margin_horizontal">16dp</dimen>
     <dimen name="sign_margin_for_password_et">56dp</dimen>
+    <dimen name="sign_up_height_button">56dp</dimen>
 </resources>

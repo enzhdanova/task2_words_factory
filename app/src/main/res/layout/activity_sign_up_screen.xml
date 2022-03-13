@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignUpScreen">
+    tools:context=".ui.view.SignUpScreenActivity">
 
     <ImageView
         android:id="@+id/activity_sign_up_imageview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:maxHeight="@dimen/max_height_image_view"
         android:layout_marginTop="@dimen/sign_up_margin_top"
         android:background="@drawable/ic_cool_kids_standing"
+        android:maxHeight="@dimen/max_height_image_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -65,41 +65,38 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/activity_sign_up_name_edittext" />
 
-    <EditText
-        android:id="@+id/activity_sign_up_password_edittext"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/activity_sign_up_password_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/sign_up_edit_text_height"
-        android:layout_marginHorizontal="@dimen/sign_up_margin_horizontal"
-        android:layout_marginTop="@dimen/sign_up_margin_between_element"
-        android:background="@drawable/edittext_sign_up"
-        android:hint="@string/password"
-        android:inputType="textPassword"
-        android:paddingEnd="@dimen/sign_margin_for_password_et"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/activity_sign_up_e_mail_edittext" />
-
-    <ImageButton
-        android:id="@+id/activity_sign_up_visible_password"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/sign_up_margin_horizontal"
-        android:background="@drawable/ic_password"
-        app:layout_constraintBottom_toBottomOf="@id/activity_sign_up_password_edittext"
-        app:layout_constraintEnd_toEndOf="@id/activity_sign_up_password_edittext"
-        app:layout_constraintTop_toTopOf="@id/activity_sign_up_password_edittext" />
-    
+        android:layout_marginTop="@dimen/sign_up_margin_between_element"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/activity_sign_up_e_mail_edittext"
+        app:hintEnabled="false"
+        app:passwordToggleEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/activity_sign_up_password_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/sign_up_edit_text_height"
+            android:background="@drawable/edittext_sign_up"
+            android:inputType="textPassword"
+            android:hint="@string/password" />
+    </com.google.android.material.textfield.TextInputLayout>
+
     <Button
         android:id="@+id/activity_sign_up_button"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="@dimen/sign_up_height_button"
         android:layout_marginHorizontal="@dimen/sign_up_margin_horizontal"
         android:layout_marginTop="@dimen/sign_up_margin_between_element"
-        android:text="@string/sign_up"
         android:background="@drawable/round_button"
+        android:text="@string/sign_up"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/activity_sign_up_password_edittext"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/activity_sign_up_password_layout" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
