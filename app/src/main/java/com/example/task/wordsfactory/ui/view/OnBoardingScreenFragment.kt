@@ -1,0 +1,72 @@
+package com.example.task.wordsfactory.ui.view
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.viewModels
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.example.task.wordsfactory.R
+import com.example.task.wordsfactory.data.MockFile
+import com.example.task.wordsfactory.databinding.FragmentOnboardingScreensBinding
+import com.example.task.wordsfactory.ui.viewmodal.OnBoardingScreenViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import java.text.FieldPosition
+
+@AndroidEntryPoint
+class OnBoardingScreenFragment : Fragment() {
+
+    companion object {
+        private const val ARG_OBJECT_POSITION = "position"
+
+        fun getFragment(position: Int): Fragment {
+            val fragment = OnBoardingScreenFragment()
+            fragment.arguments = bundleOf(
+                ARG_OBJECT_POSITION to position
+            )
+            return fragment
+        }
+    }
+
+    private val viewModel by viewModels<OnBoardingScreenViewModel>()
+
+    private var _binding: FragmentOnboardingScreensBinding? = null
+    private val binding get() = _binding
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentOnboardingScreensBinding.inflate(inflater, container, false)
+        return binding?.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val imageViewPositionList: List<ImageView> = listOf(
+            binding!!.position1,
+            binding!!.position2,
+            binding!!.position3
+        )
+
+        val position = arguments?.getInt(ARG_OBJECT_POSITION) ?: 0
+
+        viewModel.fetchInfo(position)
+
+        binding?.title?.setText(viewModel.uiState.value.title)
+        binding?.subtitle?.setText(viewModel.uiState.value.subtitle)
+        binding?.image?.setImageResource(viewModel.uiState.value.image)
+        imageViewPositionList[position].setImageResource(R.drawable.ic_current)
+
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+}

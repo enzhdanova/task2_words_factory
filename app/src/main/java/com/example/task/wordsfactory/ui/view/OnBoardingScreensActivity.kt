@@ -2,43 +2,44 @@ package com.example.task.wordsfactory.ui.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.example.task.wordsfactory.R
-import com.example.task.wordsfactory.ui.viewmodal.OnBoardingScreenViewModel
+import com.example.task.wordsfactory.databinding.ActivityOnBoardingScreensBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class OnBoardingScreensActivity : AppCompatActivity() {
 
-    private lateinit var demoCollectionAdapter: OnBoardingScreenCollectionAdapter
-    protected lateinit var viewPager: ViewPager2
-    val viewModel by viewModels<OnBoardingScreenViewModel>()
+    companion object {
+        private const val COUNT_FRAGMENT = 3
+    }
+
+    private var demoCollectionAdapter: OnBoardingScreenCollectionAdapter? = null
+    private var viewPager: ViewPager2? = null
+    private var binding: ActivityOnBoardingScreensBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_on_boarding_screens)
-        viewPager = findViewById(R.id.activity_onboarding_screens_viewpager)
-        val buttonNext = findViewById<Button>(R.id.activity_onboarding_screens_button_next)
-        val skip = findViewById<Button>(R.id.activity_onboarding_screens_button_skip)
+        binding = ActivityOnBoardingScreensBinding.inflate(layoutInflater)
+        val view = binding?.root
+        setContentView(view)
 
-        demoCollectionAdapter = OnBoardingScreenCollectionAdapter(this)
-        viewPager.adapter = demoCollectionAdapter
+        demoCollectionAdapter = OnBoardingScreenCollectionAdapter(COUNT_FRAGMENT, this)
+        binding?.viewpager?.adapter = demoCollectionAdapter
 
-        buttonNext.setOnClickListener {
-            if (viewPager.currentItem == 2) {
-                Toast.makeText(this, "Дальше нельзя", Toast.LENGTH_LONG).show()
-
+        binding?.buttonNext?.setOnClickListener{
+            if (binding?.viewpager?.currentItem == COUNT_FRAGMENT - 1) {
+                Toast.makeText(this, getString(R.string.todo_next_activity), Toast.LENGTH_LONG).show()
             } else {
-                viewPager.currentItem = viewPager.currentItem + 1
+                binding?.viewpager?.let {
+                    it.currentItem++
+                }
             }
         }
 
-        skip.setOnClickListener {
-            Toast.makeText(this, "Тут будет переход дальше", Toast.LENGTH_LONG).show()
+        binding?.buttonSkip?.setOnClickListener {
+            Toast.makeText(this, getString(R.string.todo_next_activity), Toast.LENGTH_LONG).show()
             println("skip")
         }
 

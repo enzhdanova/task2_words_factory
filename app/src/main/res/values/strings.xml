@@ -14,4 +14,6 @@
     <string name="navigation_image">navigation image</string>
     <string name="start">Let\'s start</string>
     <string name="skip">Skip</string>
+
+    <string name="todo_next_activity">"Тут будет переход дальше"</string>
 </resources>

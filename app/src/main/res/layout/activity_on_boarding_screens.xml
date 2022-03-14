@@ -7,7 +7,7 @@
     tools:context=".ui.view.OnBoardingScreensActivity">
 
     <Button
-        android:id="@+id/activity_onboarding_screens_button_skip"
+        android:id="@+id/button_skip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_top_between_element"
@@ -21,13 +21,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/activity_onboarding_screens_viewpager"
+        android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clickable="true" />
 
     <Button
-        android:id="@+id/activity_onboarding_screens_button_next"
+        android:id="@+id/button_next"
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_height"
         android:layout_marginHorizontal="@dimen/margin_horizontal_button"
