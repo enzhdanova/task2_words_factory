@@ -1,4 +1,4 @@
-package com.example.task.wordsfactory.ui.viewmodal
+package com.example.task.wordsfactory.ui.viewmodel
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
