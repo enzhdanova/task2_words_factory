@@ -5,18 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.viewModels
-import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.task.wordsfactory.R
-import com.example.task.wordsfactory.data.MockFile
 import com.example.task.wordsfactory.databinding.FragmentOnboardingScreensBinding
-import com.example.task.wordsfactory.ui.viewmodal.OnBoardingScreenViewModel
+import com.example.task.wordsfactory.ui.viewmodel.OnBoardingScreenViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
-import java.text.FieldPosition
 
 @AndroidEntryPoint
 class OnBoardingScreenFragment : Fragment() {
@@ -48,7 +44,7 @@ class OnBoardingScreenFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val imageViewPositionList: List<ImageView> = listOf(
+        var imageViewPositionList: List<ImageView> = listOf(
             binding!!.position1,
             binding!!.position2,
             binding!!.position3
@@ -57,11 +53,21 @@ class OnBoardingScreenFragment : Fragment() {
         val position = arguments?.getInt(ARG_OBJECT_POSITION) ?: 0
 
         viewModel.fetchInfo(position)
+        println(viewModel.uiStateLiveData.value)
 
-        binding?.title?.setText(viewModel.uiState.value.title)
-        binding?.subtitle?.setText(viewModel.uiState.value.subtitle)
-        binding?.image?.setImageResource(viewModel.uiState.value.image)
-        imageViewPositionList[position].setImageResource(R.drawable.ic_current)
+        viewModel.uiStateLiveData.observe(viewLifecycleOwner
+        ) {
+            uiState ->
+            if (uiState.error) {
+
+            } else {
+                binding?.title?.setText(uiState.title)
+                binding?.subtitle?.setText(uiState.subtitle)
+                binding?.image?.setImageResource(uiState.image)
+                imageViewPositionList[position].setImageResource(R.drawable.ic_current)
+            }
+        }
+
 
     }
 
@@ -69,4 +75,6 @@ class OnBoardingScreenFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+
 }

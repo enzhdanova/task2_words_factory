@@ -1,13 +1,18 @@
-package com.example.task.wordsfactory.ui.viewmodal
+package com.example.task.wordsfactory.ui.viewmodel
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.task.wordsfactory.data.InformationRepository
+import com.example.task.wordsfactory.data.Result
+import com.example.task.wordsfactory.data.model.Information
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.io.IOException
+import java.lang.Exception
 import javax.inject.Inject
 
 @HiltViewModel
@@ -15,26 +20,27 @@ class OnBoardingScreenViewModel @Inject constructor(
     private val informationRepository: InformationRepository
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(OnBoardingScreenState())
-    val uiState: StateFlow<OnBoardingScreenState> = _uiState.asStateFlow()
+    private val _uiStateLiveData = MutableLiveData<OnBoardingScreenUIState>()
+    val uiStateLiveData: LiveData<OnBoardingScreenUIState>
+        get() = _uiStateLiveData
 
-    private var fetchJob: Job? = null
 
     fun fetchInfo(position: Int) {
-        fetchJob?.cancel()
-        fetchJob = viewModelScope.launch {
-            try {
-                val inf = informationRepository.getInfo(position)
-
-                _uiState.update {
-                    it.copy(
-                        title = inf.title, subtitle = inf.subtitle,
-                        image = inf.image
+         viewModelScope.launch {
+            val result = informationRepository.getInfo(position)
+            when (result) {
+                is Result.Success<Information> ->
+                    _uiStateLiveData.value = OnBoardingScreenUIState(
+                        title = result.data.title,
+                        subtitle = result.data.subtitle,
+                        image = result.data.image,
+                        error = false
                     )
-                }
-            } catch (ioe: IOException) {
+                is Result.Error ->
+                    _uiStateLiveData.value = OnBoardingScreenUIState(
+                        error = true
+                    )
             }
         }
     }
-
 }

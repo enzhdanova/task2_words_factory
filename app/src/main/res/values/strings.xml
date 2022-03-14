@@ -5,15 +5,12 @@
     <string name="learn">Learn anytime and anywhere</string>
     <string name="find">Find a course for you</string>
     <string name="improve">Improve your skills</string>
-    <string name="learn2">once upon a time</string>
-    <string name="find2">AVADA KEDAVRA!</string>
-    <string name="improve2">do not kill me!</string>
     <string name="subtitle">Quarantine is the perfect time to spend your day learning something new, from anywhere!</string>
     <string name="next">next</string>
     <string name="content_image">content image</string>
     <string name="navigation_image">navigation image</string>
     <string name="start">Let\'s start</string>
     <string name="skip">Skip</string>
-
     <string name="todo_next_activity">"Тут будет переход дальше"</string>
+    <string name="error_message">Возникла проблема при получении данных</string>
 </resources>

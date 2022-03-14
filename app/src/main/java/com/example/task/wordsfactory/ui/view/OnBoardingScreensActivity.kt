@@ -3,9 +3,12 @@ package com.example.task.wordsfactory.ui.view
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.viewpager2.widget.ViewPager2
+import androidx.activity.viewModels
+import androidx.fragment.app.viewModels
 import com.example.task.wordsfactory.R
 import com.example.task.wordsfactory.databinding.ActivityOnBoardingScreensBinding
+import com.example.task.wordsfactory.ui.viewmodel.OnBoardingScreenViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -16,7 +19,6 @@ class OnBoardingScreensActivity : AppCompatActivity() {
     }
 
     private var demoCollectionAdapter: OnBoardingScreenCollectionAdapter? = null
-    private var viewPager: ViewPager2? = null
     private var binding: ActivityOnBoardingScreensBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,6 +32,7 @@ class OnBoardingScreensActivity : AppCompatActivity() {
 
         binding?.buttonNext?.setOnClickListener{
             if (binding?.viewpager?.currentItem == COUNT_FRAGMENT - 1) {
+                //TODO: В будущем заменить Toast на переход в другое активити
                 Toast.makeText(this, getString(R.string.todo_next_activity), Toast.LENGTH_LONG).show()
             } else {
                 binding?.viewpager?.let {
@@ -39,9 +42,10 @@ class OnBoardingScreensActivity : AppCompatActivity() {
         }
 
         binding?.buttonSkip?.setOnClickListener {
+            //TODO: В будущем заменить Toast на переход в другое активити
             Toast.makeText(this, getString(R.string.todo_next_activity), Toast.LENGTH_LONG).show()
             println("skip")
         }
-
     }
+
 }
