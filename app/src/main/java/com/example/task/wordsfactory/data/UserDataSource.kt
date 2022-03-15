@@ -2,22 +2,37 @@ package com.example.task.wordsfactory.data
 
 import android.content.SharedPreferences
 import com.example.task.wordsfactory.data.model.UserLogin
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class UserDataSource @Inject constructor(private val sharedPreferences: SharedPreferences) {
-    fun login(name: String, email: String, password: String) {
+class UserDataSource @Inject constructor(
+    private val sharedPreferences: SharedPreferences,
+    private val ioDispatcher: CoroutineDispatcher
+    ) {
 
-        with(sharedPreferences.edit()) {
-            putString("userName", name)
-            putString("userEmail", email)
-            putString("userPassword", password)
-            apply()
+    companion object {
+        private const val USER_NAME = "userName"
+        private const val USER_EMAIL = "userEmail"
+        private const val USER_PASSWORD = "userPassword"
+    }
+
+    suspend fun login(name: String, email: String, password: String) {
+        withContext(ioDispatcher) {
+            with(sharedPreferences.edit()) {
+                putString(USER_NAME, name)
+                putString(USER_EMAIL, email)
+                putString(USER_PASSWORD, password)
+                apply()
+            }
         }
     }
 
-    fun getUser(): UserLogin {
-        val name = sharedPreferences.getString("userName","")?: ""
-        val email = sharedPreferences.getString("userEmail", "")?: ""
-        return UserLogin(name, email)
+    suspend fun getUser(): UserLogin {
+        return withContext(ioDispatcher) {
+            val name = sharedPreferences.getString(USER_NAME, "") ?: ""
+            val email = sharedPreferences.getString(USER_EMAIL, "") ?: ""
+            UserLogin(name, email)
+        }
     }
 }

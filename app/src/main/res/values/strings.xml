@@ -5,4 +5,9 @@
     <string name="name">Name</string>
     <string name="e_mail">E-mail</string>
     <string name="password">Password</string>
+    <string name="error_message">Возникла проблема при получении данных</string>
+    <string name="ok">ок</string>
+    <string name="activity_null">"Activity cannot be null"</string>
+    <string name="success">Success</string>
+    <string name="todo_next_activity">"Тут будет переход дальше"</string>
 </resources>

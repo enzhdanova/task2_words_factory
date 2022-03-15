@@ -7,6 +7,7 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.activity.viewModels
 import com.example.task.wordsfactory.R
 import com.example.task.wordsfactory.databinding.ActivitySignUpScreenBinding
@@ -33,6 +34,18 @@ class SignUpScreenActivity : AppCompatActivity() {
         setContentView(view)
 
         binding?.signUpButton?.setOnClickListener(buttonSignUpOnClick)
+
+        viewModel.uiState.observe(this) {
+                uiState ->
+            if (uiState.error) {
+                ErrorDialogFragment.getErrorDialog(uiState.errorMessage)
+                    .show(supportFragmentManager, ErrorDialogFragment.ERROR_TAG)
+            }
+            if (uiState.successLogin) {
+                //TODO: тут будет переход дальше, авторизация прошла успешно
+                Toast.makeText(this, getString(R.string.todo_next_activity), Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
     private val buttonSignUpOnClick = View.OnClickListener {
@@ -41,7 +54,7 @@ class SignUpScreenActivity : AppCompatActivity() {
         val password = binding?.passwordEdittext?.text.toString()
         viewModel.login(name, email, password)
         val userLogin = viewModel.getUser()
-        System.out.println("getSharedPreferences $userLogin")
+        System.out.println("getSharedPreferences ${viewModel.uiState.value}")
     }
 
 }
