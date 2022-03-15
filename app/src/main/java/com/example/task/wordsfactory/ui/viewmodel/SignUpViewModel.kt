@@ -29,14 +29,13 @@ class SignUpViewModel @Inject constructor(
         val user = uiState.value
         System.out.println(user)
         if (user?.name == "" || user?.email == "" || user?.password == "") {
-            // TODO: тут надо вывести сообщение об ошибке, диалог и все такое
             // TODO: Проверка корректного ввода всех полей
         } else {
             saveUser(User(name, email, password))
         }
     }
 
-    private fun saveUser(user: User){
+    private fun saveUser(user: User) {
         viewModelScope.launch {
             when (val result = authRepository.login(user.name, user.email, user.password)) {
                 is Result.Success<String> -> {
@@ -52,7 +51,6 @@ class SignUpViewModel @Inject constructor(
         }
     }
 
-    //TODO: этот метод должен пригодиться в будующем, чтобы проверять, что пользователь уже залогинен
     fun getUser() {
         viewModelScope.launch {
             when (val result = authRepository.getUser()) {
@@ -60,16 +58,15 @@ class SignUpViewModel @Inject constructor(
                     val user = result.data
                     _uiState.value = SignUpUiState(
                         name = user.name,
-                        email = user.email
+                        email = user.email,
+                        successLogin = true
                     )
-                    println("getUser() " + _uiState.value)
                 }
-                is Result.Error -> {
+                is Result.Error ->
                     _uiState.value = SignUpUiState(
                         error = true,
                         errorMessage = result.exception.message ?: ""
                     )
-                }
             }
         }
     }

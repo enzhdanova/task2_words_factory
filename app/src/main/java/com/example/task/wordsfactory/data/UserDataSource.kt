@@ -9,7 +9,7 @@ import javax.inject.Inject
 class UserDataSource @Inject constructor(
     private val sharedPreferences: SharedPreferences,
     private val ioDispatcher: CoroutineDispatcher
-    ) {
+) {
 
     companion object {
         private const val USER_NAME = "userName"

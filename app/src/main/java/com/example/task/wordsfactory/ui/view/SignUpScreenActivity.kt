@@ -35,15 +35,17 @@ class SignUpScreenActivity : AppCompatActivity() {
 
         binding?.signUpButton?.setOnClickListener(buttonSignUpOnClick)
 
-        viewModel.uiState.observe(this) {
-                uiState ->
+        viewModel.getUser()
+
+        viewModel.uiState.observe(this) { uiState ->
             if (uiState.error) {
                 ErrorDialogFragment.getErrorDialog(uiState.errorMessage)
                     .show(supportFragmentManager, ErrorDialogFragment.ERROR_TAG)
             }
             if (uiState.successLogin) {
                 //TODO: тут будет переход дальше, авторизация прошла успешно
-                Toast.makeText(this, getString(R.string.todo_next_activity), Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getString(R.string.todo_next_activity), Toast.LENGTH_LONG)
+                    .show()
             }
         }
     }
@@ -53,8 +55,6 @@ class SignUpScreenActivity : AppCompatActivity() {
         val email = binding?.eMailEdittext?.text.toString()
         val password = binding?.passwordEdittext?.text.toString()
         viewModel.login(name, email, password)
-        val userLogin = viewModel.getUser()
-        System.out.println("getSharedPreferences ${viewModel.uiState.value}")
     }
 
 }
