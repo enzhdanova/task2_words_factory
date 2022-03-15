@@ -5,8 +5,12 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import com.example.task.wordsfactory.R
 import com.example.task.wordsfactory.databinding.ActivityOnBoardingScreensBinding
+import com.example.task.wordsfactory.ui.viewmodel.OnBoardingScreenUIState
 import com.example.task.wordsfactory.ui.viewmodel.OnBoardingScreenViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,10 +34,11 @@ class OnBoardingScreensActivity : AppCompatActivity() {
         demoCollectionAdapter = OnBoardingScreenCollectionAdapter(COUNT_FRAGMENT, this)
         binding?.viewpager?.adapter = demoCollectionAdapter
 
-        binding?.buttonNext?.setOnClickListener{
+        binding?.buttonNext?.setOnClickListener {
             if (binding?.viewpager?.currentItem == COUNT_FRAGMENT - 1) {
                 //TODO: В будущем заменить Toast на переход в другое активити
-                Toast.makeText(this, getString(R.string.todo_next_activity), Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getString(R.string.todo_next_activity), Toast.LENGTH_LONG)
+                    .show()
             } else {
                 binding?.viewpager?.let {
                     it.currentItem++

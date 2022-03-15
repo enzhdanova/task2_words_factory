@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import com.example.task.wordsfactory.R
 import com.example.task.wordsfactory.databinding.FragmentOnboardingScreensBinding
@@ -55,11 +56,12 @@ class OnBoardingScreenFragment : Fragment() {
         viewModel.fetchInfo(position)
         println(viewModel.uiStateLiveData.value)
 
-        viewModel.uiStateLiveData.observe(viewLifecycleOwner
-        ) {
-            uiState ->
+        viewModel.uiStateLiveData.observe(
+            viewLifecycleOwner
+        ) { uiState ->
             if (uiState.error) {
-
+                ErrorDialogFragment.getErrorDialog(uiState.errorMessage)
+                    .show(this.parentFragmentManager, ErrorDialogFragment.ERROR_TAG)
             } else {
                 binding?.title?.setText(uiState.title)
                 binding?.subtitle?.setText(uiState.subtitle)
@@ -75,6 +77,5 @@ class OnBoardingScreenFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 
 }

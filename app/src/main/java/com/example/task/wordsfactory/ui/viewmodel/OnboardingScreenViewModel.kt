@@ -26,9 +26,8 @@ class OnBoardingScreenViewModel @Inject constructor(
 
 
     fun fetchInfo(position: Int) {
-         viewModelScope.launch {
-            val result = informationRepository.getInfo(position)
-            when (result) {
+        viewModelScope.launch {
+            when (val result = informationRepository.getInfo(position)) {
                 is Result.Success<Information> ->
                     _uiStateLiveData.value = OnBoardingScreenUIState(
                         title = result.data.title,
@@ -38,7 +37,8 @@ class OnBoardingScreenViewModel @Inject constructor(
                     )
                 is Result.Error ->
                     _uiStateLiveData.value = OnBoardingScreenUIState(
-                        error = true
+                        error = true,
+                        errorMessage = result.exception.message ?: ""
                     )
             }
         }
