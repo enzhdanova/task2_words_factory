@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import com.example.task.wordsfactory.data.AuthRepositoryImpl
 import com.example.task.wordsfactory.data.UserDataSource
 import com.example.task.wordsfactory.ui.AuthRepository
+import com.example.task.wordsfactory.ui.viewmodel.SignUpViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -14,14 +15,6 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Singleton
-
-@Module
-@InstallIn(ViewModelComponent::class)
-abstract class SignUpModule {
-
-    @Binds
-    abstract fun bindRepo(authRepositoryImpl: AuthRepositoryImpl): AuthRepository
-}
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -46,5 +39,15 @@ class SharedPreferencesModule {
             )
         )
     }
+
+    @Singleton
+    @Provides
+    fun provideViewModel(@ApplicationContext appContext: Context): SignUpViewModel {
+        return SignUpViewModel(
+            context = appContext,
+            authRepository = provideAppContext(appContext = appContext)
+        )
+    }
+
 
 }

@@ -14,12 +14,6 @@ import com.example.task.wordsfactory.databinding.ActivitySignUpScreenBinding
 import com.example.task.wordsfactory.ui.viewmodel.SignUpViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
-/*
-* TODO:При нажатии на кнопку "Sign Up" необходимо проверять поля для ввода на пустоту.
-*  При некорректном заполнении необходимо отобразить ошибку с помощью диалогового окна.
-*  При наличии всех данных необходимо перейти на следующий экран.
-* */
-
 @AndroidEntryPoint
 class SignUpScreenActivity : AppCompatActivity() {
 

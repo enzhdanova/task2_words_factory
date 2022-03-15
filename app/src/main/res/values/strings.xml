@@ -7,7 +7,8 @@
     <string name="password">Password</string>
     <string name="error_message">Возникла проблема при получении данных</string>
     <string name="ok">ок</string>
-    <string name="activity_null">"Activity cannot be null"</string>
+    <string name="activity_null">"Activity cannot be null</string>
     <string name="success">Success</string>
-    <string name="todo_next_activity">"Тут будет переход дальше"</string>
+    <string name="todo_next_activity">Тут будет переход дальше</string>
+    <string name="enter_data_error">Некоректные данные</string>
 </resources>

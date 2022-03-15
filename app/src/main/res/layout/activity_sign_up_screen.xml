@@ -96,6 +96,7 @@
         android:layout_marginHorizontal="@dimen/sign_up_margin_horizontal"
         android:layout_marginTop="@dimen/sign_up_margin_between_element"
         android:background="@drawable/round_button"
+        android:textColor="@color/white"
         android:text="@string/sign_up"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

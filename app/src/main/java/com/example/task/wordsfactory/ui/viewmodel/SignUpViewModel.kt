@@ -1,9 +1,12 @@
 package com.example.task.wordsfactory.ui.viewmodel
 
+import android.annotation.SuppressLint
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.task.wordsfactory.R
 import com.example.task.wordsfactory.data.Result
 import com.example.task.wordsfactory.ui.AuthRepository
 import com.example.task.wordsfactory.ui.viewmodel.entity.User
@@ -13,6 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
+    private val context: Context,
     private val authRepository: AuthRepository
 ) : ViewModel() {
 
@@ -27,9 +31,14 @@ class SignUpViewModel @Inject constructor(
             password = password
         )
         val user = uiState.value
-        System.out.println(user)
+        println(user)
+
         if (user?.name == "" || user?.email == "" || user?.password == "") {
-            // TODO: Проверка корректного ввода всех полей
+            _uiState.value = _uiState.value?.copy(
+                error = true,
+                errorMessage = context.getString(R.string.enter_data_error),
+                successLogin = false
+            )
         } else {
             saveUser(User(name, email, password))
         }
@@ -39,7 +48,7 @@ class SignUpViewModel @Inject constructor(
         viewModelScope.launch {
             when (val result = authRepository.login(user.name, user.email, user.password)) {
                 is Result.Success<String> -> {
-                    _uiState.value?.copy(successLogin = true)
+                    _uiState.value = _uiState.value?.copy(successLogin = true)
                 }
                 is Result.Error -> {
                     _uiState.value = SignUpUiState(
@@ -70,4 +79,6 @@ class SignUpViewModel @Inject constructor(
             }
         }
     }
+
+
 }
