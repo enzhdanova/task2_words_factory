@@ -32,13 +32,13 @@ class SignUpScreenActivity : AppCompatActivity() {
 
         setContentView(view)
 
-        binding?.activitySignUpButton?.setOnClickListener(buttonSignUpOnClick)
+        binding?.signUpButton?.setOnClickListener(buttonSignUpOnClick)
     }
 
     private val buttonSignUpOnClick = View.OnClickListener {
-        viewModel.editTextNameChanged(binding?.activitySignUpNameEdittext?.text.toString())
-        viewModel.editTextEmailChanged(binding?.activitySignUpEMailEdittext?.text.toString())
-        viewModel.editTextPasswordChanged((binding?.activitySignUpPasswordEdittext?.text.toString()))
+        viewModel.editTextNameChanged(binding?.nameEdittext?.text.toString())
+        viewModel.editTextEmailChanged(binding?.eMailEdittext?.text.toString())
+        viewModel.editTextPasswordChanged((binding?.passwordEdittext?.text.toString()))
         viewModel.login()
         val userLogin = viewModel.getUser()
         System.out.println("getSharedPreferences $userLogin")
