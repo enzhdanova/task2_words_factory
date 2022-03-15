@@ -45,7 +45,7 @@ class OnBoardingScreenFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        var imageViewPositionList: List<ImageView> = listOf(
+        val imageViewPositionList: List<ImageView> = listOf(
             binding!!.position1,
             binding!!.position2,
             binding!!.position3
@@ -63,14 +63,12 @@ class OnBoardingScreenFragment : Fragment() {
                 ErrorDialogFragment.getErrorDialog(uiState.errorMessage)
                     .show(this.parentFragmentManager, ErrorDialogFragment.ERROR_TAG)
             } else {
-                binding?.title?.setText(uiState.title)
-                binding?.subtitle?.setText(uiState.subtitle)
-                binding?.image?.setImageResource(uiState.image)
+                binding?.title?.text = uiState.title
+                binding?.subtitle?.text = uiState.subtitle
+                binding?.image?.setImageDrawable(uiState.image)
                 imageViewPositionList[position].setImageResource(R.drawable.ic_current)
             }
         }
-
-
     }
 
     override fun onDestroyView() {

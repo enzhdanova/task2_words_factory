@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">WordsFactory</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="learn">Learn anytime and anywhere</string>
     <string name="find">Find a course for you</string>
@@ -13,4 +12,6 @@
     <string name="skip">Skip</string>
     <string name="todo_next_activity">"Тут будет переход дальше"</string>
     <string name="error_message">Возникла проблема при получении данных</string>
+    <string name="ok">ок</string>
+    <string name="activity_null">"Activity cannot be null"</string>
 </resources>

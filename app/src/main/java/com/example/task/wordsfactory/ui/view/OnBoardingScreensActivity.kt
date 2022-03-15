@@ -49,7 +49,6 @@ class OnBoardingScreensActivity : AppCompatActivity() {
         binding?.buttonSkip?.setOnClickListener {
             //TODO: В будущем заменить Toast на переход в другое активити
             Toast.makeText(this, getString(R.string.todo_next_activity), Toast.LENGTH_LONG).show()
-            println("skip")
         }
     }
 

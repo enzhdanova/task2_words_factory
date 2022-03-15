@@ -1,21 +1,20 @@
-package com.example.task.wordsfactory.data
+package com.example.task.wordsfactory.data.mock_data
 
 import com.example.task.wordsfactory.R
-import com.example.task.wordsfactory.data.model.Information
 
 object MockFile {
     val listOfInformation = listOf(
-        Information(
+        InformationRes(
             title = R.string.learn,
             subtitle = R.string.subtitle,
             image = R.drawable.ic_cool_kids_long_distance_relationship
         ),
-        Information(
+        InformationRes(
             title = R.string.find,
             subtitle = R.string.subtitle,
             image = R.drawable.ic_cool_kids_staying_home
         ),
-        Information(
+        InformationRes(
             title = R.string.improve,
             subtitle = R.string.subtitle,
             image = R.drawable.ic_cool_kids_high_tech

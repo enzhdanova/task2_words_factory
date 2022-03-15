@@ -1,21 +1,24 @@
 package com.example.task.wordsfactory.data
 
+import android.content.Context
+import com.example.task.wordsfactory.R
+import com.example.task.wordsfactory.data.mock_data.InformationDataSource
+import com.example.task.wordsfactory.data.mock_data.MockFile
 import com.example.task.wordsfactory.data.model.Information
 import java.io.IOException
 import javax.inject.Inject
 
-class InformationRepositoryImpl @Inject constructor() : InformationRepository {
+class InformationRepositoryImpl @Inject constructor(
+    private val context: Context,
+    private val informationDataSource: InformationDataSource
+) : InformationRepository {
 
-    companion object {
-        private const val error_mssg = "Возникла проблема при получении данных"
-    }
-
-    private val information = MockFile.listOfInformation
     override fun getInfo(position: Int): Result<Information> {
         return try {
-            Result.Success(information[position])
+            val information = informationDataSource.fetchInformationData(position)
+            Result.Success(information)
         } catch (ioe: IOException) {
-            return Result.Error(Exception(error_mssg))
+            return Result.Error(Exception(context.getString(R.string.error_message)))
         }
     }
 }

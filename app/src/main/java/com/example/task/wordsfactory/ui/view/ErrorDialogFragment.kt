@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.os.Bundle
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
+import com.example.task.wordsfactory.R
 import java.lang.IllegalStateException
 
 class ErrorDialogFragment : DialogFragment() {
@@ -12,7 +13,6 @@ class ErrorDialogFragment : DialogFragment() {
     companion object {
         private const val ARG_OBJECT_ERROR_MESSAGE = "error_message"
         const val ERROR_TAG = "error_tag"
-        const val TEXT_POSITIVE_BUTTON = "ок"
 
         fun getErrorDialog(errorMessage: String): ErrorDialogFragment {
             val errorDialogFragment = ErrorDialogFragment()
@@ -28,10 +28,10 @@ class ErrorDialogFragment : DialogFragment() {
             val mssg = arguments?.getString(ARG_OBJECT_ERROR_MESSAGE) ?: ""
             val builder = AlertDialog.Builder(it)
             builder.setTitle(mssg)
-                .setPositiveButton(TEXT_POSITIVE_BUTTON) { dialog, _ ->
+                .setPositiveButton(getString(R.string.ok)) { dialog, _ ->
                     dialog.cancel()
                 }
             builder.create()
-        } ?: throw IllegalStateException("Activity cannot be null")
+        } ?: throw IllegalStateException(getString(R.string.activity_null))
     }
 }
