@@ -1,11 +1,11 @@
 package com.example.task.wordsfactory.ui.viewmodel
 
-import android.annotation.SuppressLint
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.task.wordsfactory.AppRegexp
 import com.example.task.wordsfactory.R
 import com.example.task.wordsfactory.data.Result
 import com.example.task.wordsfactory.ui.AuthRepository
@@ -30,17 +30,20 @@ class SignUpViewModel @Inject constructor(
             email = email,
             password = password
         )
-        val user = uiState.value
-        println(user)
 
-        if (user?.name == "" || user?.email == "" || user?.password == "") {
+        val nameCorrect = AppRegexp.correct(AppRegexp.REGEXP_NAME, name)
+        val emailCorrect = AppRegexp.correct(AppRegexp.REGEXP_EMAIL, email)
+        val passwordCorrect = AppRegexp.correct(AppRegexp.REGEXP_PASSWORD, password)
+
+        if (nameCorrect && emailCorrect && passwordCorrect) {
+            saveUser(User(name, email, password))
+
+        } else {
             _uiState.value = _uiState.value?.copy(
                 error = true,
                 errorMessage = context.getString(R.string.enter_data_error),
                 successLogin = false
             )
-        } else {
-            saveUser(User(name, email, password))
         }
     }
 
@@ -79,6 +82,4 @@ class SignUpViewModel @Inject constructor(
             }
         }
     }
-
-
 }
