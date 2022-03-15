@@ -30,4 +30,5 @@ class SharedPreferencesModule {
     fun provideSharedPreference(@ApplicationContext context: Context): SharedPreferences {
         return context.getSharedPreferences("preferenceWordsFactory", Context.MODE_PRIVATE)
     }
+
 }

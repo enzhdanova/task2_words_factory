@@ -36,10 +36,10 @@ class SignUpScreenActivity : AppCompatActivity() {
     }
 
     private val buttonSignUpOnClick = View.OnClickListener {
-        viewModel.editTextNameChanged(binding?.nameEdittext?.text.toString())
-        viewModel.editTextEmailChanged(binding?.eMailEdittext?.text.toString())
-        viewModel.editTextPasswordChanged((binding?.passwordEdittext?.text.toString()))
-        viewModel.login()
+        val name = binding?.nameEdittext?.text.toString()
+        val email = binding?.eMailEdittext?.text.toString()
+        val password = binding?.passwordEdittext?.text.toString()
+        viewModel.login(name, email, password)
         val userLogin = viewModel.getUser()
         System.out.println("getSharedPreferences $userLogin")
     }
