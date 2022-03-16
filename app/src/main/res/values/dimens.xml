@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="playceholder_margin_top">46dp</dimen>
+    <dimen name="playceholder_margin_between_element">32dp</dimen>
+    <dimen name="playceholder_margin_between_element_small">8dp</dimen>
+    <dimen name="playceholder_title">24sp</dimen>
+    <dimen name="playceholder_subtitle">14sp</dimen>
+    <dimen name="words_word">24sp</dimen>
+    <dimen name="words_margin_top">16dp</dimen>
+    <dimen name="words_margin_start">16dp</dimen>
+    <dimen name="words_subtitle">20sp</dimen>
+</resources>
