@@ -9,4 +9,10 @@
     <dimen name="words_margin_top">16dp</dimen>
     <dimen name="words_margin_start">16dp</dimen>
     <dimen name="words_subtitle">20sp</dimen>
+    <dimen name="button_text_size">16sp</dimen>
+    <dimen name="button_height">56dp</dimen>
+    <dimen name="button_margin_horizontal">25dp</dimen>
+    <dimen name="recycler_view_margin_vertical">12dp</dimen>
+    <dimen name="height">0dp</dimen>
+    <dimen name="subtext_text_size">14sp</dimen>
 </resources>
