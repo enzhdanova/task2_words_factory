@@ -2,13 +2,15 @@ package com.example.task.wordsfactory.data
 
 import android.content.SharedPreferences
 import com.example.task.wordsfactory.data.model.UserLogin
+import com.example.task.wordsfactory.di.IoDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+//TODO: в будущем можно заменить SharedPreferences на БД
 class UserDataSource @Inject constructor(
     private val sharedPreferences: SharedPreferences,
-    private val ioDispatcher: CoroutineDispatcher
+    @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ) {
 
     companion object {

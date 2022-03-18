@@ -1,13 +1,10 @@
 package com.example.task.wordsfactory.ui.viewmodel
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.task.wordsfactory.AppRegexp
-import com.example.task.wordsfactory.R
-import com.example.task.wordsfactory.data.Result
 import com.example.task.wordsfactory.ui.AuthRepository
 import com.example.task.wordsfactory.ui.viewmodel.entity.User
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,9 +13,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
-    private val context: Context,
     private val authRepository: AuthRepository
 ) : ViewModel() {
+
+    private val errorMessage = "Некоректные данные"
 
     private val _uiState = MutableLiveData<SignUpUiState>()
     val uiState: LiveData<SignUpUiState>
@@ -41,7 +39,7 @@ class SignUpViewModel @Inject constructor(
         } else {
             _uiState.value = _uiState.value?.copy(
                 error = true,
-                errorMessage = context.getString(R.string.enter_data_error),
+                errorMessage = errorMessage,
                 successLogin = false
             )
         }
@@ -49,14 +47,14 @@ class SignUpViewModel @Inject constructor(
 
     private fun saveUser(user: User) {
         viewModelScope.launch {
-            when (val result = authRepository.login(user.name, user.email, user.password)) {
-                is Result.Success<String> -> {
-                    _uiState.value = _uiState.value?.copy(successLogin = true)
-                }
-                is Result.Error -> {
+            val result = authRepository.login(user.name, user.email, user.password)
+            if (result.isSuccess) {
+                _uiState.value = _uiState.value?.copy(successLogin = true)
+            } else {
+                result.onFailure {
                     _uiState.value = SignUpUiState(
                         error = true,
-                        errorMessage = result.exception.message ?: ""
+                        errorMessage = it.message ?: ""
                     )
                 }
             }
@@ -65,20 +63,22 @@ class SignUpViewModel @Inject constructor(
 
     fun getUser() {
         viewModelScope.launch {
-            when (val result = authRepository.getUser()) {
-                is Result.Success<User> -> {
-                    val user = result.data
+            val result = authRepository.getUser()
+            if (result.isSuccess) {
+                result.onSuccess {
                     _uiState.value = SignUpUiState(
-                        name = user.name,
-                        email = user.email,
+                        name = it.name,
+                        email = it.email,
                         successLogin = true
                     )
                 }
-                is Result.Error ->
+            } else {
+                result.onFailure {
                     _uiState.value = SignUpUiState(
                         error = true,
-                        errorMessage = result.exception.message ?: ""
+                        errorMessage = it.message ?: ""
                     )
+                }
             }
         }
     }

@@ -1,6 +1,5 @@
 package com.example.task.wordsfactory.ui
 
-import com.example.task.wordsfactory.data.Result
 import com.example.task.wordsfactory.ui.viewmodel.entity.User
 
 interface AuthRepository {

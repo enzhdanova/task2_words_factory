@@ -11,43 +11,46 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.internal.managers.ApplicationComponentManager
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class SharedPreferencesModule {
+class SharedPreferenceModule {
+    companion object {
+        val preferenceWordsFactory = "preferenceWordsFactory"
+    }
 
     @Singleton
     @Provides
     fun provideSharedPreference(@ApplicationContext context: Context): SharedPreferences {
-        return context.getSharedPreferences("preferenceWordsFactory", Context.MODE_PRIVATE)
+        return context.getSharedPreferences(preferenceWordsFactory, Context.MODE_PRIVATE)
     }
-
-    @Singleton
-    @Provides
-    fun provideAppContext(@ApplicationContext appContext: Context): AuthRepositoryImpl {
-        return AuthRepositoryImpl(
-            context = appContext,
-            dataSource = UserDataSource(
-                sharedPreferences = provideSharedPreference(
-                    context = appContext
-                ),
-                Dispatchers.IO
-            )
-        )
-    }
-
-    @Singleton
-    @Provides
-    fun provideViewModel(@ApplicationContext appContext: Context): SignUpViewModel {
-        return SignUpViewModel(
-            context = appContext,
-            authRepository = provideAppContext(appContext = appContext)
-        )
-    }
-
 
 }
+
+@Module
+@InstallIn(ViewModelComponent::class)
+abstract class ViewModelModule {
+    @Binds
+    abstract fun bindRepo(
+        informationRepositoryImpl: AuthRepositoryImpl
+    ): AuthRepository
+}
+
+@Module
+@InstallIn(SingletonComponent::class)
+object DispatcherModule {
+    @IoDispatcher
+    @Provides
+    fun providesIoDispatcher(): CoroutineDispatcher = Dispatchers.IO
+}
+
+@Retention(AnnotationRetention.BINARY)
+@Qualifier
+annotation class IoDispatcher
