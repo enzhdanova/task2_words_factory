@@ -52,8 +52,6 @@ class OnBoardingScreenFragment : Fragment() {
 
         val position = arguments?.getInt(ARG_OBJECT_POSITION) ?: 0
 
-      //  viewModel.fetchInfo(position)
-       // println(viewModel.uiStateLiveData.value)
         val uiState = OnboardingInfoEnum.values()[position]
 
         binding?.title?.setText(uiState.title)
