@@ -9,6 +9,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.example.task.wordsfactory.R
+import com.example.task.wordsfactory.data.OnboardingInfoEnum
 import com.example.task.wordsfactory.databinding.ActivityOnBoardingScreensBinding
 import com.example.task.wordsfactory.ui.viewmodel.OnBoardingScreenUIState
 import com.example.task.wordsfactory.ui.viewmodel.OnBoardingScreenViewModel
@@ -19,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class OnBoardingScreensActivity : AppCompatActivity() {
 
     companion object {
-        private const val COUNT_FRAGMENT = 3
+        private val COUNT_FRAGMENT = OnboardingInfoEnum.values().size
     }
 
     private var demoCollectionAdapter: OnBoardingScreenCollectionAdapter? = null
@@ -31,7 +32,7 @@ class OnBoardingScreensActivity : AppCompatActivity() {
         val view = binding?.root
         setContentView(view)
 
-        demoCollectionAdapter = OnBoardingScreenCollectionAdapter(COUNT_FRAGMENT, this)
+        demoCollectionAdapter = OnBoardingScreenCollectionAdapter(this)
         binding?.viewpager?.adapter = demoCollectionAdapter
 
         binding?.buttonNext?.setOnClickListener {

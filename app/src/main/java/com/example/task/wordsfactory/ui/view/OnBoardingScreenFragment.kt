@@ -7,12 +7,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import com.example.task.wordsfactory.R
+import com.example.task.wordsfactory.data.OnboardingInfoEnum
 import com.example.task.wordsfactory.databinding.FragmentOnboardingScreensBinding
 import com.example.task.wordsfactory.ui.viewmodel.OnBoardingScreenViewModel
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -53,22 +52,15 @@ class OnBoardingScreenFragment : Fragment() {
 
         val position = arguments?.getInt(ARG_OBJECT_POSITION) ?: 0
 
-        viewModel.fetchInfo(position)
-        println(viewModel.uiStateLiveData.value)
+      //  viewModel.fetchInfo(position)
+       // println(viewModel.uiStateLiveData.value)
+        val uiState = OnboardingInfoEnum.values()[position]
 
-        viewModel.uiStateLiveData.observe(
-            viewLifecycleOwner
-        ) { uiState ->
-            if (uiState.error) {
-                ErrorDialogFragment.getErrorDialog(uiState.errorMessage)
-                    .show(this.parentFragmentManager, ErrorDialogFragment.ERROR_TAG)
-            } else {
-                binding?.title?.text = uiState.title
-                binding?.subtitle?.text = uiState.subtitle
-                binding?.image?.setImageDrawable(uiState.image)
-                imageViewPositionList[position].setImageResource(R.drawable.ic_current)
-            }
-        }
+        binding?.title?.setText(uiState.title)
+        binding?.subtitle?.setText(uiState.subtitle)
+        binding?.image?.setImageResource(uiState.image)
+        imageViewPositionList[position].setImageResource(R.drawable.ic_current)
+
     }
 
     override fun onDestroyView() {

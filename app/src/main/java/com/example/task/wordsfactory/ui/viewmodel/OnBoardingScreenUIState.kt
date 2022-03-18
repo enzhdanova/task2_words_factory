@@ -1,15 +1,13 @@
 package com.example.task.wordsfactory.ui.viewmodel
 
-import android.graphics.drawable.Drawable
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import com.example.task.wordsfactory.R
-import java.lang.Error
+import com.example.task.wordsfactory.data.OnboardingInfoEnum
 
 data class OnBoardingScreenUIState(
-    val title: String = "",
-    val subtitle: String = "",
-    val image: Drawable? = null,
+    @StringRes val title: Int = OnboardingInfoEnum.One.title,
+    @StringRes val subtitle: Int = OnboardingInfoEnum.One.title,
+    @DrawableRes val image: Int = OnboardingInfoEnum.One.image,
     val error: Boolean = false,
     val errorMessage: String = ""
 )
