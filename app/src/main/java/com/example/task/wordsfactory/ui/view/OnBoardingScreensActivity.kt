@@ -23,11 +23,10 @@ class OnBoardingScreensActivity : AppCompatActivity() {
         val view = binding?.root
         setContentView(view)
 
-
         demoCollectionAdapter = OnBoardingScreenCollectionAdapter(this)
         binding?.viewpager?.adapter = demoCollectionAdapter
 
-        var imageViewPositionList = listOf(
+        val imageViewPositionList = listOf(
             binding?.position1,
             binding?.position2,
             binding?.position3,
@@ -53,9 +52,6 @@ class OnBoardingScreensActivity : AppCompatActivity() {
                 //TODO: переход в другое активити
             }
         }
-
-
     }
-
 }
 

@@ -16,5 +16,4 @@ class OnBoardingScreenCollectionAdapter(
     override fun createFragment(position: Int): Fragment {
         return OnBoardingScreenFragment.getFragment(onboardingStep = OnboardingStep.values().toList()[position])
     }
-    
 }

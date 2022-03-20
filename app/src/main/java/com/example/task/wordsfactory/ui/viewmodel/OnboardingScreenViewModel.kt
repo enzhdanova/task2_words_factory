@@ -14,10 +14,6 @@ class OnBoardingScreenViewModel : ViewModel() {
         _uiStateLiveData.value = OnboardingUIState()
     }
 
-    fun onOnBoardingStepChanged(newPosition: Int) {
-        _uiStateLiveData.value = OnboardingUIState(currentPosition = newPosition)
-    }
-
     fun nextButtonOnClick(){
         var newPosition = _uiStateLiveData.value?.currentPosition ?: 0
         newPosition++
