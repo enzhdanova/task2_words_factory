@@ -16,7 +16,6 @@ import com.example.task.wordsfactory.ui.viewmodel.OnBoardingScreenViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class OnBoardingScreensActivity : AppCompatActivity() {
 
     val viewModel by viewModels<OnBoardingScreenViewModel>()
@@ -32,26 +31,21 @@ class OnBoardingScreensActivity : AppCompatActivity() {
 
 
         demoCollectionAdapter =
-            viewModel.uiStateLiveData.value?.let { OnBoardingScreenCollectionAdapter(this, it.fragmentUiStateList) }
+            viewModel.uiStateLiveData.value?.let { OnBoardingScreenCollectionAdapter(this) }
         binding?.viewpager?.adapter = demoCollectionAdapter
 
-       // binding?.viewpager?.
-
-
-
         binding?.buttonNext?.setOnClickListener {
-            viewModel.updateTmp(binding?.viewpager, this)
+            viewModel.nextButtonOnClick(binding?.viewpager)
         }
 
         binding?.buttonSkip?.setOnClickListener {
-            //TODO: В будущем заменить Toast на переход в другое активити
-            Toast.makeText(this, getString(R.string.todo_next_activity), Toast.LENGTH_LONG).show()
+            //TODO: В будущем переход в другое активити
         }
 
-
-        viewModel.uiStateLiveData.observe(this){
-            binding?.buttonNext?.setText(it.buttonText)
+        viewModel.uiStateLiveData.observe(this) {
+            binding?.buttonNext?.setText(OnboardingInfoEnum.values()[it.currentPosition].buttonText)
         }
+
     }
 
 }

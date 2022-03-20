@@ -21,7 +21,7 @@ enum class OnboardingInfoEnum(
         subtitle = R.string.subtitle,
         image = R.drawable.ic_cool_kids_staying_home,
         buttonText = R.string.next
-    ) ,
+    ),
     Three(
         title = R.string.improve,
         subtitle = R.string.subtitle,
