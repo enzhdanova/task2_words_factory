@@ -24,7 +24,9 @@
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clickable="true" />
+        android:clickable="true" >
+
+    </androidx.viewpager2.widget.ViewPager2>
 
     <Button
         android:id="@+id/button_next"
@@ -39,4 +41,40 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/position1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top_between_element"
+        android:layout_marginEnd="@dimen/margin_between_navigation_element"
+        android:background="@drawable/ic_tab"
+        android:contentDescription="@string/navigation_image"
+        app:layout_constraintBottom_toBottomOf="@id/position3"
+        app:layout_constraintEnd_toStartOf="@+id/position2" />
+
+    <ImageView
+        android:id="@+id/position2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top_between_element"
+        android:background="@drawable/ic_tab"
+        android:contentDescription="@string/navigation_image"
+        app:layout_constraintBottom_toBottomOf="@id/position3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/position3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_between_navigation_element"
+        android:layout_marginTop="@dimen/margin_top_between_element"
+        android:layout_marginBottom="@dimen/onboarding_margin_bottom"
+        android:background="@drawable/ic_tab"
+        android:contentDescription="@string/navigation_image"
+        app:layout_constraintBottom_toTopOf="@id/button_next"
+        app:layout_constraintStart_toEndOf="@+id/position2" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

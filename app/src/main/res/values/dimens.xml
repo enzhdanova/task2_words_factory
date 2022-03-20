@@ -12,4 +12,5 @@
     <dimen name="subtitle_text_size">14sp</dimen>
     <dimen name="margin_small">8dp</dimen>
     <dimen name="margin_horizontal">16dp</dimen>
+    <dimen name="onboarding_margin_bottom">45dp</dimen>
 </resources>

@@ -47,18 +47,11 @@ class OnBoardingScreenFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        //TODO: что делать с этим списком? перенести в активити?
-        val imageViewPositionList: List<ImageView> = listOf(
-            binding!!.position1,
-            binding!!.position2,
-            binding!!.position3
-        )
-
         arguments.let {
             if (it != null) {
-                binding?.title?.setText(it?.getInt(ARG_OBJECT_TITLE))
-                binding?.subtitle?.setText(it?.getInt(ARG_OBJECT_SUBTITLE))
-                binding?.image?.setImageResource(it?.getInt(ARG_OBJECT_TITLE))
+                binding?.title?.setText(it.getInt(ARG_OBJECT_TITLE))
+                binding?.subtitle?.setText(it.getInt(ARG_OBJECT_SUBTITLE))
+                binding?.image?.setImageResource(it.getInt(ARG_OBJECT_IMAGE))
             }
         }
     }

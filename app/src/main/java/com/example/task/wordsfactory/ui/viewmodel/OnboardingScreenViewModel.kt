@@ -3,52 +3,26 @@ package com.example.task.wordsfactory.ui.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.viewpager2.widget.ViewPager2
-import com.example.task.wordsfactory.data.OnboardingStep
 
 class OnBoardingScreenViewModel : ViewModel() {
 
-    private val _uiStateLiveData = MutableLiveData<OnBoardingScreenUIState>()
-    val uiStateLiveData: LiveData<OnBoardingScreenUIState>
+    private val _uiStateLiveData = MutableLiveData<OnboardingUIState>()
+    val uiStateLiveData: LiveData<OnboardingUIState>
         get() = _uiStateLiveData
 
-
-
-
     init {
-        fetchInfo()
+        _uiStateLiveData.value = OnboardingUIState()
     }
 
-    private fun fetchInfo() {
-        val result = OnboardingStep.values()
-
-        val tmp: MutableList<OnboardingFragmentUIState> = mutableListOf()
-        result.forEach {
-            tmp.add(
-                OnboardingFragmentUIState(
-                    title = it.title,
-                    subtitle = it.subtitle,
-                    image = it.image
-                )
-            )
-        }
-        _uiStateLiveData.value = OnBoardingScreenUIState(
-            fragmentUiStateList = tmp
-        )
+    fun onOnBoardingStepChanged(newPosition: Int) {
+        _uiStateLiveData.value = OnboardingUIState(currentPosition = newPosition)
     }
 
-    fun update(position: Int) {
-        _uiStateLiveData.value = _uiStateLiveData.value?.copy(currentPosition = position)
+    fun nextButtonOnClick(){
+        var newPosition = _uiStateLiveData.value?.currentPosition ?: 0
+        newPosition++
+        _uiStateLiveData.value = _uiStateLiveData.value?.copy(currentPosition = newPosition)
     }
 
-    fun nextButtonOnClick(viewPager: ViewPager2?) {
-        if (viewPager != null) {
-            if (viewPager.currentItem == OnboardingStep.values().size) {
-                //TODO: Тут переход в другое активити
-            } else {
-                viewPager.currentItem++
-            }
-        }
-    }
 
 }
