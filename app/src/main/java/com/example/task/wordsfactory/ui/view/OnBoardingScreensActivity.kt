@@ -2,19 +2,10 @@ package com.example.task.wordsfactory.ui.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
-import com.example.task.wordsfactory.R
-import com.example.task.wordsfactory.data.OnboardingInfoEnum
+import com.example.task.wordsfactory.data.OnboardingStep
 import com.example.task.wordsfactory.databinding.ActivityOnBoardingScreensBinding
-import com.example.task.wordsfactory.ui.viewmodel.OnBoardingScreenUIState
 import com.example.task.wordsfactory.ui.viewmodel.OnBoardingScreenViewModel
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import dagger.hilt.android.AndroidEntryPoint
 
 class OnBoardingScreensActivity : AppCompatActivity() {
 
@@ -43,7 +34,7 @@ class OnBoardingScreensActivity : AppCompatActivity() {
         }
 
         viewModel.uiStateLiveData.observe(this) {
-            binding?.buttonNext?.setText(OnboardingInfoEnum.values()[it.currentPosition].buttonText)
+            binding?.buttonNext?.setText(OnboardingStep.values()[it.currentPosition].buttonText)
         }
 
     }

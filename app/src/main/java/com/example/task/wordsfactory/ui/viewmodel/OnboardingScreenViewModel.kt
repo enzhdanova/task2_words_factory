@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.viewpager2.widget.ViewPager2
-import com.example.task.wordsfactory.data.OnboardingInfoEnum
+import com.example.task.wordsfactory.data.OnboardingStep
 
 class OnBoardingScreenViewModel : ViewModel() {
 
@@ -12,12 +12,15 @@ class OnBoardingScreenViewModel : ViewModel() {
     val uiStateLiveData: LiveData<OnBoardingScreenUIState>
         get() = _uiStateLiveData
 
+
+
+
     init {
         fetchInfo()
     }
 
     private fun fetchInfo() {
-        val result = OnboardingInfoEnum.values()
+        val result = OnboardingStep.values()
 
         val tmp: MutableList<OnboardingFragmentUIState> = mutableListOf()
         result.forEach {
@@ -40,7 +43,7 @@ class OnBoardingScreenViewModel : ViewModel() {
 
     fun nextButtonOnClick(viewPager: ViewPager2?) {
         if (viewPager != null) {
-            if (viewPager.currentItem == OnboardingInfoEnum.values().size) {
+            if (viewPager.currentItem == OnboardingStep.values().size) {
                 //TODO: Тут переход в другое активити
             } else {
                 viewPager.currentItem++

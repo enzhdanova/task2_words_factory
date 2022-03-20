@@ -2,13 +2,13 @@ package com.example.task.wordsfactory.ui.viewmodel
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import com.example.task.wordsfactory.data.OnboardingInfoEnum
+import com.example.task.wordsfactory.data.OnboardingStep
 
 data class OnboardingFragmentUIState(
     @StringRes
-    val title: Int = OnboardingInfoEnum.One.title,
+    val title: Int = OnboardingStep.One.title,
     @StringRes
-    val subtitle: Int = OnboardingInfoEnum.One.title,
+    val subtitle: Int = OnboardingStep.One.title,
     @DrawableRes
-    val image: Int = OnboardingInfoEnum.One.image
+    val image: Int = OnboardingStep.One.image
 )

@@ -4,7 +4,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.example.task.wordsfactory.R
 
-enum class OnboardingInfoEnum(
+enum class OnboardingStep(
     @StringRes val title: Int,
     @StringRes val subtitle: Int,
     @DrawableRes val image: Int,

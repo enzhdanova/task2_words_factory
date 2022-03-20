@@ -9,6 +9,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.task.wordsfactory.R
+import com.example.task.wordsfactory.data.OnboardingStep
 import com.example.task.wordsfactory.databinding.FragmentOnboardingScreensBinding
 import com.example.task.wordsfactory.ui.viewmodel.OnBoardingScreenViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -16,22 +17,22 @@ import dagger.hilt.android.AndroidEntryPoint
 class OnBoardingScreenFragment : Fragment() {
 
     companion object {
-        private const val ARG_OBJECT_POSITION = "position"
+        private const val ARG_OBJECT_TITLE = "title"
+        private const val ARG_OBJECT_SUBTITLE = "subtitle"
+        private const val ARG_OBJECT_IMAGE = "image"
 
         fun getFragment(
-            position: Int,
+            onboardingStep: OnboardingStep,
         ): Fragment {
             val fragment = OnBoardingScreenFragment()
             fragment.arguments = bundleOf(
-                ARG_OBJECT_POSITION to position,
+                ARG_OBJECT_TITLE to onboardingStep.title,
+                ARG_OBJECT_SUBTITLE to onboardingStep.subtitle,
+                ARG_OBJECT_IMAGE to onboardingStep.image
             )
             return fragment
         }
     }
-
-    private var position: Int = 0
-
-    private val viewModel by activityViewModels<OnBoardingScreenViewModel>() // viewModels<OnBoardingScreenViewModel>()
 
     private var _binding: FragmentOnboardingScreensBinding? = null
     private val binding get() = _binding
@@ -46,28 +47,21 @@ class OnBoardingScreenFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        //TODO: что делать с этим списком? перенести в активити?
         val imageViewPositionList: List<ImageView> = listOf(
             binding!!.position1,
             binding!!.position2,
             binding!!.position3
         )
 
-        position = arguments?.getInt(ARG_OBJECT_POSITION) ?: 0
-        val uiState = viewModel.uiStateLiveData.value?.fragmentUiStateList?.get(position)
-
-        if (uiState != null) {
-            binding?.title?.setText(uiState.title)
-            binding?.subtitle?.setText(uiState.subtitle)
-            binding?.image?.setImageResource(uiState.image)
-            imageViewPositionList[position].setImageResource(R.drawable.ic_current)
+        arguments.let {
+            if (it != null) {
+                binding?.title?.setText(it?.getInt(ARG_OBJECT_TITLE))
+                binding?.subtitle?.setText(it?.getInt(ARG_OBJECT_SUBTITLE))
+                binding?.image?.setImageResource(it?.getInt(ARG_OBJECT_TITLE))
+            }
         }
     }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.update(position)
-    }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
