@@ -2,9 +2,8 @@ package com.example.task.wordsfactory.ui.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.ImageView
 import androidx.activity.viewModels
+import androidx.viewpager2.widget.ViewPager2
 import com.example.task.wordsfactory.R
 import com.example.task.wordsfactory.data.OnboardingStep
 import com.example.task.wordsfactory.databinding.ActivityOnBoardingScreensBinding
@@ -33,7 +32,7 @@ class OnBoardingScreensActivity : AppCompatActivity() {
         )
 
         binding?.buttonNext?.setOnClickListener {
-            viewModel.nextButtonOnClick()
+            viewModel.getNextPosition()
         }
 
         binding?.buttonSkip?.setOnClickListener {
@@ -52,6 +51,12 @@ class OnBoardingScreensActivity : AppCompatActivity() {
                 //TODO: переход в другое активити
             }
         }
+
+        binding?.viewpager?.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                viewModel.setNewPosition(position)
+            }
+        })
     }
 }
-

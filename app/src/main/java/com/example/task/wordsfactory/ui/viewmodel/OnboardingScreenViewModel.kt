@@ -14,11 +14,13 @@ class OnBoardingScreenViewModel : ViewModel() {
         _uiStateLiveData.value = OnboardingUIState()
     }
 
-    fun nextButtonOnClick(){
-        var newPosition = _uiStateLiveData.value?.currentPosition ?: 0
-        newPosition++
+    fun setNewPosition(newPosition: Int){
         _uiStateLiveData.value = _uiStateLiveData.value?.copy(currentPosition = newPosition)
     }
 
-
+    fun getNextPosition(){
+        var newPosition = _uiStateLiveData.value?.currentPosition ?: 0
+        newPosition++
+        setNewPosition(newPosition)
+    }
 }
