@@ -19,9 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class OnBoardingScreensActivity : AppCompatActivity() {
 
-    companion object {
-        private val COUNT_FRAGMENT = OnboardingInfoEnum.values().size
-    }
+    val viewModel by viewModels<OnBoardingScreenViewModel>()
 
     private var demoCollectionAdapter: OnBoardingScreenCollectionAdapter? = null
     private var binding: ActivityOnBoardingScreensBinding? = null
@@ -32,24 +30,27 @@ class OnBoardingScreensActivity : AppCompatActivity() {
         val view = binding?.root
         setContentView(view)
 
-        demoCollectionAdapter = OnBoardingScreenCollectionAdapter(this)
+
+        demoCollectionAdapter =
+            viewModel.uiStateLiveData.value?.let { OnBoardingScreenCollectionAdapter(this, it.fragmentUiStateList) }
         binding?.viewpager?.adapter = demoCollectionAdapter
 
+       // binding?.viewpager?.
+
+
+
         binding?.buttonNext?.setOnClickListener {
-            if (binding?.viewpager?.currentItem == COUNT_FRAGMENT - 1) {
-                //TODO: В будущем заменить Toast на переход в другое активити
-                Toast.makeText(this, getString(R.string.todo_next_activity), Toast.LENGTH_LONG)
-                    .show()
-            } else {
-                binding?.viewpager?.let {
-                    it.currentItem++
-                }
-            }
+            viewModel.updateTmp(binding?.viewpager, this)
         }
 
         binding?.buttonSkip?.setOnClickListener {
             //TODO: В будущем заменить Toast на переход в другое активити
             Toast.makeText(this, getString(R.string.todo_next_activity), Toast.LENGTH_LONG).show()
+        }
+
+
+        viewModel.uiStateLiveData.observe(this){
+            binding?.buttonNext?.setText(it.buttonText)
         }
     }
 

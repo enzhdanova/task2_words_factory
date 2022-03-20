@@ -11,7 +11,9 @@ import androidx.fragment.app.viewModels
 import com.example.task.wordsfactory.R
 import com.example.task.wordsfactory.data.OnboardingInfoEnum
 import com.example.task.wordsfactory.databinding.FragmentOnboardingScreensBinding
+import com.example.task.wordsfactory.ui.viewmodel.OnBoardingScreenUIState
 import com.example.task.wordsfactory.ui.viewmodel.OnBoardingScreenViewModel
+import com.example.task.wordsfactory.ui.viewmodel.OnboardingFragmentUIState
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,17 +21,26 @@ class OnBoardingScreenFragment : Fragment() {
 
     companion object {
         private const val ARG_OBJECT_POSITION = "position"
+        private const val ARG_OBJECT_TITLE = "title"
+        private const val ARG_OBJECT_SUBTITLE = "subtitle"
+        private const val ARG_OBJECT_IMAGE = "image"
 
-        fun getFragment(position: Int): Fragment {
+        fun getFragment(
+            position: Int,
+            onboardingFragmentUIState: OnboardingFragmentUIState
+        ): Fragment {
             val fragment = OnBoardingScreenFragment()
             fragment.arguments = bundleOf(
-                ARG_OBJECT_POSITION to position
+                ARG_OBJECT_POSITION to position,
+                ARG_OBJECT_TITLE to onboardingFragmentUIState.title,
+                ARG_OBJECT_SUBTITLE to onboardingFragmentUIState.subtitle,
+                ARG_OBJECT_IMAGE to onboardingFragmentUIState.image
             )
             return fragment
         }
     }
 
-    private val viewModel by viewModels<OnBoardingScreenViewModel>()
+    //  private val viewModel by viewModels<OnBoardingScreenViewModel>()
 
     private var _binding: FragmentOnboardingScreensBinding? = null
     private val binding get() = _binding
@@ -50,14 +61,17 @@ class OnBoardingScreenFragment : Fragment() {
             binding!!.position3
         )
 
-        val position = arguments?.getInt(ARG_OBJECT_POSITION) ?: 0
+        //      val position = arguments?.getInt(ARG_OBJECT_POSITION) ?: 0
+        //   val uiState = viewModel.uiStateLiveData.value?.get(position)
 
-        val uiState = OnboardingInfoEnum.values()[position]
+        arguments?.let {
+            val position = it.getInt(ARG_OBJECT_POSITION)
+            binding?.title?.setText(it.getInt(ARG_OBJECT_TITLE))
+            binding?.subtitle?.setText(it.getInt(ARG_OBJECT_SUBTITLE))
+            binding?.image?.setImageResource(it.getInt(ARG_OBJECT_IMAGE))
+            imageViewPositionList[position].setImageResource(R.drawable.ic_current)
+        }
 
-        binding?.title?.setText(uiState.title)
-        binding?.subtitle?.setText(uiState.subtitle)
-        binding?.image?.setImageResource(uiState.image)
-        imageViewPositionList[position].setImageResource(R.drawable.ic_current)
 
     }
 
