@@ -22,7 +22,7 @@ class OnBoardingScreensActivity : AppCompatActivity() {
         val view = binding?.root
         setContentView(view)
 
-        demoCollectionAdapter = OnBoardingScreenCollectionAdapter(this)
+        demoCollectionAdapter = OnBoardingScreenCollectionAdapter(this, viewModel.onboardingSteps)
         binding?.viewpager?.adapter = demoCollectionAdapter
 
         val imageViewPositionList = listOf(
@@ -39,20 +39,21 @@ class OnBoardingScreensActivity : AppCompatActivity() {
             //TODO: В будущем переход в другое активити
         }
 
-        viewModel.uiStateLiveData.observe(this) {
+        viewModel.currentPosition.observe(this) { currentPosition ->
             val maxSize = OnboardingStep.values().size
-            if (it.currentPosition < maxSize) {
-                binding?.viewpager?.currentItem = it.currentPosition
-                binding?.buttonNext?.setText(OnboardingStep.values()[it.currentPosition].buttonText)
+            if (currentPosition < maxSize) {
+                binding?.viewpager?.currentItem = currentPosition
+                binding?.buttonNext?.setText(OnboardingStep.values()[currentPosition].buttonText)
                 for (i in 0 until maxSize)
                     imageViewPositionList[i]?.setImageResource(R.drawable.ic_tab)
-                imageViewPositionList[it.currentPosition]?.setImageResource(R.drawable.ic_current)
+                imageViewPositionList[currentPosition]?.setImageResource(R.drawable.ic_current)
             } else {
                 //TODO: переход в другое активити
             }
         }
 
-        binding?.viewpager?.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+        binding?.viewpager?.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 viewModel.setNewPosition(position)

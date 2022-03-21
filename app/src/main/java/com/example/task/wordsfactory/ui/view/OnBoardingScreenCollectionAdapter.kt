@@ -8,12 +8,13 @@ import com.example.task.wordsfactory.data.OnboardingStep
 
 class OnBoardingScreenCollectionAdapter(
     fragmentActivity: FragmentActivity,
+    val onboardingSteps: List<OnboardingStep>
 ) :
     FragmentStateAdapter(fragmentActivity) {
 
     override fun getItemCount(): Int = OnboardingStep.values().size
 
     override fun createFragment(position: Int): Fragment {
-        return OnBoardingScreenFragment.getFragment(onboardingStep = OnboardingStep.values().toList()[position])
+        return OnBoardingScreenFragment.getFragment(onboardingStep = onboardingSteps[position])
     }
 }

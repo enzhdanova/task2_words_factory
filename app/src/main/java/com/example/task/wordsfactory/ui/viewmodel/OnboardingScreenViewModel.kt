@@ -3,23 +3,25 @@ package com.example.task.wordsfactory.ui.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.task.wordsfactory.data.OnboardingStep
 
 class OnBoardingScreenViewModel : ViewModel() {
 
-    private val _uiStateLiveData = MutableLiveData<OnboardingUIState>()
-    val uiStateLiveData: LiveData<OnboardingUIState>
-        get() = _uiStateLiveData
+    val onboardingSteps = OnboardingStep.values().toList()
+    private val _currentPosition = MutableLiveData<Int>()
+    val currentPosition: LiveData<Int>
+        get() = _currentPosition
 
     init {
-        _uiStateLiveData.value = OnboardingUIState()
+        _currentPosition.value = 0
     }
 
     fun setNewPosition(newPosition: Int){
-        _uiStateLiveData.value = _uiStateLiveData.value?.copy(currentPosition = newPosition)
+        _currentPosition.value = newPosition
     }
 
     fun getNextPosition(){
-        var newPosition = _uiStateLiveData.value?.currentPosition ?: 0
+        var newPosition = currentPosition.value ?:0
         newPosition++
         setNewPosition(newPosition)
     }
