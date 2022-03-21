@@ -16,17 +16,18 @@
         android:clickable="true"
         android:text="@string/skip"
         android:textColor="@color/dark_gray"
-        android:textSize="16sp"
+        android:textSize="@dimen/onboarding_skip_text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clickable="true" >
-
-    </androidx.viewpager2.widget.ViewPager2>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top_parent"
+        android:clickable="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <Button
         android:id="@+id/button_next"
@@ -42,39 +43,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageView
-        android:id="@+id/position1"
+    <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+        android:id="@+id/dots_indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_top_between_element"
-        android:layout_marginEnd="@dimen/margin_between_navigation_element"
-        android:background="@drawable/ic_tab"
-        android:contentDescription="@string/navigation_image"
-        app:layout_constraintBottom_toBottomOf="@id/position3"
-        app:layout_constraintEnd_toStartOf="@+id/position2" />
-
-    <ImageView
-        android:id="@+id/position2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_top_between_element"
-        android:background="@drawable/ic_tab"
-        android:contentDescription="@string/navigation_image"
-        app:layout_constraintBottom_toBottomOf="@id/position3"
+        app:dotsColor="@color/dots_color"
+        app:dotsCornerRadius="@dimen/dots_radius"
+        app:dotsSize="@dimen/dots_size"
+        app:dotsSpacing="@dimen/dots_spacing"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageView
-        android:id="@+id/position3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_between_navigation_element"
-        android:layout_marginTop="@dimen/margin_top_between_element"
-        android:layout_marginBottom="@dimen/onboarding_margin_bottom"
-        android:background="@drawable/ic_tab"
-        android:contentDescription="@string/navigation_image"
-        app:layout_constraintBottom_toTopOf="@id/button_next"
-        app:layout_constraintStart_toEndOf="@+id/position2" />
-
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewpager"
+        app:selectedDotColor="@color/selected_dot" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

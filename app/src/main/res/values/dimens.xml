@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="margin_top_parent">155dp</dimen>
+    <dimen name="margin_top_parent">5dp</dimen>
     <dimen name="margin_top_between_element">16dp</dimen>
     <dimen name="margin_bottom_parent">37dp</dimen>
     <dimen name="margin_horizontal_button">32dp</dimen>
@@ -13,4 +13,8 @@
     <dimen name="margin_small">8dp</dimen>
     <dimen name="margin_horizontal">16dp</dimen>
     <dimen name="onboarding_margin_bottom">45dp</dimen>
+    <dimen name="dots_radius">4dp</dimen>
+    <dimen name="dots_size">6dp</dimen>
+    <dimen name="dots_spacing">6dp</dimen>
+    <dimen name="onboarding_skip_text_size">16sp</dimen>
 </resources>

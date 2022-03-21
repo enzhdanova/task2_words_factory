@@ -24,12 +24,9 @@ class OnBoardingScreensActivity : AppCompatActivity() {
 
         demoCollectionAdapter = OnBoardingScreenCollectionAdapter(this, viewModel.onboardingSteps)
         binding?.viewpager?.adapter = demoCollectionAdapter
-
-        val imageViewPositionList = listOf(
-            binding?.position1,
-            binding?.position2,
-            binding?.position3,
-        )
+        binding?.viewpager?.let {
+            binding?.dotsIndicator?.setViewPager2(viewPager2 = it)
+        }
 
         binding?.buttonNext?.setOnClickListener {
             viewModel.getNextPosition()
@@ -44,9 +41,9 @@ class OnBoardingScreensActivity : AppCompatActivity() {
             if (currentPosition < maxSize) {
                 binding?.viewpager?.currentItem = currentPosition
                 binding?.buttonNext?.setText(OnboardingStep.values()[currentPosition].buttonText)
-                for (i in 0 until maxSize)
-                    imageViewPositionList[i]?.setImageResource(R.drawable.ic_tab)
-                imageViewPositionList[currentPosition]?.setImageResource(R.drawable.ic_current)
+//                for (i in 0 until maxSize)
+//                    imageViewPositionList[i]?.setImageResource(R.drawable.ic_tab)
+//                imageViewPositionList[currentPosition]?.setImageResource(R.drawable.ic_current)
             } else {
                 //TODO: переход в другое активити
             }
