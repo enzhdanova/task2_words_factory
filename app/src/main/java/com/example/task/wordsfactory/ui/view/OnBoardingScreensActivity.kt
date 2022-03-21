@@ -41,9 +41,6 @@ class OnBoardingScreensActivity : AppCompatActivity() {
             if (currentPosition < maxSize) {
                 binding?.viewpager?.currentItem = currentPosition
                 binding?.buttonNext?.setText(OnboardingStep.values()[currentPosition].buttonText)
-//                for (i in 0 until maxSize)
-//                    imageViewPositionList[i]?.setImageResource(R.drawable.ic_tab)
-//                imageViewPositionList[currentPosition]?.setImageResource(R.drawable.ic_current)
             } else {
                 //TODO: переход в другое активити
             }
