@@ -2,4 +2,5 @@
     <string name="app_name">WordsFactory</string>
     <string name="no_word">No word</string>
     <string name="input_something_to_find_it_in_dictionary">Input something to find it in dictionary</string>
+    <string name="example">Example:</string>
 </resources>
