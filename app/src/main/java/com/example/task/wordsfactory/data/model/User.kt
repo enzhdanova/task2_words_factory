@@ -1,6 +1,7 @@
 package com.example.task.wordsfactory.data.model
 
-data class UserLogin(
+data class User(
     val name: String,
-    val email: String
+    val email: String,
+    val password: String
 )

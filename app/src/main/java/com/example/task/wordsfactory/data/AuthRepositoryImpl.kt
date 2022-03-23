@@ -1,7 +1,7 @@
 package com.example.task.wordsfactory.data
 
+import com.example.task.wordsfactory.data.model.User
 import com.example.task.wordsfactory.ui.AuthRepository
-import com.example.task.wordsfactory.ui.viewmodel.entity.User
 import java.io.IOException
 import javax.inject.Inject
 

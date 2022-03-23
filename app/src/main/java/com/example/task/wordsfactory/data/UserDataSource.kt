@@ -1,7 +1,7 @@
 package com.example.task.wordsfactory.data
 
 import android.content.SharedPreferences
-import com.example.task.wordsfactory.data.model.UserLogin
+import com.example.task.wordsfactory.data.model.User
 import com.example.task.wordsfactory.di.IoDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
@@ -29,11 +29,11 @@ class UserDataSource @Inject constructor(
         }
     }
 
-    suspend fun getUser(): UserLogin {
+    suspend fun getUser(): User {
         return withContext(ioDispatcher) {
             val name = sharedPreferences.getString(USER_NAME, "") ?: ""
             val email = sharedPreferences.getString(USER_EMAIL, "") ?: ""
-            UserLogin(name, email)
+            User(name, email, "")
         }
     }
 }

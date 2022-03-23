@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.task.wordsfactory.AppRegexp
+import com.example.task.wordsfactory.data.model.User
 import com.example.task.wordsfactory.ui.AuthRepository
-import com.example.task.wordsfactory.ui.viewmodel.entity.User
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
