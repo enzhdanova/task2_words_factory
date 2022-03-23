@@ -3,4 +3,6 @@
     <string name="no_word">No word</string>
     <string name="input_something_to_find_it_in_dictionary">Input something to find it in dictionary</string>
     <string name="example">Example:</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

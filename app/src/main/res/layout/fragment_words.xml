@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/words_margin_start"
         android:text="asrtgdrehrtyh"
-        app:layout_constraintBottom_toBottomOf="@id/textview_word"
+        app:layout_constraintBaseline_toBaselineOf="@id/textview_word"
         app:layout_constraintStart_toEndOf="@id/textview_word" />
 
     <ImageButton
@@ -56,6 +56,7 @@
         android:textColor="@color/black"
         android:textSize="@dimen/subtext_text_size"
         app:layout_constraintBottom_toBottomOf="@id/textview_part_of_speech"
+        app:layout_constraintBaseline_toBaselineOf="@id/textview_part_of_speech"
         app:layout_constraintStart_toEndOf="@id/textview_part_of_speech" />
 
     <TextView

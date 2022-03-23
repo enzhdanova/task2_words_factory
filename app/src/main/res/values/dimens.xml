@@ -7,7 +7,7 @@
     <dimen name="playceholder_subtitle">14sp</dimen>
     <dimen name="words_word">24sp</dimen>
     <dimen name="words_margin_top">16dp</dimen>
-    <dimen name="words_margin_start">16dp</dimen>
+    <dimen name="words_margin_start">20dp</dimen>
     <dimen name="words_subtitle">20sp</dimen>
     <dimen name="button_text_size">16sp</dimen>
     <dimen name="button_height">56dp</dimen>
@@ -23,7 +23,7 @@
     <dimen name="dictionary_margin_vertical_button">1dp</dimen>
     <dimen name="dictionary_margin_start_button">5dp</dimen>
     <dimen name="dictionary_margin_end_button">18dp</dimen>
-    <dimen name="dictionary_framelayout_min_height">253dp</dimen>
+    <dimen name="dictionary_fragment_min_height">253dp</dimen>
     <dimen name="meaning_word_margin_top">16dp</dimen>
     <dimen name="meaning_word_margin_horizontal">16dp</dimen>
     <dimen name="meaning_word_text_size">14sp</dimen>

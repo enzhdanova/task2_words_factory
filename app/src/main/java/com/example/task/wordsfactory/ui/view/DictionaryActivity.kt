@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.navigation.fragment.NavHostFragment
 import com.example.task.wordsfactory.R
 import com.example.task.wordsfactory.databinding.ActivityDictionaryBinding
 import com.example.task.wordsfactory.ui.viewmodel.DictionaryViewModel
@@ -19,8 +20,12 @@ class DictionaryActivity : AppCompatActivity() {
         val view = binding?.root
         setContentView(view)
 
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.word_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+
         binding?.searchButton?.setOnClickListener {
             viewModel.getWord(binding?.searchEdittext?.text.toString())
+            navController.navigate(R.id.wordsFragment)
         }
 
         viewModel.dictionaryUiState.observe(this) {
@@ -30,5 +35,13 @@ class DictionaryActivity : AppCompatActivity() {
                 Toast.makeText(this, it.word?.word, Toast.LENGTH_LONG).show()
             }
         }
+
+
+
+
+
+
+
+
     }
 }
