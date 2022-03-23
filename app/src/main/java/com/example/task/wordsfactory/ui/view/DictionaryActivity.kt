@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.NavHostFragment
 import com.example.task.wordsfactory.R
 import com.example.task.wordsfactory.databinding.ActivityDictionaryBinding
@@ -25,14 +26,20 @@ class DictionaryActivity : AppCompatActivity() {
 
         binding?.searchButton?.setOnClickListener {
             viewModel.getWord(binding?.searchEdittext?.text.toString())
-            navController.navigate(R.id.wordsFragment)
         }
 
         viewModel.dictionaryUiState.observe(this) {
             if (it.error) {
                 Toast.makeText(this, "Ошибка", Toast.LENGTH_LONG).show()
             } else {
-                Toast.makeText(this, it.word?.word, Toast.LENGTH_LONG).show()
+           /*     val bundle = bundleOf(
+                    "word" to it.word?.word,
+                    "phonetic" to it.word?.phonetic,
+                )
+                navController.navigate(R.id.action_search_word, bundle)
+*/
+                val action = WordsFragmentDirections.actionSearchWord(it.word?.word?:"", it.word?.phonetic?:"")
+                navController.navigate(action)
             }
         }
 

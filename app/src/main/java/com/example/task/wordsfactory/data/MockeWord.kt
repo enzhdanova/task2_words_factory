@@ -29,4 +29,24 @@ object MockeWord {
             )
         )
     )
+
+    val cookingWord2 = Word(
+        word = "cooking2",
+        phonetic = "/ˈkʊ.kɪŋ/222",
+        meanings = listOf(
+            Meanings(
+                partOfSpeech = "verb",
+                definitions = listOf(
+                    Definitions(
+                        definition = "To prepare (food) for eating by heating it, often by combining it with other ingredients.",
+                        example = "I'm cooking bangers and mash."
+                    )
+                )
+            )
+        )
+    )
+
+    val words = listOf(
+        cookingWord, cookingWord2
+    )
 }

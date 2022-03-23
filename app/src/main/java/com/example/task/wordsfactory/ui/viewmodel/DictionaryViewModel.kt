@@ -17,7 +17,9 @@ class DictionaryViewModel : ViewModel() {
 
         if (result.isSuccess) {
             result.onSuccess {
+                println(it)
                 _dictionaryUiState.value = DictionaryUiState(word = it)
+                println("uiState ${_dictionaryUiState.value}")
             }
         } else {
             result.onFailure {
