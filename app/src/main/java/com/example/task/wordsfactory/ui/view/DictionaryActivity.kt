@@ -8,6 +8,7 @@ import androidx.core.os.bundleOf
 import androidx.navigation.fragment.NavHostFragment
 import com.example.task.wordsfactory.R
 import com.example.task.wordsfactory.databinding.ActivityDictionaryBinding
+import com.example.task.wordsfactory.ui.entity.Word
 import com.example.task.wordsfactory.ui.viewmodel.DictionaryViewModel
 
 class DictionaryActivity : AppCompatActivity() {
@@ -32,13 +33,7 @@ class DictionaryActivity : AppCompatActivity() {
             if (it.error) {
                 Toast.makeText(this, "Ошибка", Toast.LENGTH_LONG).show()
             } else {
-           /*     val bundle = bundleOf(
-                    "word" to it.word?.word,
-                    "phonetic" to it.word?.phonetic,
-                )
-                navController.navigate(R.id.action_search_word, bundle)
-*/
-                val action = WordsFragmentDirections.actionSearchWord(it.word?.word?:"", it.word?.phonetic?:"")
+                val action = WordsFragmentDirections.actionSearchWord(it.word?:Word())
                 navController.navigate(action)
             }
         }
