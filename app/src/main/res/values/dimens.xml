@@ -9,12 +9,12 @@
     <dimen name="words_margin_top">16dp</dimen>
     <dimen name="words_margin_start">20dp</dimen>
     <dimen name="words_subtitle">20sp</dimen>
-    <dimen name="button_text_size">16sp</dimen>
-    <dimen name="button_height">56dp</dimen>
-    <dimen name="button_margin_horizontal">25dp</dimen>
-    <dimen name="recycler_view_margin_vertical">8dp</dimen>
+    <dimen name="words_button_text_size">16sp</dimen>
+    <dimen name="words_button_height">56dp</dimen>
+    <dimen name="words_button_margin_horizontal">25dp</dimen>
+    <dimen name="words_recycler_view_margin_vertical">8dp</dimen>
     <dimen name="height">0dp</dimen>
-    <dimen name="subtext_text_size">14sp</dimen>
+    <dimen name="words_subtext_text_size">14sp</dimen>
     <dimen name="dictionary_search_field_height">56dp</dimen>
     <dimen name="dictionary_search_field_margin_horizontal">20dp</dimen>
     <dimen name="dictionary_search_field_margin_top">24dp</dimen>
@@ -30,4 +30,8 @@
     <dimen name="meaning_word_margin_top_text_view">8dp</dimen>
     <dimen name="meaning_word_margin_bottom">16dp</dimen>
     <dimen name="recycler_word_margin_vertical">4dp</dimen>
+    <dimen name="margin_4">4dp</dimen>
+    <dimen name="margin_16">16dp</dimen>
+    <dimen name="margin_20">20dp</dimen>
+
 </resources>

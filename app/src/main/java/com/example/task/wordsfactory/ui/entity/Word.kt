@@ -5,6 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Word(
+    val id: Long,
     val word: String,
     val phonetic: String,
     val partOfSpeech: String,

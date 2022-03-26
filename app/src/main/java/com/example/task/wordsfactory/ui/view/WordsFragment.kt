@@ -32,8 +32,12 @@ class WordsFragment : Fragment() {
         binding?.textviewPartOfSpeechValue?.text = word.partOfSpeech
 
         println("MyApp: "+word.meanings)
-        binding?.meaningRecycler?.adapter = wordMeaningAdapter
-     //   binding?.meaningRecycler?.layoutManager = LinearLayoutManager(context)
-        wordMeaningAdapter.setItems(word.meanings)
+        binding?.meaningRecycler?.apply {
+            adapter = wordMeaningAdapter
+            addItemDecoration(MeaningWordItemDecoration())
+        }
+
+        wordMeaningAdapter.submitList(word.meanings)
+
     }
 }

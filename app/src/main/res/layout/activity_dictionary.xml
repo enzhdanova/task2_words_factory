@@ -44,10 +44,11 @@
         android:id="@+id/word_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="@dimen/dictionary_fragment_min_height"
-        app:layout_constraintTop_toBottomOf="@+id/search_layout"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
         app:defaultNavHost="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_layout"
         app:navGraph="@navigation/nav_graph" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
