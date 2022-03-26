@@ -6,16 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.task.wordsfactory.data.MockeWord
 import com.example.task.wordsfactory.databinding.FragmentWordsBinding
 
 class WordsFragment : Fragment() {
 
-    private var binding: FragmentWordsBinding? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        println(arguments)
-    }
+    private var binding : FragmentWordsBinding? = null
+    private val wordMeaningAdapter = WordMeaningAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,12 +25,15 @@ class WordsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val args: WordsFragmentArgs by navArgs()
         val word = args.resultWord
         binding?.textviewWord?.text = word.word
-        println(binding?.textviewWord?.text)
         binding?.textviewWordTranscription?.text = word.phonetic
-        binding?.textviewPartOfSpeechValue?.text = word.meanings?.get(0)?.partOfSpeech
+        binding?.textviewPartOfSpeechValue?.text = word.partOfSpeech
+
+        println("MyApp: "+word.meanings)
+        binding?.meaningRecycler?.adapter = wordMeaningAdapter
+     //   binding?.meaningRecycler?.layoutManager = LinearLayoutManager(context)
+        wordMeaningAdapter.setItems(word.meanings)
     }
 }

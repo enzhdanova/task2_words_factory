@@ -4,4 +4,4 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Meanings(val partOfSpeech: String, val definitions: List<Definitions>) : Parcelable
+data class Meaning(val definition: String, val example: String) : Parcelable

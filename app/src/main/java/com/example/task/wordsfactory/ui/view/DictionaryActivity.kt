@@ -12,7 +12,7 @@ import com.example.task.wordsfactory.ui.entity.Word
 import com.example.task.wordsfactory.ui.viewmodel.DictionaryViewModel
 
 class DictionaryActivity : AppCompatActivity() {
-    private var binding: ActivityDictionaryBinding? = null
+    private var binding : ActivityDictionaryBinding? = null
     private val viewModel by viewModels<DictionaryViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,8 +33,11 @@ class DictionaryActivity : AppCompatActivity() {
             if (it.error) {
                 Toast.makeText(this, "Ошибка", Toast.LENGTH_LONG).show()
             } else {
-                val action = WordsFragmentDirections.actionSearchWord(it.word?:Word())
-                navController.navigate(action)
+                if (it.word != null) {
+                   val action = WordsFragmentDirections.actionSearchWord(it.word)
+                   navController.navigate(action)
+
+                }
             }
         }
 

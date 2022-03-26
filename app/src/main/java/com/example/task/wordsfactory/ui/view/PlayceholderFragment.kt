@@ -29,13 +29,4 @@ class PlayceholderFragment : Fragment() {
         super.onDestroy()
         binding = null
     }
-
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            PlayceholderFragment().apply {
-                arguments = Bundle().apply {
-                }
-            }
-    }
 }

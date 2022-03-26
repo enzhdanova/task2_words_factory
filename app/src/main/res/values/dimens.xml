@@ -12,7 +12,7 @@
     <dimen name="button_text_size">16sp</dimen>
     <dimen name="button_height">56dp</dimen>
     <dimen name="button_margin_horizontal">25dp</dimen>
-    <dimen name="recycler_view_margin_vertical">12dp</dimen>
+    <dimen name="recycler_view_margin_vertical">8dp</dimen>
     <dimen name="height">0dp</dimen>
     <dimen name="subtext_text_size">14sp</dimen>
     <dimen name="dictionary_search_field_height">56dp</dimen>
@@ -29,4 +29,5 @@
     <dimen name="meaning_word_text_size">14sp</dimen>
     <dimen name="meaning_word_margin_top_text_view">8dp</dimen>
     <dimen name="meaning_word_margin_bottom">16dp</dimen>
+    <dimen name="recycler_word_margin_vertical">4dp</dimen>
 </resources>

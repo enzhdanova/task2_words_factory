@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginVertical="@dimen/recycler_word_margin_vertical"
     android:background="@drawable/round_background">
 
     <TextView
@@ -19,24 +20,16 @@
 
     <TextView
         android:id="@+id/textview_example"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/meaning_word_margin_top_text_view"
         android:layout_marginBottom="@dimen/meaning_word_margin_bottom"
+        android:layout_marginHorizontal="@dimen/meaning_word_margin_horizontal"
         android:text="@string/example"
-        android:textColor="@color/light_blue"
-        android:textSize="@dimen/meaning_word_text_size"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@id/textview_word_meaning_content"
-        app:layout_constraintTop_toBottomOf="@id/textview_word_meaning_content" />
-
-    <TextView
-        android:id="@+id/textview_example_content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:textColor="@color/black"
         android:textSize="@dimen/meaning_word_text_size"
-        app:layout_constraintBottom_toBottomOf="@id/textview_example"
-        app:layout_constraintStart_toEndOf="@id/textview_example" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textview_word_meaning_content" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
