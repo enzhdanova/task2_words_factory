@@ -1,4 +1,4 @@
-package com.example.task.wordsfactory.ui.view
+package com.example.task.wordsfactory.ui.Utils
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,16 +9,16 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.task.wordsfactory.R
 import com.example.task.wordsfactory.databinding.ItemMeaningWordBinding
-import com.example.task.wordsfactory.ui.entity.Meaning
+import com.example.task.wordsfactory.ui.entity.MeaningUI
 
-class WordMeaningAdapter : ListAdapter<Meaning, WordMeaningAdapter.ViewHolder>(DIFF){
+class WordMeaningAdapter : ListAdapter<MeaningUI, WordMeaningAdapter.ViewHolder>(DIFF){
 
     private companion object {
-        val DIFF = object  : DiffUtil.ItemCallback<Meaning>(){
-            override fun areItemsTheSame(oldItem: Meaning, newItem: Meaning): Boolean =
+        val DIFF = object  : DiffUtil.ItemCallback<MeaningUI>(){
+            override fun areItemsTheSame(oldItem: MeaningUI, newItem: MeaningUI): Boolean =
                 oldItem.id == newItem.id
 
-            override fun areContentsTheSame(oldItem: Meaning, newItem: Meaning): Boolean =
+            override fun areContentsTheSame(oldItem: MeaningUI, newItem: MeaningUI): Boolean =
                 oldItem == newItem
 
         }
@@ -44,12 +44,12 @@ class WordMeaningAdapter : ListAdapter<Meaning, WordMeaningAdapter.ViewHolder>(D
 
         private val binding = ItemMeaningWordBinding.bind(view)
 
-        fun setData(data: Meaning) = with(binding) {
+        fun setData(data: MeaningUI) = with(binding) {
             println("bind $data")
             textviewWordMeaningContent.text = data.definition
             if (data.example == "") textviewExample.setVisibility(View.GONE)
 
-            textviewExample.text  = HtmlCompat.fromHtml("<font color='${example_color}'>$example_str</font> ${data.example}", HtmlCompat.FROM_HTML_MODE_LEGACY)
+            textviewExample.text  = HtmlCompat.fromHtml("<font color='$example_color'>$example_str</font> ${data.example}", HtmlCompat.FROM_HTML_MODE_LEGACY)
         }
     }
 }

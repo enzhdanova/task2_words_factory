@@ -1,9 +1,10 @@
-package com.example.task.wordsfactory.data
+package com.example.task.wordsfactory.data.Repository
 
-import com.example.task.wordsfactory.ui.entity.Word
+import com.example.task.wordsfactory.data.MockeWordModel
+import com.example.task.wordsfactory.data.model.Word
 
+class WordRepositoryImpl {
 
-class DictionaryRepositoryImpl {
     fun getWord(searchWord: String): Result<Word> {
         val res  = findWord(searchWord)
         return if (res != null) {
@@ -14,7 +15,7 @@ class DictionaryRepositoryImpl {
     }
 
     private fun findWord(searchWord: String): Word? {
-        val res: Word? = MockeWord.words.find {
+        val res: Word? = MockeWordModel.words.find {
             it.word == searchWord
         }
         return res

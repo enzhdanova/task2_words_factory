@@ -4,11 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.core.os.bundleOf
 import androidx.navigation.fragment.NavHostFragment
 import com.example.task.wordsfactory.R
 import com.example.task.wordsfactory.databinding.ActivityDictionaryBinding
-import com.example.task.wordsfactory.ui.entity.Word
 import com.example.task.wordsfactory.ui.viewmodel.DictionaryViewModel
 
 class DictionaryActivity : AppCompatActivity() {

@@ -6,9 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.task.wordsfactory.data.MockeWord
 import com.example.task.wordsfactory.databinding.FragmentWordsBinding
+import com.example.task.wordsfactory.ui.Utils.MeaningWordItemDecoration
+import com.example.task.wordsfactory.ui.Utils.WordMeaningAdapter
 
 class WordsFragment : Fragment() {
 

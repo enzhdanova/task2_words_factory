@@ -4,10 +4,10 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Word(
+data class WordUI(
     val id: Long,
     val word: String,
     val phonetic: String,
     val partOfSpeech: String,
-    val meanings: List<Meaning>
+    val meanings: List<MeaningUI>
 ) : Parcelable

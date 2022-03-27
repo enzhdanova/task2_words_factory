@@ -21,6 +21,6 @@
             app:destination="@id/wordsFragment" />
         <argument
             android:name="result_word"
-            app:argType="com.example.task.wordsfactory.ui.entity.Word" />
+            app:argType="com.example.task.wordsfactory.ui.entity.WordUI" />
     </fragment>
 </navigation>

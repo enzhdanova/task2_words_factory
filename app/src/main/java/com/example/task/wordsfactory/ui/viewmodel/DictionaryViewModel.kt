@@ -3,17 +3,24 @@ package com.example.task.wordsfactory.ui.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.task.wordsfactory.data.DictionaryRepositoryImpl
-import com.example.task.wordsfactory.ui.entity.Word
+import com.example.task.wordsfactory.data.Repository.DictionaryRepositoryImpl
+import com.example.task.wordsfactory.data.Repository.MeaningRepositoryImpl
+import com.example.task.wordsfactory.data.Repository.PartOfSpeechRepositoryImpl
+import com.example.task.wordsfactory.data.Repository.WordRepositoryImpl
+import com.example.task.wordsfactory.data.dataSource.RemoteDataSource
+import com.example.task.wordsfactory.domain.GetWordUseCase
+import com.example.task.wordsfactory.ui.entity.WordUI
 
 class DictionaryViewModel : ViewModel() {
     private val _dictionaryUiState = MutableLiveData<DictionaryUiState>()
     val dictionaryUiState: LiveData<DictionaryUiState>
         get() = _dictionaryUiState
-    private val dictionaryRepository = DictionaryRepositoryImpl()
+    private val getWordUseCase = GetWordUseCase(
+        dictionaryRepositoryImpl = DictionaryRepositoryImpl(RemoteDataSource(), WordRepositoryImpl(), PartOfSpeechRepositoryImpl(), MeaningRepositoryImpl())
+    )
 
     fun getWord(searchWord: String) {
-        val result: Result<Word> = dictionaryRepository.getWord(searchWord)
+        val result: Result<WordUI> = getWordUseCase.getWord(searchWord)
 
         if (result.isSuccess) {
             result.onSuccess {
@@ -23,7 +30,8 @@ class DictionaryViewModel : ViewModel() {
             }
         } else {
             result.onFailure {
-                _dictionaryUiState.value = DictionaryUiState(word = null, error = true, errorMessage = it.message ?: "")
+                _dictionaryUiState.value =
+                    DictionaryUiState(word = null, error = true, errorMessage = it.message ?: "")
             }
         }
     }
