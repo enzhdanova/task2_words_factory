@@ -8,6 +8,10 @@ import androidx.navigation.fragment.NavHostFragment
 import com.example.task.wordsfactory.R
 import com.example.task.wordsfactory.databinding.ActivityDictionaryBinding
 import com.example.task.wordsfactory.ui.viewmodel.DictionaryViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class DictionaryActivity : AppCompatActivity() {
     private var binding : ActivityDictionaryBinding? = null
@@ -24,7 +28,9 @@ class DictionaryActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
 
         binding?.searchButton?.setOnClickListener {
-            viewModel.getWord(binding?.searchEdittext?.text.toString())
+
+                viewModel.getWord(binding?.searchEdittext?.text.toString())
+
         }
 
         viewModel.dictionaryUiState.observe(this) {

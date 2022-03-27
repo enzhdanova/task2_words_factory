@@ -5,19 +5,26 @@ import com.example.task.wordsfactory.data.model.Meaning
 import com.example.task.wordsfactory.data.model.Word
 import com.example.task.wordsfactory.ui.entity.MeaningUI
 import com.example.task.wordsfactory.ui.entity.WordUI
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 class GetWordUseCase(
     private val dictionaryRepositoryImpl: DictionaryRepositoryImpl
 ) {
 
     fun getWord(searchWord: String): Result<WordUI> {
-        val result = dictionaryRepositoryImpl.getWord(searchWord)
 
-        if (result.isFailure) return Result.failure(Exception("Слово не найдено"))
+            val result = dictionaryRepositoryImpl.getWord(searchWord)
 
-        result.onSuccess { resWord ->
-            return Result.success(getWordEntity(resWord))
-        }
+            println(result)
+            if (result.isFailure) return Result.failure(Exception("Слово не найдено"))
+
+            result.onSuccess { resWord ->
+                println("_______________" + resWord)
+                return Result.success(getWordEntity(resWord))
+            }
 
         return Result.failure(Exception("Слово не найдено"))
     }
