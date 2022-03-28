@@ -42,15 +42,3 @@ abstract class ViewModelModule {
         informationRepositoryImpl: AuthRepositoryImpl
     ): AuthRepository
 }
-
-@Module
-@InstallIn(SingletonComponent::class)
-object DispatcherModule {
-    @IoDispatcher
-    @Provides
-    fun providesIoDispatcher(): CoroutineDispatcher = Dispatchers.IO
-}
-
-@Retention(AnnotationRetention.BINARY)
-@Qualifier
-annotation class IoDispatcher

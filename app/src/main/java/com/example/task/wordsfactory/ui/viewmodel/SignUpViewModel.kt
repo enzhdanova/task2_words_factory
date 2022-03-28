@@ -4,7 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.task.wordsfactory.AppRegexp
+import com.example.task.wordsfactory.RegexpUtils
+import com.example.task.wordsfactory.R
 import com.example.task.wordsfactory.data.model.User
 import com.example.task.wordsfactory.ui.AuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,11 +17,13 @@ class SignUpViewModel @Inject constructor(
     private val authRepository: AuthRepository
 ) : ViewModel() {
 
-    private val errorMessage = "Некоректные данные"
-
     private val _uiState = MutableLiveData<SignUpUiState>()
     val uiState: LiveData<SignUpUiState>
         get() = _uiState
+
+    init {
+        getUser()
+    }
 
     fun login(name: String, email: String, password: String) {
         _uiState.value = SignUpUiState(
@@ -29,9 +32,9 @@ class SignUpViewModel @Inject constructor(
             password = password
         )
 
-        val nameCorrect = AppRegexp.correct(AppRegexp.REGEXP_NAME, name)
-        val emailCorrect = AppRegexp.correct(AppRegexp.REGEXP_EMAIL, email)
-        val passwordCorrect = AppRegexp.correct(AppRegexp.REGEXP_PASSWORD, password)
+        val nameCorrect = RegexpUtils.correct(RegexpUtils.REGEXP_NAME, name)
+        val emailCorrect = RegexpUtils.correct(RegexpUtils.REGEXP_EMAIL, email)
+        val passwordCorrect = RegexpUtils.correct(RegexpUtils.REGEXP_PASSWORD, password)
 
         if (nameCorrect && emailCorrect && passwordCorrect) {
             saveUser(User(name, email, password))
@@ -39,7 +42,7 @@ class SignUpViewModel @Inject constructor(
         } else {
             _uiState.value = _uiState.value?.copy(
                 error = true,
-                errorMessage = errorMessage,
+                errorMessage = R.string.enter_data_error,
                 successLogin = false
             )
         }
@@ -54,7 +57,7 @@ class SignUpViewModel @Inject constructor(
                 result.onFailure {
                     _uiState.value = SignUpUiState(
                         error = true,
-                        errorMessage = it.message ?: ""
+                        errorMessage = R.string.problem_with_get_data_error
                     )
                 }
             }
@@ -76,7 +79,7 @@ class SignUpViewModel @Inject constructor(
                 result.onFailure {
                     _uiState.value = SignUpUiState(
                         error = true,
-                        errorMessage = it.message ?: ""
+                        errorMessage = R.string.problem_with_get_data_error
                     )
                 }
             }

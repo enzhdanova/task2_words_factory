@@ -9,17 +9,13 @@ class AuthRepositoryImpl @Inject constructor(
     private val dataSource: UserDataSource
 ) : AuthRepository {
 
-    private val errorMessage = "Возникла проблема при получении данных"
-    private val successMessage = "Success"
-
-    override suspend fun login(name: String, email: String, password: String): Result<String> {
+    override suspend fun login(name: String, email: String, password: String): Result<Boolean> {
         return try {
             dataSource.login(name = name, email = email, password = password)
-            Result.success(successMessage)
+            Result.success(true)
         } catch (ioe: IOException) {
-            Result.failure(Exception(errorMessage))
+            Result.failure(Exception(ioe))
         }
-
     }
 
     override suspend fun getUser(): Result<User> {
@@ -27,7 +23,7 @@ class AuthRepositoryImpl @Inject constructor(
             val user = dataSource.getUser()
             Result.success(User(name = user.name, email = user.email, password = ""))
         } catch (ioe: IOException) {
-            Result.failure(Exception(errorMessage))
+            Result.failure(Exception(ioe))
         }
     }
 }

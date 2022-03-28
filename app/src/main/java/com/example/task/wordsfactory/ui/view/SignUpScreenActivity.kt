@@ -29,11 +29,9 @@ class SignUpScreenActivity : AppCompatActivity() {
 
         binding?.signUpButton?.setOnClickListener(buttonSignUpOnClick)
 
-        viewModel.getUser()
-
         viewModel.uiState.observe(this) { uiState ->
             if (uiState.error) {
-                ErrorDialogFragment.getErrorDialog(uiState.errorMessage)
+                ErrorDialogFragment.getErrorDialog(getString(uiState.errorMessage))
                     .show(supportFragmentManager, ErrorDialogFragment.ERROR_TAG)
             }
             if (uiState.successLogin) {
@@ -50,5 +48,4 @@ class SignUpScreenActivity : AppCompatActivity() {
         val password = binding?.passwordEdittext?.text.toString()
         viewModel.login(name, email, password)
     }
-
 }

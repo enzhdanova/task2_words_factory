@@ -2,14 +2,12 @@ package com.example.task.wordsfactory.data
 
 import android.content.SharedPreferences
 import com.example.task.wordsfactory.data.model.User
-import com.example.task.wordsfactory.di.IoDispatcher
-import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class UserDataSource @Inject constructor(
     private val sharedPreferences: SharedPreferences,
-    @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ) {
 
     companion object {
@@ -19,7 +17,7 @@ class UserDataSource @Inject constructor(
     }
 
     suspend fun login(name: String, email: String, password: String) {
-        withContext(ioDispatcher) {
+        withContext(Dispatchers.IO) {
             with(sharedPreferences.edit()) {
                 putString(USER_NAME, name)
                 putString(USER_EMAIL, email)
@@ -30,10 +28,11 @@ class UserDataSource @Inject constructor(
     }
 
     suspend fun getUser(): User {
-        return withContext(ioDispatcher) {
+        return withContext(Dispatchers.IO) {
             val name = sharedPreferences.getString(USER_NAME, "") ?: ""
             val email = sharedPreferences.getString(USER_EMAIL, "") ?: ""
-            User(name, email, "")
+            val password = sharedPreferences.getString(USER_PASSWORD, "") ?: ""
+            User(name, email, password)
         }
     }
 }
