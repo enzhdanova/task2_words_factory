@@ -4,5 +4,5 @@ data class DefinitionRequest(
     val definition: String,
     val synonyms: String,
     val antonyms: String,
-    val example: String
+    val example: String?
 )

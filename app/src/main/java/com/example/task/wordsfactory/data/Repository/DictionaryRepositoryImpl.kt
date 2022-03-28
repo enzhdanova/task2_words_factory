@@ -1,45 +1,78 @@
 package com.example.task.wordsfactory.data.Repository
 
-import com.example.task.wordsfactory.data.MockeWordModel
-import com.example.task.wordsfactory.data.dataSource.RemoteDataSource
+import com.example.task.wordsfactory.data.data_source.LocalDataSource
+import com.example.task.wordsfactory.data.data_source.RemoteDataSource
 import com.example.task.wordsfactory.data.model.Meaning
 import com.example.task.wordsfactory.data.model.PartOfSpeech
 import com.example.task.wordsfactory.data.model.Word
-import com.example.task.wordsfactory.network.entity.DefinitionRequest
+import com.example.task.wordsfactory.ui.entity.MeaningUI
+import com.example.task.wordsfactory.ui.entity.WordUI
 
 class DictionaryRepositoryImpl(
     private val remoteDataSource: RemoteDataSource,
+    private val localDataSource: LocalDataSource
 ) {
 
-//-------------------------------------------------------------------------
-    private val partOfSpeech = MockeWordModel.partOfSpeech
+    fun getPartOfSpeech(id: Long): Result<String> {
+        val result = remoteDataSource.getPartOfSpeech(id)
 
-    fun getPartOfSpeech(id: Long): PartOfSpeech =
-        partOfSpeech.first{
-            it.id == id
-        }
-
-    fun getWord(searchWord: String): Result<Word> {
-        val res  = findWord(searchWord)
-        return if (res != null) {
-            Result.success(res)
+        return if (result.isSuccess) {
+            result
         } else {
-            Result.failure(Exception("Слово не найдено"))
+            localDataSource.getPartOfSpeech(id)
         }
     }
 
-    private fun findWord(searchWord: String): Word? {
-        val res: Word? = MockeWordModel.words.find {
-            it.word == searchWord
+    fun getWord(searchWord: String): Result<WordUI> {
+        val result = remoteDataSource.getWord(searchWord)
+        return if (result.isSuccess) {
+            result
+        } else {
+            localDataSource.getWord(searchWord)
         }
-        return res
     }
 
-    private val meaning = MockeWordModel.meanings
-
-    fun getMeaning(id: Long): Meaning =
-        meaning.first{
-            it.id == id
+    fun getMeaning(id: Long): Result<MeaningUI> {
+        val result = remoteDataSource.getMeaning(id)
+        return if (result.isSuccess) {
+            result
+        } else {
+            localDataSource.getMeaning(id)
         }
+    }
+
+    fun WordToUIEntity(
+        word: Word,
+        partOfSpeech: List<PartOfSpeech>,
+        meanings: List<Meaning>
+    ): WordUI {
+
+        val meaningsUI = meaningToEntity(meanings)
+        val partOfSpeechStr = partOfSpeech.joinToString {
+            it.partOfSpeech
+        }
+
+        return WordUI(
+            id = word.id,
+            word = word.word,
+            phonetic = word.phonetic,
+            partOfSpeech = partOfSpeechStr,
+            meanings = meaningsUI
+        )
+    }
+
+    fun meaningToEntity(meanings: List<Meaning>): List<MeaningUI> {
+        val meaningsUI = mutableListOf<MeaningUI>()
+        meanings.forEach {
+            meaningsUI.add(
+                MeaningUI(
+                    id = it.id,
+                    definition = it.definition,
+                    example = it.example
+                )
+            )
+        }
+        return meaningsUI
+    }
 
 }
