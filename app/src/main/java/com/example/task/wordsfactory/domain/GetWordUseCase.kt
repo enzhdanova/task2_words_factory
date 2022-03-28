@@ -2,6 +2,7 @@ package com.example.task.wordsfactory.domain
 
 import com.example.task.wordsfactory.data.Repository.DictionaryRepositoryImpl
 import com.example.task.wordsfactory.data.model.Meaning
+import com.example.task.wordsfactory.data.model.PartOfSpeech
 import com.example.task.wordsfactory.data.model.Word
 import com.example.task.wordsfactory.ui.entity.MeaningUI
 import com.example.task.wordsfactory.ui.entity.WordUI
@@ -16,35 +17,47 @@ class GetWordUseCase(
 
     fun getWord(searchWord: String): Result<WordUI> {
 
-            val result = dictionaryRepositoryImpl.getWord(searchWord)
+        val result = dictionaryRepositoryImpl.getWord(searchWord)
 
-            println(result)
-            if (result.isFailure) return Result.failure(Exception("Слово не найдено"))
+        println(result)
+        if (result.isFailure) return Result.failure(Exception("Слово не найдено"))
 
-            result.onSuccess { resWord ->
-                println("_______________" + resWord)
-                return Result.success(getWordEntity(resWord))
+        result.onSuccess { resWord ->
+            println("_______________" + resWord)
+
+            val partOfSpeechList = mutableListOf<PartOfSpeech>()
+            val meaningList = mutableListOf<Meaning>()
+
+
+            resWord.partOfSpeech.forEach { idPofS ->
+                val partOfSpeech = dictionaryRepositoryImpl.getPartOfSpeech(idPofS)
+                partOfSpeechList.add(partOfSpeech)
+
+                partOfSpeech.meaning.forEach { idM ->
+                    meaningList.add(dictionaryRepositoryImpl.getMeaning(idM))
+                }
             }
+
+
+            return Result.success(getWordEntity(resWord, partOfSpeechList, meaningList))
+        }
 
         return Result.failure(Exception("Слово не найдено"))
     }
 
-    private fun getWordEntity(resWord: Word): WordUI {
-        val partOfSpeechList = dictionaryRepositoryImpl.partOfSpeechList
-        val meaningList = dictionaryRepositoryImpl.meaningList
+    private fun getWordEntity(resWord: Word, partOfSpeech: List<PartOfSpeech>, meanings: List<Meaning>): WordUI {
 
-
-        val partOfSpeechStr = partOfSpeechList.joinToString {
+        val partOfSpeechStr = partOfSpeech.joinToString {
             it.partOfSpeech
         }
 
-        val meanings = mutableListOf<MeaningUI>()
+        val meaningsUI = mutableListOf<MeaningUI>()
 
-        meaningList.forEach {
-            meaning -> meanings.add(meaningModelToUIEntity(meaning))
+        meanings.forEach { meaning ->
+            meaningsUI.add(meaningModelToUIEntity(meaning))
         }
 
-        return wordModelToUIEntity(resWord, partOfSpeechStr, meanings)
+        return wordModelToUIEntity(resWord, partOfSpeechStr, meaningsUI)
     }
 
     private fun meaningModelToUIEntity(meaning: Meaning): MeaningUI {

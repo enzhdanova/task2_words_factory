@@ -4,9 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.task.wordsfactory.data.Repository.DictionaryRepositoryImpl
-import com.example.task.wordsfactory.data.Repository.MeaningRepositoryImpl
-import com.example.task.wordsfactory.data.Repository.PartOfSpeechRepositoryImpl
-import com.example.task.wordsfactory.data.Repository.WordRepositoryImpl
 import com.example.task.wordsfactory.data.dataSource.RemoteDataSource
 import com.example.task.wordsfactory.domain.GetWordUseCase
 import com.example.task.wordsfactory.ui.entity.WordUI
@@ -16,7 +13,7 @@ class DictionaryViewModel : ViewModel() {
     val dictionaryUiState: LiveData<DictionaryUiState>
         get() = _dictionaryUiState
     private val getWordUseCase = GetWordUseCase(
-        dictionaryRepositoryImpl = DictionaryRepositoryImpl(RemoteDataSource(), WordRepositoryImpl(), PartOfSpeechRepositoryImpl(), MeaningRepositoryImpl())
+        dictionaryRepositoryImpl = DictionaryRepositoryImpl(RemoteDataSource())
     )
 
     fun getWord(searchWord: String) {
