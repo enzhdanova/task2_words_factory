@@ -6,7 +6,6 @@ import com.example.task.wordsfactory.data.model.Word
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.IOException
-import java.lang.Exception
 
 
 class RemoteDataSource {
@@ -16,20 +15,9 @@ class RemoteDataSource {
     suspend fun getWord(searchWord: String): Result<Word> {
         return withContext(Dispatchers.IO) {
             try {
-                println("---------------------------------")
-
-                val result2 = service.getWord(searchWord)
-                println(result2.body())
-
-                println("---------------------------------")
-
-
                 val result = service.getWord(searchWord).body()?.firstOrNull()
-
                 if (result != null) {
-                    Result.success(
-                        result.toModelWithMeanings()
-                    )
+                    Result.success(result.toModelWithMeanings())
                 } else {
                     Result.failure(Exception("xnj-nj gjikj yt nfr"))
                 }
@@ -39,6 +27,4 @@ class RemoteDataSource {
 
         }
     }
-
-
 }

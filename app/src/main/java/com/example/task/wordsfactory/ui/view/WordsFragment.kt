@@ -6,9 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
+import androidx.room.Room
+import com.example.task.wordsfactory.database.AppDatabase
+import com.example.task.wordsfactory.database.entity.WordBD
 import com.example.task.wordsfactory.databinding.FragmentWordsBinding
 import com.example.task.wordsfactory.ui.Utils.MeaningWordItemDecoration
 import com.example.task.wordsfactory.ui.Utils.WordMeaningAdapter
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 class WordsFragment : Fragment() {
 
@@ -32,12 +38,38 @@ class WordsFragment : Fragment() {
             addItemDecoration(MeaningWordItemDecoration())
         }
 
-        with(args.word) {
+        val wordArg = args.word
+
+        with(wordArg) {
             binding?.textviewWord?.text = word
             binding?.textviewWordTranscription?.text = phonetic
             binding?.textviewPartOfSpeechValue?.text = partOfSpeech
             wordMeaningAdapter.submitList(meanings)
         }
+
+        binding?.buttonAddToDict?.setOnClickListener {
+
+            GlobalScope.launch {
+                val db = Room.databaseBuilder(
+                    requireContext().applicationContext,
+                    AppDatabase::class.java,
+                    "database"
+                ).build()
+
+                println("________${db}_________")
+                val wordDao = db.dictionaryDao()
+                wordDao.insertWord(WordBD(0, word = wordArg.word, phonetic = wordArg.phonetic))
+
+                println("____________bd_________")
+                println(wordDao.getWord(wordArg.word))
+
+                println("____________bd_________")
+
+            }
+
+        }
+
+
 
     }
 }

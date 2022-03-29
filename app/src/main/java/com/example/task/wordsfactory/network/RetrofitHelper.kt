@@ -7,10 +7,9 @@ object RetrofitHelper {
 
     val baseUrl = "https://api.dictionaryapi.dev/"
 
-    fun getInstance(): Retrofit {
-        return Retrofit.Builder()
+    fun getInstance(): Retrofit = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl(baseUrl)
             .build()
-    }
+
 }

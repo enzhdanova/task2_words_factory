@@ -45,7 +45,6 @@ class WordMeaningAdapter : ListAdapter<Meaning, WordMeaningAdapter.ViewHolder>(D
         private val binding = ItemMeaningWordBinding.bind(view)
 
         fun setData(data: Meaning) = with(binding) {
-            println("bind $data")
             textviewWordMeaningContent.text = data.definition
             if (data.example == "") textviewExample.setVisibility(View.GONE)
 
