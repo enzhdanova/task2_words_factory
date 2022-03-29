@@ -20,7 +20,7 @@
             android:id="@+id/action_search_word"
             app:destination="@id/wordsFragment" />
         <argument
-            android:name="result_word"
-            app:argType="com.example.task.wordsfactory.ui.entity.WordUI" />
+            android:name="word"
+            app:argType="com.example.task.wordsfactory.data.model.Word" />
     </fragment>
 </navigation>

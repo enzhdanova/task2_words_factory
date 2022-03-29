@@ -2,28 +2,19 @@ package com.example.task.wordsfactory.data.Repository
 
 import com.example.task.wordsfactory.data.data_source.LocalDataSource
 import com.example.task.wordsfactory.data.data_source.RemoteDataSource
+import com.example.task.wordsfactory.dao.MeaningDao
+import com.example.task.wordsfactory.dao.PartOfSpeechDao
+import com.example.task.wordsfactory.dao.WordDao
 import com.example.task.wordsfactory.data.model.Meaning
-import com.example.task.wordsfactory.data.model.PartOfSpeech
 import com.example.task.wordsfactory.data.model.Word
-import com.example.task.wordsfactory.ui.entity.MeaningUI
-import com.example.task.wordsfactory.ui.entity.WordUI
 
 class DictionaryRepositoryImpl(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource
 ) {
 
-    fun getPartOfSpeech(id: Long): Result<String> {
-        val result = remoteDataSource.getPartOfSpeech(id)
 
-        return if (result.isSuccess) {
-            result
-        } else {
-            localDataSource.getPartOfSpeech(id)
-        }
-    }
-
-    fun getWord(searchWord: String): Result<WordUI> {
+    suspend fun getWord(searchWord: String): Result<Word> {
         val result = remoteDataSource.getWord(searchWord)
         return if (result.isSuccess) {
             result
@@ -32,41 +23,32 @@ class DictionaryRepositoryImpl(
         }
     }
 
-    fun getMeaning(id: Long): Result<MeaningUI> {
-        val result = remoteDataSource.getMeaning(id)
-        return if (result.isSuccess) {
-            result
-        } else {
-            localDataSource.getMeaning(id)
-        }
-    }
+
 
     fun WordToUIEntity(
-        word: Word,
-        partOfSpeech: List<PartOfSpeech>,
-        meanings: List<Meaning>
-    ): WordUI {
+        wordDao: WordDao,
+        partOfSpeechDaos: List<PartOfSpeechDao>,
+        meaningDaos: List<MeaningDao>
+    ): Word {
 
-        val meaningsUI = meaningToEntity(meanings)
-        val partOfSpeechStr = partOfSpeech.joinToString {
+        val meaningsUI = meaningToEntity(meaningDaos)
+        val partOfSpeechStr = partOfSpeechDaos.joinToString {
             it.partOfSpeech
         }
 
-        return WordUI(
-            id = word.id,
-            word = word.word,
-            phonetic = word.phonetic,
+        return Word(
+            word = wordDao.word,
+            phonetic = wordDao.phonetic,
             partOfSpeech = partOfSpeechStr,
             meanings = meaningsUI
         )
     }
 
-    fun meaningToEntity(meanings: List<Meaning>): List<MeaningUI> {
-        val meaningsUI = mutableListOf<MeaningUI>()
-        meanings.forEach {
+    fun meaningToEntity(meaningDaos: List<MeaningDao>): List<Meaning> {
+        val meaningsUI = mutableListOf<Meaning>()
+        meaningDaos.forEach {
             meaningsUI.add(
-                MeaningUI(
-                    id = it.id,
+                Meaning(
                     definition = it.definition,
                     example = it.example
                 )

@@ -9,16 +9,16 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.task.wordsfactory.R
 import com.example.task.wordsfactory.databinding.ItemMeaningWordBinding
-import com.example.task.wordsfactory.ui.entity.MeaningUI
+import com.example.task.wordsfactory.data.model.Meaning
 
-class WordMeaningAdapter : ListAdapter<MeaningUI, WordMeaningAdapter.ViewHolder>(DIFF){
+class WordMeaningAdapter : ListAdapter<Meaning, WordMeaningAdapter.ViewHolder>(DIFF){
 
     private companion object {
-        val DIFF = object  : DiffUtil.ItemCallback<MeaningUI>(){
-            override fun areItemsTheSame(oldItem: MeaningUI, newItem: MeaningUI): Boolean =
-                oldItem.id == newItem.id
+        val DIFF = object  : DiffUtil.ItemCallback<Meaning>(){
+            override fun areItemsTheSame(oldItem: Meaning, newItem: Meaning): Boolean =
+                oldItem.definition == newItem.definition
 
-            override fun areContentsTheSame(oldItem: MeaningUI, newItem: MeaningUI): Boolean =
+            override fun areContentsTheSame(oldItem: Meaning, newItem: Meaning): Boolean =
                 oldItem == newItem
 
         }
@@ -44,7 +44,7 @@ class WordMeaningAdapter : ListAdapter<MeaningUI, WordMeaningAdapter.ViewHolder>
 
         private val binding = ItemMeaningWordBinding.bind(view)
 
-        fun setData(data: MeaningUI) = with(binding) {
+        fun setData(data: Meaning) = with(binding) {
             println("bind $data")
             textviewWordMeaningContent.text = data.definition
             if (data.example == "") textviewExample.setVisibility(View.GONE)

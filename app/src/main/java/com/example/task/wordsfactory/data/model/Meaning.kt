@@ -1,3 +1,7 @@
 package com.example.task.wordsfactory.data.model
 
-data class Meaning(val id: Long, val definition: String, val example: String)
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+data class Meaning(val definition: String, val example: String) : Parcelable

@@ -1,6 +1,6 @@
-package com.example.task.wordsfactory.data.model
+package com.example.task.wordsfactory.dao
 
-data class PartOfSpeech(
+data class PartOfSpeechDao(
     val id: Long,
     val partOfSpeech: String,
     val meaning: List<Long>

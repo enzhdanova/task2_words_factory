@@ -1,25 +1,44 @@
 package com.example.task.wordsfactory.data.data_source
 
+import com.example.task.wordsfactory.network.RetrofitHelper
 import com.example.task.wordsfactory.network.WordApi
-import com.example.task.wordsfactory.ui.entity.MeaningUI
-import com.example.task.wordsfactory.ui.entity.WordUI
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import com.example.task.wordsfactory.data.model.Word
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import java.io.IOException
+import java.lang.Exception
+
 
 class RemoteDataSource {
 
-    val retrofit = Retrofit.Builder()
-        .baseUrl("https://api.dictionaryapi.dev/")
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
+    val service = RetrofitHelper.getInstance().create(WordApi::class.java)
 
-    val service = retrofit.create(WordApi::class.java)
+    suspend fun getWord(searchWord: String): Result<Word> {
+        return withContext(Dispatchers.IO) {
+            try {
+                println("---------------------------------")
 
-    fun getWord(searchWord: String): Result<WordUI> = Result.failure(Exception("Ошибка"))
+                val result2 = service.getWord(searchWord)
+                println(result2.body())
+
+                println("---------------------------------")
 
 
-    fun getPartOfSpeech(id: Long): Result<String>  = Result.failure(Exception("Ошибка"))
+                val result = service.getWord(searchWord).body()?.firstOrNull()
 
-    fun getMeaning(id: Long): Result<MeaningUI>  = Result.failure(Exception("Ошибка"))
+                if (result != null) {
+                    Result.success(
+                        result.toModelWithMeanings()
+                    )
+                } else {
+                    Result.failure(Exception("xnj-nj gjikj yt nfr"))
+                }
+            } catch (io: IOException) {
+                Result.failure(io)
+            }
+
+        }
+    }
+
 
 }

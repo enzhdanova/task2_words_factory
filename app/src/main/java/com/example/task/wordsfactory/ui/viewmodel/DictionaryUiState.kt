@@ -1,9 +1,9 @@
 package com.example.task.wordsfactory.ui.viewmodel
 
-import com.example.task.wordsfactory.ui.entity.WordUI
+import com.example.task.wordsfactory.data.model.Word
 
 data class DictionaryUiState(
-    val word: WordUI? = null,
+    val word: Word? = null,
     val errorMessage: String = "",
     val error: Boolean = false
 )

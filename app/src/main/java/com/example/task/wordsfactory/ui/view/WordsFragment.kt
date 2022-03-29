@@ -26,18 +26,18 @@ class WordsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val args: WordsFragmentArgs by navArgs()
-        val word = args.resultWord
-        binding?.textviewWord?.text = word.word
-        binding?.textviewWordTranscription?.text = word.phonetic
-        binding?.textviewPartOfSpeechValue?.text = word.partOfSpeech
 
-        println("MyApp: "+word.meanings)
         binding?.meaningRecycler?.apply {
             adapter = wordMeaningAdapter
             addItemDecoration(MeaningWordItemDecoration())
         }
 
-        wordMeaningAdapter.submitList(word.meanings)
+        with(args.word) {
+            binding?.textviewWord?.text = word
+            binding?.textviewWordTranscription?.text = phonetic
+            binding?.textviewPartOfSpeechValue?.text = partOfSpeech
+            wordMeaningAdapter.submitList(meanings)
+        }
 
     }
 }

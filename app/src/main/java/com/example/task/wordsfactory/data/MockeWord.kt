@@ -1,56 +1,47 @@
 package com.example.task.wordsfactory.data
 
-import com.example.task.wordsfactory.ui.entity.MeaningUI
-import com.example.task.wordsfactory.ui.entity.WordUI
+import com.example.task.wordsfactory.data.model.Meaning
+import com.example.task.wordsfactory.data.model.Word
 
 object MockeWord {
-    val cookingWord = WordUI(
-        id = 0,
+    val cookingWord = Word(
         word = "cooking",
         phonetic = "/ˈkʊ.kɪŋ/",
         partOfSpeech = "verb",
         meanings = listOf(
-            MeaningUI(
-                id = 0,
+            Meaning(
                 definition = "To prepare (food) for eating by heating it, often by combining it with other ingredients.",
                 example = "I'm cooking bangers and mash."
             ),
-            MeaningUI(
-                id = 1,
+            Meaning(
                 definition = "In progress, happening.",
                 example = ""
             ),
-            MeaningUI(
-                id = 2,
+            Meaning(
                 definition = "To prepare (food) for eating by heating it, often by combining it with other ingredients.",
                 example = "I'm cooking bangers and mash."
             ),
-            MeaningUI(
-                id = 3,
+            Meaning(
                 definition = "In progress, happening.",
                 example = ""
             ),
-            MeaningUI(
-                id = 4,
+            Meaning(
                 definition = "To prepare (food) for eating by heating it, often by combining it with other ingredients.",
                 example = "I'm cooking bangers and mash."
             ),
-            MeaningUI(
-                id = 5,
+            Meaning(
                 definition = "In progress, happening.",
                 example = "The project took a few days to gain momentum, but by the end of the week, things were really cooking."
             )
         )
     )
 
-    val cookingWord2 = WordUI(
-        id = 0,
+    val cookingWord2 = Word(
         word = "cooking2",
         phonetic = "/ˈkʊ.kɪŋ/222",
         partOfSpeech = "verb2",
         meanings = listOf(
-            MeaningUI(
-                id = 0,
+            Meaning(
                 definition = "To prepare (food) for eating by heating it, often by combining it with other ingredients.",
                 example = "I'm cooking bangers and mash."
             )

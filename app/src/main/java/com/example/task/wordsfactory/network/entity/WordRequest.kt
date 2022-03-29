@@ -1,12 +1,23 @@
 package com.example.task.wordsfactory.network.entity
 
+import com.example.task.wordsfactory.data.model.Word
+
 data class WordRequest (
     val word: String,
     val phonetic: String,
-    val phonetics: List<PhoneticRequest>,
     val meanings: List<MeaningRequest>,
-    val license: License,
-    val sourceUrls: List<String>
-)
+) {
+    fun  toModelWithMeanings(): Word = Word(
+        word = word,
+        phonetic = phonetic,
+        partOfSpeech = getPartOfSpeechToString(),
+        meanings = meanings.flatMap {
+                meaning -> meaning.toModel()
+        }
+    )
 
-data class License(val name: String, val url: String)
+    private fun getPartOfSpeechToString(): String =
+        meanings.map {
+            it.partOfSpeech
+        }.toMutableSet().joinToString()
+}
