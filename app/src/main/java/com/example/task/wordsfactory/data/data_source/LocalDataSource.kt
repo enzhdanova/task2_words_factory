@@ -6,10 +6,6 @@ import com.example.task.wordsfactory.data.model.Word
 
 class LocalDataSource {
 
-    private val partOfSpeech = MockeWord.cookingWord.partOfSpeech
-
-    private val meaning = MockeWord.cookingWord.meanings
-
     fun getWord(searchWord: String): Result<Word> {
         val res = findWord(searchWord)
         return if (res != null) {
@@ -25,8 +21,5 @@ class LocalDataSource {
         }
         return res
     }
-
-    fun getPartOfSpeech(id: Long): Result<String> =
-        Result.success(partOfSpeech)
 
 }

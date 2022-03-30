@@ -8,12 +8,12 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
 import androidx.room.Room
 import com.example.task.wordsfactory.database.AppDatabase
+import com.example.task.wordsfactory.database.entity.MeaningBD
 import com.example.task.wordsfactory.database.entity.WordBD
 import com.example.task.wordsfactory.databinding.FragmentWordsBinding
 import com.example.task.wordsfactory.ui.Utils.MeaningWordItemDecoration
 import com.example.task.wordsfactory.ui.Utils.WordMeaningAdapter
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
 class WordsFragment : Fragment() {
@@ -54,14 +54,35 @@ class WordsFragment : Fragment() {
                     requireContext().applicationContext,
                     AppDatabase::class.java,
                     "database"
-                ).build()
+                )
+                    .fallbackToDestructiveMigration()
+                    .build()
+
+
 
                 println("________${db}_________")
                 val wordDao = db.dictionaryDao()
-                wordDao.insertWord(WordBD(0, word = wordArg.word, phonetic = wordArg.phonetic))
+                val word_id: Long = wordDao.insertWord(WordBD(word = wordArg.word, phonetic = wordArg.phonetic, partOfSpeech = wordArg.partOfSpeech))
+
+               // val word_id = wordDao.getWordId(wordArg.word)
+                val meaningsList = wordArg.meanings.map {
+                    MeaningBD(
+                        definition = it.definition,
+                        example = it.example,
+                        word_id = word_id,
+                    )
+                }
+
+                wordDao.insertWordWithMeanings(
+                    WordBD(word = wordArg.word, phonetic = wordArg.phonetic, partOfSpeech = wordArg.partOfSpeech),
+                    meaningsList
+                )
+
+          //      wordDao.insertMeanings(meaning = meaningsList)
 
                 println("____________bd_________")
                 println(wordDao.getWord(wordArg.word))
+                println(wordDao.getMeaning(word_id))
 
                 println("____________bd_________")
 

@@ -2,11 +2,17 @@ package com.example.task.wordsfactory.database.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.task.wordsfactory.data.model.Meaning
 
-@Entity(tableName = "meaning_table")
+@Entity
 data class MeaningBD(
-    @PrimaryKey val id: Long,
+    @PrimaryKey(autoGenerate = true) val id: Long? = null,
     val definition: String,
     val example: String,
-    val pofs_id: Long
-)
+    val word_id: Long
+) {
+    fun toModel() = Meaning(
+        definition = definition,
+        example = example
+    )
+}
