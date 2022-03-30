@@ -13,6 +13,7 @@ import com.example.task.wordsfactory.database.entity.WordBD
 import com.example.task.wordsfactory.databinding.FragmentWordsBinding
 import com.example.task.wordsfactory.ui.Utils.MeaningWordItemDecoration
 import com.example.task.wordsfactory.ui.Utils.WordMeaningAdapter
+import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -48,45 +49,6 @@ class WordsFragment : Fragment() {
         }
 
         binding?.buttonAddToDict?.setOnClickListener {
-
-            GlobalScope.launch {
-                val db = Room.databaseBuilder(
-                    requireContext().applicationContext,
-                    AppDatabase::class.java,
-                    "database"
-                )
-                    .fallbackToDestructiveMigration()
-                    .build()
-
-
-
-                println("________${db}_________")
-                val wordDao = db.dictionaryDao()
-                val word_id: Long = wordDao.insertWord(WordBD(word = wordArg.word, phonetic = wordArg.phonetic, partOfSpeech = wordArg.partOfSpeech))
-
-               // val word_id = wordDao.getWordId(wordArg.word)
-                val meaningsList = wordArg.meanings.map {
-                    MeaningBD(
-                        definition = it.definition,
-                        example = it.example,
-                        word_id = word_id,
-                    )
-                }
-
-                wordDao.insertWordWithMeanings(
-                    WordBD(word = wordArg.word, phonetic = wordArg.phonetic, partOfSpeech = wordArg.partOfSpeech),
-                    meaningsList
-                )
-
-          //      wordDao.insertMeanings(meaning = meaningsList)
-
-                println("____________bd_________")
-                println(wordDao.getWord(wordArg.word))
-                println(wordDao.getMeaning(word_id))
-
-                println("____________bd_________")
-
-            }
 
         }
 

@@ -4,23 +4,25 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.task.wordsfactory.data.Repository.DictionaryRepositoryImpl
-import com.example.task.wordsfactory.data.data_source.LocalDataSource
-import com.example.task.wordsfactory.data.data_source.RemoteDataSource
 import com.example.task.wordsfactory.data.model.Word
+import com.example.task.wordsfactory.ui.DictionaryRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class DictionaryViewModel : ViewModel() {
+@HiltViewModel
+class DictionaryViewModel @Inject constructor(
+    private val dictionaryRepository: DictionaryRepository
+) : ViewModel() {
     private val _dictionaryUiState = MutableLiveData<DictionaryUiState>()
     val dictionaryUiState: LiveData<DictionaryUiState>
         get() = _dictionaryUiState
-    private val dictionaryRepositoryImpl = DictionaryRepositoryImpl(RemoteDataSource(), LocalDataSource())
 
     fun getWord(searchWord: String) {
 
         viewModelScope.launch {
 
-            val result: Result<Word> = dictionaryRepositoryImpl.getWord(searchWord)
+            val result: Result<Word> = dictionaryRepository.getWord(searchWord)
 
             if (result.isSuccess) {
                 result.onSuccess {

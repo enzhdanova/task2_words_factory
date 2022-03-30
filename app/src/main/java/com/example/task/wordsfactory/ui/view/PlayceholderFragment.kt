@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.task.wordsfactory.databinding.FragmentPlayceholderBinding
+import dagger.hilt.android.HiltAndroidApp
 
 class PlayceholderFragment : Fragment() {
 

@@ -6,9 +6,10 @@ import com.example.task.wordsfactory.data.model.Word
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.IOException
+import javax.inject.Inject
 
 
-class RemoteDataSource {
+class RemoteDataSource @Inject constructor() {
 
     val service = RetrofitHelper.getInstance().create(WordApi::class.java)
 

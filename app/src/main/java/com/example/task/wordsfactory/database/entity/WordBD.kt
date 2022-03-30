@@ -2,6 +2,7 @@ package com.example.task.wordsfactory.database.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.task.wordsfactory.data.model.Meaning
 import com.example.task.wordsfactory.data.model.Word
 
 
@@ -18,4 +19,11 @@ data class WordBD(
         partOfSpeech = partOfSpeech,
         meanings = emptyList()
     )//TODO: Узнат можно ли получить сущности бд из такого класса сразу
+
+    fun toModelWithMeaning(meaning: List<Meaning>) = Word(
+        word = word,
+        phonetic = phonetic,
+        partOfSpeech = partOfSpeech,
+        meanings = meaning
+    )
 }
