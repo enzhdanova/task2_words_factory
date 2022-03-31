@@ -19,9 +19,7 @@ class DictionaryViewModel @Inject constructor(
         get() = _dictionaryUiState
 
     fun getWord(searchWord: String) {
-
         viewModelScope.launch {
-
             val result: Result<Word> = dictionaryRepository.getWord(searchWord)
 
             if (result.isSuccess) {
@@ -40,5 +38,4 @@ class DictionaryViewModel @Inject constructor(
             }
         }
     }
-
 }

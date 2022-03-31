@@ -11,8 +11,4 @@ interface WordApi {
     suspend fun getWord(
        @Path("searchWord") searchWord: String
     ): Response<List<WordRequest>>
-
-    @GET("api/v2/entries/en/cooking")
-    suspend fun getWord2(
-    ): Response<List<WordRequest>>
 }

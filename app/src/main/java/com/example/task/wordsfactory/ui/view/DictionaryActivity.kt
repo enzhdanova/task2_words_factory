@@ -26,9 +26,7 @@ class DictionaryActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
 
         binding?.searchButton?.setOnClickListener {
-
                 viewModel.getWord(binding?.searchEdittext?.text.toString())
-
         }
 
         viewModel.dictionaryUiState.observe(this) {
@@ -38,17 +36,8 @@ class DictionaryActivity : AppCompatActivity() {
                 if (it.word != null) {
                    val action = WordsFragmentDirections.actionSearchWord(it.word)
                    navController.navigate(action)
-
                 }
             }
         }
-
-
-
-
-
-
-
-
     }
 }

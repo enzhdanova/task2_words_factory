@@ -53,9 +53,10 @@
         android:layout_marginStart="@dimen/words_margin_start"
         android:textColor="@color/black"
         android:textSize="@dimen/words_subtext_text_size"
-        app:layout_constraintBottom_toBottomOf="@id/textview_part_of_speech"
+        app:layout_constrainedWidth="true"
         app:layout_constraintBaseline_toBaselineOf="@id/textview_part_of_speech"
-        app:layout_constraintStart_toEndOf="@id/textview_part_of_speech" />
+        app:layout_constraintStart_toEndOf="@id/textview_part_of_speech"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
         android:id="@+id/textview_meanings"

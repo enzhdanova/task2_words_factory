@@ -33,6 +33,7 @@ class DatabaseModule {
 
     companion object {
         val database_name = "database"
+    }
 
         @Provides
         fun provideDictionaryDao(appDatabase: AppDatabase) = appDatabase.dictionaryDao()
@@ -47,7 +48,7 @@ class DatabaseModule {
             database_name
         ).fallbackToDestructiveMigration()
             .build()
-    }
+
 }
 
 @Module

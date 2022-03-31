@@ -13,25 +13,16 @@ class DictionaryRepositoryImpl @Inject constructor(
 
     override suspend fun getWord(searchWord: String): Result<Word> {
         val result = remoteDataSource.getWord(searchWord)
-        println("________remoteDataSource.getWord(searchWord)______________")
-        println(result)
-        result.onSuccess {
-            println(it.meanings.size)
-        }
-        println()
-        println("________DictionaryRepository______________")
-        val tmp = localDataSource.getWord(searchWord)
-        println(tmp)
-        tmp.onSuccess {
-            println(it.meanings.size)
-
-        }
-
-        println("________DictionaryRepository______________")
         return if (result.isSuccess) {
             result
         } else {
             localDataSource.getWord(searchWord)
         }
     }
+
+    override suspend fun addToDictionary(word: Word): Result<Boolean> {
+        return localDataSource.addWord(word)
+    }
+
+
 }

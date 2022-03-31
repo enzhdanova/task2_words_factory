@@ -12,9 +12,6 @@ interface DictionaryDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertWord(word: WordBD): Long
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertWordWithMeanings(word: WordBD, meaning: List<MeaningBD>)
-
     @Insert
     fun insertMeanings(meaning: List<MeaningBD>)
 

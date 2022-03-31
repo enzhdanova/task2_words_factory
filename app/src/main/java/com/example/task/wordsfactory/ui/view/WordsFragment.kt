@@ -5,22 +5,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import androidx.room.Room
-import com.example.task.wordsfactory.database.AppDatabase
-import com.example.task.wordsfactory.database.entity.MeaningBD
-import com.example.task.wordsfactory.database.entity.WordBD
 import com.example.task.wordsfactory.databinding.FragmentWordsBinding
 import com.example.task.wordsfactory.ui.Utils.MeaningWordItemDecoration
 import com.example.task.wordsfactory.ui.Utils.WordMeaningAdapter
-import dagger.hilt.android.HiltAndroidApp
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import com.example.task.wordsfactory.ui.viewmodel.WordViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-class WordsFragment : Fragment() {
+@AndroidEntryPoint
+class WordsFragment() : Fragment() {
 
     private var binding : FragmentWordsBinding? = null
     private val wordMeaningAdapter = WordMeaningAdapter()
+    private val viewModel by viewModels<WordViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,10 +47,8 @@ class WordsFragment : Fragment() {
         }
 
         binding?.buttonAddToDict?.setOnClickListener {
-
+            println("click")
+            viewModel.addWordToDictionary(wordArg)
         }
-
-
-
     }
 }

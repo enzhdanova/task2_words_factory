@@ -11,9 +11,6 @@ import javax.inject.Inject
 class RemoteDataSource @Inject constructor(
     private val wordApi: WordApi
 ) {
-
- //   val service = RetrofitHelper.getInstance().create(WordApi::class.java)
-
     suspend fun getWord(searchWord: String): Result<Word> {
         return withContext(Dispatchers.IO) {
             try {
