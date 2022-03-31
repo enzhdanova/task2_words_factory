@@ -1,7 +1,5 @@
 package com.example.task.wordsfactory.data.data_source
 
-import com.example.task.wordsfactory.data.MockeWord
-import com.example.task.wordsfactory.data.model.Meaning
 import com.example.task.wordsfactory.data.model.Word
 import com.example.task.wordsfactory.database.dao.DictionaryDao
 import kotlinx.coroutines.Dispatchers
@@ -27,13 +25,6 @@ class LocalDataSource @Inject constructor(
                 Result.failure(Exception("Слово не найдено"))
             }
         }
-    }
-
-    private fun findWord(searchWord: String): Word? {
-        val res: Word? = MockeWord.words.find {
-            it.word == searchWord
-        }
-        return res
     }
 
 }
