@@ -22,12 +22,11 @@ class DictionaryViewModel @Inject constructor(
         viewModelScope.launch {
             val result: Result<Word> = dictionaryRepository.getWord(searchWord)
 
-            if (result.isSuccess) {
-                result.onSuccess {
+            result.fold(
+                onSuccess = {
                     _dictionaryUiState.value = DictionaryUiState(word = it)
-                }
-            } else {
-                result.onFailure {
+                },
+                onFailure = {
                     _dictionaryUiState.value =
                         DictionaryUiState(
                             word = null,
@@ -35,7 +34,7 @@ class DictionaryViewModel @Inject constructor(
                             errorMessage = it.message ?: ""
                         )
                 }
-            }
+            )
         }
     }
 }
