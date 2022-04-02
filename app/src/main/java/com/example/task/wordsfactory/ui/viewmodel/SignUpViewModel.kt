@@ -37,7 +37,7 @@ class SignUpViewModel @Inject constructor(
         val passwordCorrect = RegexpUtils.correct(RegexpUtils.REGEXP_PASSWORD, password)
 
         if (nameCorrect && emailCorrect && passwordCorrect) {
-            saveUser(User(name, email), password)
+            saveUser(name, email, password)
 
         } else {
             _uiState.value = _uiState.value?.copy(
@@ -48,9 +48,9 @@ class SignUpViewModel @Inject constructor(
         }
     }
 
-    private fun saveUser(user: User, password: String) {
+    private fun saveUser(name: String, email: String, password: String) {
         viewModelScope.launch {
-            val result = authRepository.login(user.name, user.email, password)
+            val result = authRepository.login(name, email, password)
 
             result.fold(
                 onSuccess = {
