@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.task.wordsfactory.RegexpUtils
 import com.example.task.wordsfactory.R
-import com.example.task.wordsfactory.data.model.User
 import com.example.task.wordsfactory.ui.AuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
