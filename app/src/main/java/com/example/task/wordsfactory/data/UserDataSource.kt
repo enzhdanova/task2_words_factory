@@ -31,8 +31,7 @@ class UserDataSource @Inject constructor(
         return withContext(Dispatchers.IO) {
             val name = sharedPreferences.getString(USER_NAME, "") ?: ""
             val email = sharedPreferences.getString(USER_EMAIL, "") ?: ""
-            val password = sharedPreferences.getString(USER_PASSWORD, "") ?: ""
-            User(name, email, password)
+            User(name, email)
         }
     }
 }

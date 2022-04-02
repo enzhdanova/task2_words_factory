@@ -37,7 +37,7 @@ class SignUpViewModel @Inject constructor(
         val passwordCorrect = RegexpUtils.correct(RegexpUtils.REGEXP_PASSWORD, password)
 
         if (nameCorrect && emailCorrect && passwordCorrect) {
-            saveUser(User(name, email, password))
+            saveUser(User(name, email), password)
 
         } else {
             _uiState.value = _uiState.value?.copy(
@@ -48,41 +48,44 @@ class SignUpViewModel @Inject constructor(
         }
     }
 
-    private fun saveUser(user: User) {
+    private fun saveUser(user: User, password: String) {
         viewModelScope.launch {
-            val result = authRepository.login(user.name, user.email, user.password)
-            if (result.isSuccess) {
-                _uiState.value = _uiState.value?.copy(successLogin = true)
-            } else {
-                result.onFailure {
+            val result = authRepository.login(user.name, user.email, password)
+
+            result.fold(
+                onSuccess = {
+                    _uiState.value = _uiState.value?.copy(successLogin = true)
+                },
+                onFailure = {
                     _uiState.value = SignUpUiState(
                         error = true,
                         errorMessage = R.string.problem_with_get_data_error
                     )
                 }
-            }
+
+            )
         }
     }
 
     fun getUser() {
         viewModelScope.launch {
             val result = authRepository.getUser()
-            if (result.isSuccess) {
-                result.onSuccess {
+
+            result.fold(
+                onSuccess = {
                     _uiState.value = SignUpUiState(
                         name = it.name,
                         email = it.email,
                         successLogin = true
                     )
-                }
-            } else {
-                result.onFailure {
+                },
+                onFailure = {
                     _uiState.value = SignUpUiState(
                         error = true,
                         errorMessage = R.string.problem_with_get_data_error
                     )
                 }
-            }
+            )
         }
     }
 }

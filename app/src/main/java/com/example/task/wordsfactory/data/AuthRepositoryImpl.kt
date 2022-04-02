@@ -21,7 +21,7 @@ class AuthRepositoryImpl @Inject constructor(
     override suspend fun getUser(): Result<User> {
         return try {
             val user = dataSource.getUser()
-            Result.success(User(name = user.name, email = user.email, password = ""))
+            Result.success(User(name = user.name, email = user.email))
         } catch (ioe: IOException) {
             Result.failure(Exception(ioe))
         }
