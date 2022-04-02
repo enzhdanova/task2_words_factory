@@ -38,7 +38,6 @@ class SignUpViewModel @Inject constructor(
 
         if (nameCorrect && emailCorrect && passwordCorrect) {
             saveUser(name, email, password)
-
         } else {
             _uiState.value = _uiState.value?.copy(
                 error = true,
