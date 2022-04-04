@@ -20,7 +20,6 @@ class WordMeaningAdapter : ListAdapter<Meaning, WordMeaningAdapter.ViewHolder>(D
 
             override fun areContentsTheSame(oldItem: Meaning, newItem: Meaning): Boolean =
                 oldItem == newItem
-
         }
     }
 
