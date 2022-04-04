@@ -9,5 +9,5 @@ data class Word(
     val phonetic: String,
     val partOfSpeech: String,
     val meanings: List<Meaning>,
-    val audio: String?
+    val audio: String? = null
 ) : Parcelable

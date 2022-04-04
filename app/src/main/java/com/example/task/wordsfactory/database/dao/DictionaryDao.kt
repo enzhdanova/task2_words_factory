@@ -21,8 +21,6 @@ interface DictionaryDao {
     @Query ("SELECT id FROM WordBD WHERE word = :searchWord")
     fun getWordId(searchWord: String): Long
 
-
     @Query ("SELECT * FROM MeaningBD WHERE word_id = :word_id")
     fun getMeaning(word_id: Long): List<MeaningBD>
-
 }

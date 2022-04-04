@@ -18,7 +18,7 @@ data class WordBD(
         phonetic = phonetic,
         partOfSpeech = partOfSpeech,
         meanings = emptyList()
-    )//TODO: Узнат можно ли получить сущности бд из такого класса сразу
+    )
 
     fun toModelWithMeaning(meaning: List<Meaning>) = Word(
         word = word,

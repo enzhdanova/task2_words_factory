@@ -15,7 +15,7 @@ data class WordRequest (
         meanings = meanings.flatMap {
                 meaning -> meaning.toModel()
         },
-        audio = phonetics.firstOrNull()?.audio
+        audio = phonetics.firstOrNull()?.toModel()
     )
 
     private fun getPartOfSpeechToString(): String =

@@ -7,4 +7,8 @@
     <string name="part_of_speech">Part of speech:</string>
     <string name="meanings">Meanings:</string>
     <string name="add_to_dictionary">Add to Dictionary</string>
+    <string name="ok">ок</string>
+    <string name="activity_null">"Activity cannot be null</string>
+    <string name="other_error">Что-то пошло не так</string>
+    <string name="network_error">Слово не найдено. Проверьте подключение к интернету.</string>
 </resources>

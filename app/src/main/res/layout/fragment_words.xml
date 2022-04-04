@@ -55,8 +55,7 @@
         android:textSize="@dimen/words_subtext_text_size"
         app:layout_constrainedWidth="true"
         app:layout_constraintBaseline_toBaselineOf="@id/textview_part_of_speech"
-        app:layout_constraintStart_toEndOf="@id/textview_part_of_speech"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintStart_toEndOf="@id/textview_part_of_speech"/>
 
     <TextView
         android:id="@+id/textview_meanings"

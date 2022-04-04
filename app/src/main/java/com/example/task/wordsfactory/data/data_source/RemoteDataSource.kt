@@ -14,16 +14,16 @@ class RemoteDataSource @Inject constructor(
     suspend fun getWord(searchWord: String): Result<Word> {
         return withContext(Dispatchers.IO) {
             try {
-                val result = wordApi.getWord(searchWord).body()?.firstOrNull()
+                val result = wordApi.getWord(searchWord).body()?.first()
+
                 if (result != null) {
                     Result.success(result.toModelWithMeanings())
                 } else {
-                    Result.failure(Exception("xnj-nj gjikj yt nfr"))
+                    Result.failure(NullPointerException())
                 }
             } catch (io: IOException) {
                 Result.failure(io)
             }
-
         }
     }
 }

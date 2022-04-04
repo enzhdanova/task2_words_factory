@@ -24,7 +24,6 @@ abstract class ViewModelModule {
     abstract fun bindRepo(
         dictionaryRepositoryImpl: DictionaryRepositoryImpl
     ): DictionaryRepository
-
 }
 
 @Module
@@ -32,31 +31,30 @@ abstract class ViewModelModule {
 class DatabaseModule {
 
     companion object {
-        val database_name = "database"
+        const val database_name = "database"
     }
 
-        @Provides
-        fun provideDictionaryDao(appDatabase: AppDatabase) = appDatabase.dictionaryDao()
+    @Provides
+    fun provideDictionaryDao(appDatabase: AppDatabase) = appDatabase.dictionaryDao()
 
-        @Provides
-        @Singleton
-        fun provideAppDatabase(
-            @ApplicationContext appContext: Context
-        ) = Room.databaseBuilder(
-            appContext,
-            AppDatabase::class.java,
-            database_name
-        ).fallbackToDestructiveMigration()
-            .build()
-
+    @Provides
+    @Singleton
+    fun provideAppDatabase(
+        @ApplicationContext appContext: Context
+    ) = Room.databaseBuilder(
+        appContext,
+        AppDatabase::class.java,
+        database_name
+    ).fallbackToDestructiveMigration()
+        .build()
 }
 
 @Module
 @InstallIn(SingletonComponent::class)
-class NetworkModule{
+class NetworkModule {
 
     companion object {
-        val baseUrl = "https://api.dictionaryapi.dev/"
+        const val baseUrl = "https://api.dictionaryapi.dev/"
     }
 
     @Provides
@@ -69,5 +67,4 @@ class NetworkModule{
     @Provides
     @Singleton
     fun provideApiService() = provideApi().create(WordApi::class.java)
-
 }

@@ -18,6 +18,4 @@ class WordViewModel @Inject constructor(
             dictionaryRepository.addToDictionary(word)
         }
     }
-
-
 }

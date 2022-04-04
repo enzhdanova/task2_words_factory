@@ -1,4 +1,4 @@
-package com.example.task.wordsfactory.ui.Utils
+package com.example.task.wordsfactory.ui.utils
 
 import android.graphics.Rect
 import android.view.View

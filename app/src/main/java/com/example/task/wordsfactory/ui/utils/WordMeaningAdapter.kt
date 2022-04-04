@@ -1,4 +1,4 @@
-package com.example.task.wordsfactory.ui.Utils
+package com.example.task.wordsfactory.ui.utils
 
 import android.view.LayoutInflater
 import android.view.View
@@ -37,18 +37,15 @@ class WordMeaningAdapter : ListAdapter<Meaning, WordMeaningAdapter.ViewHolder>(D
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        companion object {
-            private val example_color = "#8bbfef"
-            private val example_str = "Example: "
-        }
-
         private val binding = ItemMeaningWordBinding.bind(view)
 
         fun setData(data: Meaning) = with(binding) {
             textviewWordMeaningContent.text = data.definition
-            if (data.example == "") textviewExample.setVisibility(View.GONE)
+            if (data.example.isEmpty()) textviewExample.visibility = View.GONE
 
-            textviewExample.text  = HtmlCompat.fromHtml("<font color='$example_color'>$example_str</font> ${data.example}", HtmlCompat.FROM_HTML_MODE_LEGACY)
+            val color = itemView.context.getColor(R.color.light_blue)
+            val example_str = itemView.context.getString(R.string.example)
+            textviewExample.text  = HtmlCompat.fromHtml("<font color='$color'>$example_str</font> ${data.example}", HtmlCompat.FROM_HTML_MODE_LEGACY)
         }
     }
 }

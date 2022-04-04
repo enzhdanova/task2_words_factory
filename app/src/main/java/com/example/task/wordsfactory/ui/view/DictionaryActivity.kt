@@ -2,7 +2,6 @@ package com.example.task.wordsfactory.ui.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.navigation.fragment.NavHostFragment
 import com.example.task.wordsfactory.R
@@ -31,7 +30,8 @@ class DictionaryActivity : AppCompatActivity() {
 
         viewModel.dictionaryUiState.observe(this) {
             if (it.error) {
-                Toast.makeText(this, "Ошибка", Toast.LENGTH_LONG).show()
+                ErrorDialogFragment.getErrorDialog(getString(it.errorMessage))
+                    .show(supportFragmentManager, ErrorDialogFragment.ERROR_TAG)
             } else {
                 if (it.word != null) {
                    val action = WordsFragmentDirections.actionSearchWord(it.word)
