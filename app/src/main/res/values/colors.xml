@@ -12,4 +12,6 @@
     <color name="dark_gray">#78746D</color>
     <color name="round_button_color">#E3562A</color>
     <color name="transparent">#00000000</color>
+    <color name="selected_dot">#65AAEA</color>
+    <color name="dots_color">#D5D4D4</color>
 </resources>
