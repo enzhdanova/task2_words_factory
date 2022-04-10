@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="max_height_image_view">220dp</dimen>
+    <dimen name="sign_up_margin_top">50dp</dimen>
+    <dimen name="sign_up_margin_between_element">16dp</dimen>
+    <dimen name="sign_up_title">24sp</dimen>
+    <dimen name="sign_up_small_margin">8dp</dimen>
+    <dimen name="sign_up_subtitle">14sp</dimen>
+    <dimen name="sign_up_edit_text_height">50dp</dimen>
+    <dimen name="sign_up_margin_horizontal">16dp</dimen>
+    <dimen name="sign_margin_for_password_et">56dp</dimen>
+    <dimen name="sign_up_height_button">56dp</dimen>
     <dimen name="margin_top_parent">5dp</dimen>
     <dimen name="margin_top_between_element">16dp</dimen>
     <dimen name="margin_bottom_parent">37dp</dimen>
