@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_top_between_element"
         android:layout_marginEnd="@dimen/margin_horizontal"
-        android:background="@color/button_skip_color"
+        android:background="@color/transparent"
         android:clickable="true"
         android:text="@string/skip"
         android:textColor="@color/dark_gray"
