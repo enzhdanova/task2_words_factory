@@ -11,4 +11,11 @@
     <string name="activity_null">"Activity cannot be null</string>
     <string name="other_error">Что-то пошло не так</string>
     <string name="network_error">Слово не найдено. Проверьте подключение к интернету.</string>
+    <string name="title_activity_menu">MenuActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="dictionary">Dictionary</string>
+    <string name="training">Training</string>
+    <string name="video">Video</string>
 </resources>
