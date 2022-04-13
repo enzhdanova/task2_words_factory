@@ -38,4 +38,10 @@ class DictionaryViewModel @Inject constructor(
             )
         }
     }
+
+    fun addWordToDictionary(word: Word) {
+        viewModelScope.launch {
+            dictionaryRepository.addToDictionary(word)
+        }
+    }
 }
