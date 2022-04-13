@@ -10,7 +10,7 @@ import com.example.task.wordsfactory.data.model.Word
 data class WordBD(
     @PrimaryKey(autoGenerate = true) val id: Long? = null,
     val word: String,
-    val phonetic: String,
+    val phonetic: String?,
     val partOfSpeech: String
 ) {
     fun toModel() = Word(

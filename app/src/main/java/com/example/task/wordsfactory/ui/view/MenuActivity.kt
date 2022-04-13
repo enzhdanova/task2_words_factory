@@ -3,11 +3,9 @@ package com.example.task.wordsfactory.ui.view
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.annotation.IdRes
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.commit
 import com.example.task.wordsfactory.R
 import com.example.task.wordsfactory.databinding.ActivityMenuBinding
-import com.google.android.material.navigation.NavigationBarView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -25,13 +23,12 @@ class MenuActivity : AppCompatActivity() {
         binding?.menu?.selectedItemId?.let { setNowFragment(it) }
 
         binding?.menu?.setOnItemSelectedListener {
-            println("MyApp: "+it.itemId)
             setNowFragment(it.itemId)
             true
         }
     }
 
-    fun setNowFragment(@IdRes itemId: Int) {
+    private fun setNowFragment(@IdRes itemId: Int) {
         when(itemId) {
             R.id.dictionary -> {
                 supportFragmentManager.commit {
@@ -41,10 +38,10 @@ class MenuActivity : AppCompatActivity() {
                 }
             }
             R.id.training -> {
-                println("MyApp: вкладка тренировка")
+                //TODO: переход в training
             }
             R.id.video -> {
-                println("MyApp: вкладка видио")
+                //TODO: переход в video
             }
         }
     }

@@ -45,8 +45,6 @@ class DictionaryFragment : Fragment() {
         init()
 
         viewModel.dictionaryUiState.observe(viewLifecycleOwner) { uiState ->
-            println("MyApp: ${uiState.word}")
-
             if (uiState.error) {
                 ErrorDialogFragment.getErrorDialog(getString(uiState.errorMessage))
                     .show(parentFragmentManager, ErrorDialogFragment.ERROR_TAG)
@@ -67,12 +65,6 @@ class DictionaryFragment : Fragment() {
         binding?.textviewPartOfSpeechValue?.text = word.partOfSpeech
         wordMeaningAdapter.submitList(word.meanings)
         if (word.audio == null) binding?.buttonSound?.visibility = View.GONE
-
-        mediaPlayer?.apply {
-            setDataSource(word.audio)
-            prepare()
-            start()
-        }
 
     }
 
@@ -95,6 +87,20 @@ class DictionaryFragment : Fragment() {
 
         binding?.searchButton?.setOnClickListener {
             viewModel.getWord(binding?.searchEdittext?.text.toString())
+        }
+
+
+        binding?.buttonSound?.setOnClickListener {
+            mediaPlayer?.apply {
+                reset()
+                setDataSource(viewModel.dictionaryUiState.value?.word?.audio)
+                prepare()
+                start()
+            }
+        }
+
+        binding?.buttonAddToDict?.setOnClickListener {
+            viewModel.addWordToDictionary()
         }
     }
 }

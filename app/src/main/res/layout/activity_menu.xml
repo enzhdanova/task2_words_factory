@@ -24,7 +24,7 @@
         android:background="@color/white"
         android:paddingVertical="10dp"
         android:foregroundGravity="center_horizontal"
-        style="@style/Widget.App.BottomNavigationView"
+        style="@style/Theme.WordsFactory"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
