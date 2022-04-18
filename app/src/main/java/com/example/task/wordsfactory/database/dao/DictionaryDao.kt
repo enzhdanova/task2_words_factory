@@ -2,14 +2,13 @@ package com.example.task.wordsfactory.database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
-import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.task.wordsfactory.database.entity.MeaningBD
 import com.example.task.wordsfactory.database.entity.WordBD
 
 @Dao
 interface DictionaryDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert
     fun insertWord(word: WordBD): Long
 
     @Insert

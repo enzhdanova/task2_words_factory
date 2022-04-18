@@ -1,10 +1,12 @@
 package com.example.task.wordsfactory.database.entity
 
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.example.task.wordsfactory.data.model.Meaning
 
-@Entity
+@Entity(indices = [Index(value = ["definition", "example"],
+    unique = true)])
 data class MeaningBD(
     @PrimaryKey(autoGenerate = true) val id: Long? = null,
     val definition: String,

@@ -1,12 +1,14 @@
 package com.example.task.wordsfactory.database.entity
 
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.example.task.wordsfactory.data.model.Meaning
 import com.example.task.wordsfactory.data.model.Word
 
 
-@Entity
+@Entity(indices = [Index(value = ["word"],
+    unique = true)])
 data class WordBD(
     @PrimaryKey(autoGenerate = true) val id: Long? = null,
     val word: String,
