@@ -1,11 +1,15 @@
 package com.example.task.wordsfactory.ui.utils
 
+import android.content.Context
 import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.example.task.wordsfactory.R
 
-class MeaningWordItemDecoration : RecyclerView.ItemDecoration() {
+class MeaningWordItemDecoration(val context: Context) : RecyclerView.ItemDecoration() {
+
+    private val margin4 = context.resources.getDimensionPixelSize(R.dimen.margin_4)
+    private val margin16 = context.resources.getDimensionPixelSize(R.dimen.margin_16)
 
     override fun getItemOffsets(
         outRect: Rect,
@@ -18,15 +22,10 @@ class MeaningWordItemDecoration : RecyclerView.ItemDecoration() {
         val position = parent.getChildAdapterPosition(view)
         if (position == RecyclerView.NO_POSITION) return
 
-        val margin4 = parent.context.resources.getDimensionPixelSize(R.dimen.margin_4)
-        val margin16 = parent.context.resources.getDimensionPixelSize(R.dimen.margin_16)
-        val margin20 = parent.context.resources.getDimensionPixelSize(R.dimen.margin_16)
-
-
         val newRect = when(position) {
-            0 -> Rect(margin20, margin16, margin20, margin4)
-            state.itemCount - 1 -> Rect(margin20, margin4, margin20, margin16)
-            else -> Rect(margin20, margin4, margin20, margin4)
+            0 -> Rect(margin16, margin16, margin16, margin4)
+            state.itemCount - 1 -> Rect(margin16, margin4, margin16, margin16)
+            else -> Rect(margin16, margin4, margin16, margin4)
         }
 
         outRect.apply {

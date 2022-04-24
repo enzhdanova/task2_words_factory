@@ -1,5 +1,8 @@
 package com.example.task.wordsfactory.ui.utils
 
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,8 +46,15 @@ class WordMeaningAdapter : ListAdapter<Meaning, WordMeaningAdapter.ViewHolder>(D
             if (data.example.isEmpty()) textviewExample.visibility = View.GONE
 
             val color = itemView.context.getColor(R.color.light_blue)
-            val example_str = itemView.context.getString(R.string.example)
-            textviewExample.text  = HtmlCompat.fromHtml("<font color='$color'>$example_str</font> ${data.example}", HtmlCompat.FROM_HTML_MODE_LEGACY)
+            val example_str= itemView.context.getString(R.string.example)
+            val spannable = SpannableString("${example_str} ${data.example}")
+            spannable.setSpan(
+                ForegroundColorSpan(color),
+                0, example_str.length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+
+            textviewExample.text  = spannable
         }
     }
 }

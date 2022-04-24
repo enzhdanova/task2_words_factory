@@ -2,6 +2,7 @@ package com.example.task.wordsfactory.di
 
 import android.content.Context
 import androidx.room.Room
+import com.example.task.wordsfactory.BuildConfig
 import com.example.task.wordsfactory.data.DictionaryRepositoryImpl
 import com.example.task.wordsfactory.database.AppDatabase
 import com.example.task.wordsfactory.network.WordApi
@@ -53,15 +54,11 @@ class DatabaseModule {
 @InstallIn(SingletonComponent::class)
 class NetworkModule {
 
-    companion object {
-        const val baseUrl = "https://api.dictionaryapi.dev/"
-    }
-
     @Provides
     @Singleton
     fun provideApi() = Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create())
-        .baseUrl(baseUrl)
+        .baseUrl( BuildConfig.BASE_URL)
         .build()
 
     @Provides

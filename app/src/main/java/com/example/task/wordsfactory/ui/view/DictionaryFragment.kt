@@ -19,9 +19,9 @@ import dagger.hilt.android.AndroidEntryPoint
 class DictionaryFragment : Fragment() {
 
     companion object {
-        const val TAG = "DictionaryFragment"
+        val TAG: String = DictionaryFragment::class.java.simpleName
 
-        fun getFragment(): Fragment {
+        fun newInstance(): Fragment {
             return DictionaryFragment()
         }
     }
@@ -29,7 +29,7 @@ class DictionaryFragment : Fragment() {
     private var binding: DictionaryFragmentBinding? = null
     private val wordMeaningAdapter = WordMeaningAdapter()
     private val viewModel by viewModels<DictionaryViewModel>()
-    var mediaPlayer: MediaPlayer? = null
+    private var mediaPlayer: MediaPlayer? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,11 +42,11 @@ class DictionaryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        init()
+        initView()
 
         viewModel.dictionaryUiState.observe(viewLifecycleOwner) { uiState ->
             if (uiState.error) {
-                ErrorDialogFragment.getErrorDialog(getString(uiState.errorMessage))
+                ErrorDialogFragment.createDialog(getString(uiState.errorMessage))
                     .show(parentFragmentManager, ErrorDialogFragment.ERROR_TAG)
             }
 
@@ -68,7 +68,7 @@ class DictionaryFragment : Fragment() {
 
     }
 
-    private fun init() {
+    private fun initView() {
         binding?.groupWord?.visibility = View.GONE
 
         mediaPlayer = MediaPlayer().apply {
@@ -82,7 +82,7 @@ class DictionaryFragment : Fragment() {
 
         binding?.meaningRecycler?.apply {
             adapter = wordMeaningAdapter
-            addItemDecoration(MeaningWordItemDecoration())
+            addItemDecoration(MeaningWordItemDecoration(context))
         }
 
         binding?.searchButton?.setOnClickListener {

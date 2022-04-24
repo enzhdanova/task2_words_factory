@@ -1,7 +1,6 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'androidx.navigation.safeargs'
     id 'kotlin-parcelize'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
@@ -17,6 +16,7 @@ android {
         targetSdk 32
         versionCode 1
         versionName "1.0"
+        buildConfigField "String", "BASE_URL", "\"https://api.dictionaryapi.dev/\""
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -28,7 +28,6 @@ android {
                         "room.expandProjection":"true"]
             }
         }
-
     }
 
     buildTypes {
@@ -48,8 +47,6 @@ android {
     buildFeatures {
         viewBinding true
     }
-
-
 }
 
 dependencies {

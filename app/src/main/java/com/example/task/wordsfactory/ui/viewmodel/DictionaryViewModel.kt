@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.task.wordsfactory.BuildConfig
 import com.example.task.wordsfactory.R
 import com.example.task.wordsfactory.data.model.Word
 import com.example.task.wordsfactory.ui.DictionaryRepository
