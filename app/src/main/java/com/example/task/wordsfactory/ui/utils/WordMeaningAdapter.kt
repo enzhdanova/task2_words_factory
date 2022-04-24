@@ -14,10 +14,10 @@ import com.example.task.wordsfactory.R
 import com.example.task.wordsfactory.databinding.ItemMeaningWordBinding
 import com.example.task.wordsfactory.data.model.Meaning
 
-class WordMeaningAdapter : ListAdapter<Meaning, WordMeaningAdapter.ViewHolder>(DIFF){
+class WordMeaningAdapter : ListAdapter<Meaning, WordMeaningAdapter.ViewHolder>(DIFF) {
 
     private companion object {
-        val DIFF = object  : DiffUtil.ItemCallback<Meaning>(){
+        val DIFF = object : DiffUtil.ItemCallback<Meaning>() {
             override fun areItemsTheSame(oldItem: Meaning, newItem: Meaning): Boolean =
                 oldItem.definition == newItem.definition
 
@@ -46,7 +46,7 @@ class WordMeaningAdapter : ListAdapter<Meaning, WordMeaningAdapter.ViewHolder>(D
             if (data.example.isEmpty()) textviewExample.visibility = View.GONE
 
             val color = itemView.context.getColor(R.color.light_blue)
-            val example_str= itemView.context.getString(R.string.example)
+            val example_str = itemView.context.getString(R.string.example)
             val spannable = SpannableString("${example_str} ${data.example}")
             spannable.setSpan(
                 ForegroundColorSpan(color),
@@ -54,7 +54,7 @@ class WordMeaningAdapter : ListAdapter<Meaning, WordMeaningAdapter.ViewHolder>(D
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
             )
 
-            textviewExample.text  = spannable
+            textviewExample.text = spannable
         }
     }
 }

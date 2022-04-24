@@ -6,7 +6,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.example.task.wordsfactory.R
 
-class MeaningWordItemDecoration(val context: Context) : RecyclerView.ItemDecoration() {
+class MeaningWordItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
 
     private val margin4 = context.resources.getDimensionPixelSize(R.dimen.margin_4)
     private val margin16 = context.resources.getDimensionPixelSize(R.dimen.margin_16)
@@ -22,7 +22,7 @@ class MeaningWordItemDecoration(val context: Context) : RecyclerView.ItemDecorat
         val position = parent.getChildAdapterPosition(view)
         if (position == RecyclerView.NO_POSITION) return
 
-        val newRect = when(position) {
+        val newRect = when (position) {
             0 -> Rect(margin16, margin16, margin16, margin4)
             state.itemCount - 1 -> Rect(margin16, margin4, margin16, margin16)
             else -> Rect(margin16, margin4, margin16, margin4)
