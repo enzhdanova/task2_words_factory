@@ -1,5 +1,6 @@
 package com.example.task.wordsfactory.ui.view
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -33,7 +34,9 @@ class OnBoardingScreensActivity : AppCompatActivity() {
         }
 
         binding?.buttonSkip?.setOnClickListener {
-            //TODO: В будущем переход в другое активити
+            val intent = Intent(this, SignUpScreenActivity::class.java)
+            startActivity(intent)
+            finish()
         }
 
         viewModel.currentPosition.observe(this) { currentPosition ->
@@ -42,7 +45,9 @@ class OnBoardingScreensActivity : AppCompatActivity() {
                 binding?.viewpager?.currentItem = currentPosition
                 binding?.buttonNext?.setText(OnboardingStep.values()[currentPosition].buttonText)
             } else {
-                //TODO: переход в другое активити
+                val intent = Intent(this, SignUpScreenActivity::class.java)
+                startActivity(intent)
+                finish()
             }
         }
 
