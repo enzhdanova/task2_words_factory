@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.viewpager2.widget.ViewPager2
-import com.example.task.wordsfactory.R
 import com.example.task.wordsfactory.data.OnboardingStep
 import com.example.task.wordsfactory.databinding.ActivityOnBoardingScreensBinding
 import com.example.task.wordsfactory.ui.viewmodel.OnBoardingScreenViewModel

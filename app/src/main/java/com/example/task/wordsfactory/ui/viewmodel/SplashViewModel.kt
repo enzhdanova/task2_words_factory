@@ -1,6 +1,5 @@
 package com.example.task.wordsfactory.ui.viewmodel
 
-import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -21,7 +20,6 @@ class SplashViewModel @Inject constructor(
         get() = _uiState
 
     init {
-      //  removeUser()
         getUser()
     }
 
@@ -31,7 +29,6 @@ class SplashViewModel @Inject constructor(
             result.fold(
                 onSuccess = {
                     _uiState.value = SplashUIState(
-                        name = it.name,
                         successLogin = true
                     )
                 },
@@ -45,7 +42,7 @@ class SplashViewModel @Inject constructor(
         }
     }
 
-    fun removeUser(){
+    fun removeUser() {
         viewModelScope.launch {
             val result = authRepository.removeUser()
             result.onFailure {
@@ -55,6 +52,5 @@ class SplashViewModel @Inject constructor(
                 )
             }
         }
-
     }
 }

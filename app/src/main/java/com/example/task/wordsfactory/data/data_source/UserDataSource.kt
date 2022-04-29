@@ -1,4 +1,4 @@
-package com.example.task.wordsfactory.data
+package com.example.task.wordsfactory.data.data_source
 
 import android.content.SharedPreferences
 import com.example.task.wordsfactory.data.model.User
@@ -32,7 +32,7 @@ class UserDataSource @Inject constructor(
             val name = sharedPreferences.getString(USER_NAME, "") ?: ""
             val email = sharedPreferences.getString(USER_EMAIL, "") ?: ""
 
-            if ( name.isNotEmpty() && email.isNotEmpty()) {
+            if (name.isNotEmpty() && email.isNotEmpty()) {
                 User(name, email)
             } else {
                 null

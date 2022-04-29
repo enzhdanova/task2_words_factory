@@ -4,9 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
-import com.example.task.wordsfactory.R
 import com.example.task.wordsfactory.databinding.ActivitySignUpScreenBinding
 import com.example.task.wordsfactory.ui.viewmodel.SignUpViewModel
 import dagger.hilt.android.AndroidEntryPoint

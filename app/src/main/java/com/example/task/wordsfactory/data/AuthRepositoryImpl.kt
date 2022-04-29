@@ -1,5 +1,6 @@
 package com.example.task.wordsfactory.data
 
+import com.example.task.wordsfactory.data.data_source.UserDataSource
 import com.example.task.wordsfactory.data.model.User
 import com.example.task.wordsfactory.ui.AuthRepository
 import java.io.IOException
@@ -33,7 +34,7 @@ class AuthRepositoryImpl @Inject constructor(
 
     override suspend fun removeUser(): Result<Boolean> {
         return try {
-           dataSource.removeUser()
+            dataSource.removeUser()
             Result.success(true)
         } catch (ioe: IOException) {
             Result.failure(Exception(ioe))

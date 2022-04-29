@@ -17,17 +17,14 @@ class SplashScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
 
-        viewModel.uiState.observe(this){
-
-            println("MyApp: $it")
-
-            if (it.successLogin && it.name.isNotEmpty()){
+        viewModel.uiState.observe(this) {
+            if (it.successLogin) {
                 val intent = Intent(this, MenuActivity::class.java)
                 startActivity(intent)
                 finish()
             }
 
-            if (it.error){
+            if (it.error) {
                 val intent = Intent(this, OnBoardingScreensActivity::class.java)
                 startActivity(intent)
                 finish()

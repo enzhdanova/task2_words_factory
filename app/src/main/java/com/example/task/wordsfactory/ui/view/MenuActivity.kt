@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.annotation.IdRes
 import androidx.fragment.app.commit
-import com.example.task.wordsfactory.BuildConfig
 import com.example.task.wordsfactory.R
 import com.example.task.wordsfactory.databinding.ActivityMenuBinding
 import dagger.hilt.android.AndroidEntryPoint
