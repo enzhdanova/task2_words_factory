@@ -11,9 +11,9 @@ class ErrorDialogFragment : DialogFragment() {
 
     companion object {
         private const val ARG_OBJECT_ERROR_MESSAGE = "error_message"
-        const val ERROR_TAG = "error_tag"
+        val ERROR_TAG: String = ErrorDialogFragment::class.java.simpleName
 
-        fun getErrorDialog(errorMessage: String): ErrorDialogFragment {
+        fun createDialog(errorMessage: String): ErrorDialogFragment {
             val errorDialogFragment = ErrorDialogFragment()
             errorDialogFragment.arguments = bundleOf(
                 ARG_OBJECT_ERROR_MESSAGE to errorMessage
@@ -23,7 +23,7 @@ class ErrorDialogFragment : DialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return activity?.let {
+        return requireContext().let {
             val mssg = arguments?.getString(ARG_OBJECT_ERROR_MESSAGE) ?: ""
             val builder = AlertDialog.Builder(it)
             builder.setTitle(mssg)

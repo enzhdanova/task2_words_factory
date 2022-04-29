@@ -36,7 +36,7 @@ class SharedPreferenceModule {
 
 @Module
 @InstallIn(ViewModelComponent::class)
-abstract class ViewModelModule {
+abstract class SignUpViewModelModule {
     @Binds
     abstract fun bindRepo(
         informationRepositoryImpl: AuthRepositoryImpl

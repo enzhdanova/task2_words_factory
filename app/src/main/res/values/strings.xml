@@ -1,5 +1,19 @@
 <resources>
     <string name="app_name">WordsFactory</string>
+    <string name="no_word">No word</string>
+    <string name="input_something_to_find_it_in_dictionary">Input something to find it in dictionary</string>
+    <string name="example">Example:</string>
+    <string name="part_of_speech">Part of speech:</string>
+    <string name="meanings">Meanings:</string>
+    <string name="add_to_dictionary">Add to Dictionary</string>
+    <string name="network_error">Слово не найдено. Проверьте подключение к интернету.</string>
+    <string name="title_activity_menu">MenuActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="dictionary">Dictionary</string>
+    <string name="training">Training</string>
+    <string name="video">Video</string>
     <string name="sign_up">Sign up</string>
     <string name="create_your_account">Create your account</string>
     <string name="name">Name</string>

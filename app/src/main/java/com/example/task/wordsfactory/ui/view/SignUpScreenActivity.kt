@@ -27,7 +27,8 @@ class SignUpScreenActivity : AppCompatActivity() {
 
         viewModel.uiState.observe(this) { uiState ->
             if (uiState.error) {
-                ErrorDialogFragment.getErrorDialog(getString(uiState.errorMessage))
+                ErrorDialogFragment
+                    .createDialog(getString(uiState.errorMessage))
                     .show(supportFragmentManager, ErrorDialogFragment.ERROR_TAG)
             }
             if (uiState.successLogin) {

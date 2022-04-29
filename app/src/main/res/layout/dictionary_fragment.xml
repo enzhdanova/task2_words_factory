@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:id="@+id/search_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dictionary_search_field_height"
+        android:layout_marginHorizontal="@dimen/dictionary_search_field_margin_horizontal"
+        android:layout_marginTop="@dimen/dictionary_search_field_margin_top"
+        android:background="@drawable/round_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/search_edittext"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginVertical="@dimen/dictionary_margin_vertical_2"
+            android:layout_marginStart="@dimen/dictionary_margin_start_edittext"
+            android:layout_weight="6"
+            android:textColor="@color/black"
+            android:background="@color/white"
+            android:singleLine="true" />
+
+        <ImageButton
+            android:id="@+id/search_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginVertical="@dimen/dictionary_margin_vertical_button"
+            android:layout_marginStart="@dimen/dictionary_margin_start_button"
+            android:layout_marginEnd="@dimen/dictionary_margin_end_button"
+            android:layout_weight="1"
+            android:background="@drawable/button"
+            android:src="@drawable/ic_search" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/playceholder_margin_top"
+        android:background="@drawable/ic_cool_kids_standing"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_layout" />
+
+    <TextView
+        android:id="@+id/title_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/playceholder_margin_between_element"
+        android:text="@string/no_word"
+        android:textColor="@color/dark"
+        android:textSize="@dimen/playceholder_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/image" />
+
+    <TextView
+        android:id="@+id/subtitle_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/playceholder_margin_between_element_small"
+        android:text="@string/input_something_to_find_it_in_dictionary"
+        android:textColor="@color/dark_gray"
+        android:textSize="@dimen/playceholder_subtitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_textview" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/groupNoWord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="image,title_textview,subtitle_textview" />
+
+    <TextView
+        android:id="@+id/textview_word"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/words_margin_start"
+        android:layout_marginTop="@dimen/words_margin_top"
+        android:textColor="@color/black"
+        android:textSize="@dimen/words_word"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_layout" />
+
+    <TextView
+        android:id="@+id/textview_word_transcription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/words_margin_start"
+        app:layout_constraintBaseline_toBaselineOf="@id/textview_word"
+        app:layout_constraintStart_toEndOf="@id/textview_word" />
+
+    <ImageButton
+        android:id="@+id/button_sound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/words_margin_start"
+        android:background="@drawable/button"
+        android:src="@drawable/ic_sound"
+        app:layout_constraintBottom_toBottomOf="@id/textview_word_transcription"
+        app:layout_constraintStart_toEndOf="@id/textview_word_transcription" />
+
+    <TextView
+        android:id="@+id/textview_part_of_speech"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/words_margin_start"
+        android:layout_marginTop="@dimen/words_margin_top"
+        android:text="@string/part_of_speech"
+        android:textColor="@color/black"
+        android:textSize="@dimen/words_subtitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textview_word" />
+
+    <TextView
+        android:id="@+id/textview_part_of_speech_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/words_margin_start"
+        android:textColor="@color/black"
+        android:textSize="@dimen/words_subtext_text_size"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintBaseline_toBaselineOf="@id/textview_part_of_speech"
+        app:layout_constraintStart_toEndOf="@id/textview_part_of_speech" />
+
+    <TextView
+        android:id="@+id/textview_meanings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/words_margin_start"
+        android:layout_marginTop="@dimen/words_margin_top"
+        android:text="@string/meanings"
+        android:textColor="@color/black"
+        android:textSize="@dimen/words_subtitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textview_part_of_speech" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/meaningRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/words_recycler_view_margin_vertical"
+        android:layout_marginBottom="@dimen/meaning_word_margin_bottom"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintBottom_toTopOf="@id/button_add_to_dict"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textview_meanings"
+        tools:listitem="@layout/item_meaning_word" />
+
+    <Button
+        android:id="@+id/button_add_to_dict"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/words_button_height"
+        android:layout_marginHorizontal="@dimen/words_button_margin_horizontal"
+        android:text="@string/add_to_dictionary"
+        android:layout_marginBottom="5dp"
+        style="@style/Round_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/meaningRecycler" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/groupWord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="textview_word,textview_word_transcription,
+        button_sound,textview_part_of_speech,textview_part_of_speech_value,
+        textview_meanings,meaningRecycler,button_add_to_dict" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
