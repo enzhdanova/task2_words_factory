@@ -12,15 +12,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WordsFactory">
-        <activity
-            android:name=".ui.view.MenuActivity"
-            android:exported="true"
-            android:label="@string/title_activity_menu">
+       <activity
+            android:name=".ui.view.OnBoardingScreensActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.view.SignUpScreenActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.view.MenuActivity"
+            android:exported="false"
+            android:label="@string/title_activity_menu"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
     </application>
-
 </manifest>

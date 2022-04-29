@@ -20,7 +20,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(ViewModelComponent::class)
-abstract class ViewModelModule {
+abstract class DictionaryViewModelModule {
     @Binds
     abstract fun bindRepo(
         dictionaryRepositoryImpl: DictionaryRepositoryImpl
