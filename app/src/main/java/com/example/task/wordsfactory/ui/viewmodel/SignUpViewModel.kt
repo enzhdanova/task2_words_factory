@@ -46,18 +46,14 @@ class SignUpViewModel @Inject constructor(
         viewModelScope.launch {
             val result = authRepository.login(name, email, password)
 
-            result.fold(
-                onSuccess = {
-                    _uiState.value = _uiState.value?.copy(successLogin = true)
-                },
-                onFailure = {
-                    _uiState.value = SignUpUiState(
-                        error = true,
-                        errorMessage = R.string.problem_with_get_data_error
-                    )
-                }
-
-            )
+            result.onSuccess {
+                _uiState.value = _uiState.value?.copy(successLogin = true)
+            }.onFailure {
+                _uiState.value = SignUpUiState(
+                    error = true,
+                    errorMessage = R.string.problem_with_get_data_error
+                )
+            }
         }
     }
 }

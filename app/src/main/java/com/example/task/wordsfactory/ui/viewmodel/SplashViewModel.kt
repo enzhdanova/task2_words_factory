@@ -26,19 +26,17 @@ class SplashViewModel @Inject constructor(
     fun getUser() {
         viewModelScope.launch {
             val result = authRepository.getUser()
-            result.fold(
-                onSuccess = {
-                    _uiState.value = SplashUIState(
-                        successLogin = true
-                    )
-                },
-                onFailure = {
-                    _uiState.value = SplashUIState(
-                        error = true,
-                        errorMessage = R.string.problem_with_get_data_error
-                    )
-                }
-            )
+
+            result.onSuccess {
+                _uiState.value = SplashUIState(
+                    successLogin = true
+                )
+            }.onFailure {
+                _uiState.value = SplashUIState(
+                    error = true,
+                    errorMessage = R.string.problem_with_get_data_error
+                )
+            }
         }
     }
 
