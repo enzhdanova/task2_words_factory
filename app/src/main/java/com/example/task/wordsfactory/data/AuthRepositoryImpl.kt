@@ -1,6 +1,6 @@
 package com.example.task.wordsfactory.data
 
-import com.example.task.wordsfactory.data.data_source.UserDataSource
+import com.example.task.wordsfactory.data.datasource.UserDataSource
 import com.example.task.wordsfactory.data.model.User
 import com.example.task.wordsfactory.ui.AuthRepository
 import java.io.IOException

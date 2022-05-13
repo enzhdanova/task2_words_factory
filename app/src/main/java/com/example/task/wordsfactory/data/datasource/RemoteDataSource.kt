@@ -1,4 +1,4 @@
-package com.example.task.wordsfactory.data.data_source
+package com.example.task.wordsfactory.data.datasource
 
 import com.example.task.wordsfactory.network.WordApi
 import com.example.task.wordsfactory.data.model.Word

@@ -1,7 +1,7 @@
 package com.example.task.wordsfactory.data
 
-import com.example.task.wordsfactory.data.data_source.LocalDataSource
-import com.example.task.wordsfactory.data.data_source.RemoteDataSource
+import com.example.task.wordsfactory.data.datasource.LocalDataSource
+import com.example.task.wordsfactory.data.datasource.RemoteDataSource
 import com.example.task.wordsfactory.data.model.Word
 import com.example.task.wordsfactory.ui.DictionaryRepository
 import javax.inject.Inject
