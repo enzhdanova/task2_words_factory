@@ -12,8 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WordsFactory">
-       <activity
-            android:name=".ui.view.OnBoardingScreensActivity"
+        <activity
+            android:name=".ui.view.SplashScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,12 +21,14 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".ui.view.OnBoardingScreensActivity"
+            android:exported="false"/>
+        <activity
             android:name=".ui.view.SignUpScreenActivity"
             android:exported="false" />
         <activity
             android:name=".ui.view.MenuActivity"
-            android:exported="false"
-            android:label="@string/title_activity_menu"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
+            android:exported="false"/>
     </application>
+
 </manifest>

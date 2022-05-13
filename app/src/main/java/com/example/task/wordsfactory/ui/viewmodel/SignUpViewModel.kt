@@ -20,10 +20,6 @@ class SignUpViewModel @Inject constructor(
     val uiState: LiveData<SignUpUiState>
         get() = _uiState
 
-    init {
-        getUser()
-    }
-
     fun login(name: String, email: String, password: String) {
         _uiState.value = SignUpUiState(
             name = name,
@@ -50,40 +46,14 @@ class SignUpViewModel @Inject constructor(
         viewModelScope.launch {
             val result = authRepository.login(name, email, password)
 
-            result.fold(
-                onSuccess = {
-                    _uiState.value = _uiState.value?.copy(successLogin = true)
-                },
-                onFailure = {
-                    _uiState.value = SignUpUiState(
-                        error = true,
-                        errorMessage = R.string.problem_with_get_data_error
-                    )
-                }
-
-            )
-        }
-    }
-
-    fun getUser() {
-        viewModelScope.launch {
-            val result = authRepository.getUser()
-
-            result.fold(
-                onSuccess = {
-                    _uiState.value = SignUpUiState(
-                        name = it.name,
-                        email = it.email,
-                        successLogin = true
-                    )
-                },
-                onFailure = {
-                    _uiState.value = SignUpUiState(
-                        error = true,
-                        errorMessage = R.string.problem_with_get_data_error
-                    )
-                }
-            )
+            result.onSuccess {
+                _uiState.value = _uiState.value?.copy(successLogin = true)
+            }.onFailure {
+                _uiState.value = SignUpUiState(
+                    error = true,
+                    errorMessage = R.string.problem_with_get_data_error
+                )
+            }
         }
     }
 }

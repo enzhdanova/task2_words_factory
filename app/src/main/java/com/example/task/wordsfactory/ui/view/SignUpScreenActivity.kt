@@ -1,11 +1,10 @@
 package com.example.task.wordsfactory.ui.view
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
-import com.example.task.wordsfactory.R
 import com.example.task.wordsfactory.databinding.ActivitySignUpScreenBinding
 import com.example.task.wordsfactory.ui.viewmodel.SignUpViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,9 +31,9 @@ class SignUpScreenActivity : AppCompatActivity() {
                     .show(supportFragmentManager, ErrorDialogFragment.ERROR_TAG)
             }
             if (uiState.successLogin) {
-                //TODO: тут будет переход дальше, авторизация прошла успешно
-                Toast.makeText(this, getString(R.string.todo_next_activity), Toast.LENGTH_LONG)
-                    .show()
+                val intent = Intent(this, MenuActivity::class.java)
+                startActivity(intent)
+                finish()
             }
         }
     }
