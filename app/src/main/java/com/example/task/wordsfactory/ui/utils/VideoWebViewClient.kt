@@ -9,7 +9,11 @@ import com.example.task.wordsfactory.BuildConfig
 class VideoWebViewClient : WebViewClient() {
 
     override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
-        if (request?.url?.path?.startsWith(Uri.parse(BuildConfig.VIDEO_URL).path?:"", true) == false){
+        if (request?.url?.path?.startsWith(
+                Uri.parse(BuildConfig.VIDEO_URL).path ?: "",
+                true
+            ) == false
+        ) {
             view?.stopLoading()
         }
         return false

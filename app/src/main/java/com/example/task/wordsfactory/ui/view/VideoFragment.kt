@@ -14,10 +14,10 @@ import com.example.task.wordsfactory.ui.utils.VideoWebViewClient
 class VideoFragment : Fragment() {
 
     companion object {
-        val TAG : String = VideoFragment::class.java.simpleName
+        val TAG: String = VideoFragment::class.java.simpleName
 
         @JvmStatic
-        fun newInstance() : Fragment {
+        fun newInstance(): Fragment {
             return VideoFragment()
         }
     }
@@ -37,7 +37,7 @@ class VideoFragment : Fragment() {
         binding?.webview?.loadUrl(BuildConfig.VIDEO_URL)
         binding?.webview?.webViewClient = VideoWebViewClient()
 
-        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true){
+        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
 
             override fun handleOnBackPressed() {
                 if (binding?.webview?.canGoBack() == true) {
