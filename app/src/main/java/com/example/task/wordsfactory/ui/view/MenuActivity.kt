@@ -11,7 +11,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MenuActivity : AppCompatActivity() {
 
-    private var binding : ActivityMenuBinding? = null
+    private var binding: ActivityMenuBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +29,7 @@ class MenuActivity : AppCompatActivity() {
     }
 
     private fun setNowFragment(@IdRes itemId: Int) {
-        when(itemId) {
+        when (itemId) {
             R.id.dictionary -> {
                 supportFragmentManager.commit {
                     setReorderingAllowed(true)
@@ -41,7 +41,11 @@ class MenuActivity : AppCompatActivity() {
                 //TODO: переход в training
             }
             R.id.video -> {
-                //TODO: переход в video
+                supportFragmentManager.commit {
+                    setReorderingAllowed(true)
+                    replace(R.id.wordfactory_fragment, VideoFragment())
+                    addToBackStack(VideoFragment.TAG)
+                }
             }
         }
     }
