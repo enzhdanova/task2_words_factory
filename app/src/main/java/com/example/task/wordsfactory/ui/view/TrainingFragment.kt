@@ -1,60 +1,58 @@
 package com.example.task.wordsfactory.ui.view
 
+import android.graphics.Color
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.example.task.wordsfactory.R
+import com.example.task.wordsfactory.databinding.FragmentTrainingBinding
+import com.example.task.wordsfactory.ui.viewmodel.TrainingViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [TrainingFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+@AndroidEntryPoint
 class TrainingFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var binding: FragmentTrainingBinding? = null
+    private val viewModel by viewModels<TrainingViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.sdfhgg, container, false)
+        binding = FragmentTrainingBinding.inflate(inflater, container, false)
+        return binding?.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val start = getString(R.string.there_are)
+        val count = viewModel.trainingUIState.value?.countWord.toString()
+        val end = getString(R.string.count_words_end)
+        val spannable = SpannableString(
+            "$start " +
+                    "$count $end"
+        )
+
+        spannable.setSpan(
+            ForegroundColorSpan(requireContext().getColor(R.color.orange)),
+            start.length.plus(1),
+            start.length.plus(count.length + 1), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+
+        binding?.textviewCountword?.text = spannable
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment TrainingFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            TrainingFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        val TAG: String = TrainingFragment::class.java.simpleName
+
+        fun newInstance() = TrainingFragment()
     }
 }

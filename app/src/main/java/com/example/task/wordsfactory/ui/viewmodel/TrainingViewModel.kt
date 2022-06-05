@@ -6,12 +6,11 @@ import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-//@HiltViewModel
-class TrainingViewModel //Inject constructor()
- : ViewModel() {
+@HiltViewModel
+class TrainingViewModel @Inject constructor() : ViewModel() {
 
-    private val _trainingUIState = MutableLiveData<TrainingUIState>()
+    private val _trainingUIState = MutableLiveData(TrainingUIState())
     val trainingUIState: LiveData<TrainingUIState> = _trainingUIState
 
-    fun getCountWord() : Long = trainingUIState.value?.countWord ?: 0
+    fun getCountWord(): Long = trainingUIState.value?.countWord ?: 0
 }
