@@ -38,4 +38,5 @@
     <string name="skip">Skip</string>
     <string name="error_message">Возникла проблема при получении данных</string>
     <string name="wordsfactory">WordsFactory</string>
+    <string name="start2">Start</string>
 </resources>
