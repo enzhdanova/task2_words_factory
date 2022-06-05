@@ -1,5 +1,6 @@
 package com.example.task.wordsfactory.data.datasource
 
+import com.example.task.wordsfactory.data.model.Meaning
 import com.example.task.wordsfactory.data.model.Word
 import com.example.task.wordsfactory.database.dao.DictionaryDao
 import com.example.task.wordsfactory.database.entity.MeaningBD
@@ -32,18 +33,10 @@ class LocalDataSource @Inject constructor(
         return withContext(Dispatchers.IO) {
             try {
                 val wordId = dictionaryDao.insertWord(
-                    WordBD(
-                        word = word.word,
-                        phonetic = word.phonetic,
-                        partOfSpeech = word.partOfSpeech
-                    )
+                    wordToWordDB(word, 0)
                 )
                 val meaningsDB = word.meanings.map {
-                    MeaningBD(
-                        definition = it.definition,
-                        example = it.example,
-                        word_id = wordId
-                    )
+                    meaningToMeaningDB(meaning = it, wordId = wordId)
                 }
                 dictionaryDao.insertMeanings(meaningsDB)
                 Result.success(true)
@@ -55,8 +48,47 @@ class LocalDataSource @Inject constructor(
 
     suspend fun getCountWords(): Long =
         withContext(Dispatchers.IO) {
-            val count = dictionaryDao.getCountWords()
-            println("MyApp: $count")
-            count
+            dictionaryDao.getCountWords()
         }
+
+    suspend fun increaseCoefficient(word: Word) {
+        withContext(Dispatchers.IO) {
+            val newCoefficient = dictionaryDao.studyCoefficient(word.word) + 1
+            val wordBD = wordToWordDB(word, studyCoefficient = newCoefficient)
+            dictionaryDao.updateWord(wordBD)
+        }
+    }
+
+    suspend fun decreaseCoefficient(word: Word) {
+        withContext(Dispatchers.IO) {
+            val newCoefficient = dictionaryDao.studyCoefficient(word.word) - 1
+            val wordBD = wordToWordDB(word, studyCoefficient = newCoefficient)
+            dictionaryDao.updateWord(wordBD)
+        }
+    }
+
+    //TODO: Возможно надо убрать, пока необходимо для тестирования
+    suspend fun getStudyCoefficient(word: Word): Long = withContext(Dispatchers.IO) {
+        dictionaryDao.studyCoefficient(word.word)
+    }
+
+    private fun wordToWordDB(word: Word, studyCoefficient: Long) = WordBD(
+        id = word.id,
+        word = word.word,
+        phonetic = word.phonetic,
+        partOfSpeech = word.partOfSpeech,
+        studyCoefficient = studyCoefficient
+    )
+
+    private fun meaningToMeaningDB(meaning: Meaning, wordId: Long) = MeaningBD(
+        definition = meaning.definition,
+        example = meaning.example,
+        word_id = wordId
+    )
+
+
+    //TODO: Возможно надо убрать, пока необходимо для тестирования
+    suspend fun getAllWords() = withContext(Dispatchers.IO) {
+        dictionaryDao.getAllWord()
+    }
 }

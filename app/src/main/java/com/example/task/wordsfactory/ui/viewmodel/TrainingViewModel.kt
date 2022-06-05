@@ -23,8 +23,7 @@ class TrainingViewModel @Inject constructor(
 
     private fun getCountWord() = viewModelScope.launch {
         val count = dictionaryRepository.getCountWords()
-        println("MyApp: $count")
         _trainingUIState.value = _trainingUIState.value?.copy(countWord = count)
-        println("MyApp: ${trainingUIState.value?.countWord}")
     }
+
 }

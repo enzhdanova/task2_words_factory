@@ -25,4 +25,22 @@ class DictionaryRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getCountWords(): Long = localDataSource.getCountWords()
+
+    override suspend fun increaseCoefficient(word: Word) {
+        localDataSource.increaseCoefficient(word)
+    }
+
+    override suspend fun decreaseCoefficient(word: Word) {
+        localDataSource.decreaseCoefficient(word)
+    }
+
+    //TODO: Возможно надо убрать, пока необходимо для тестирования
+    override suspend fun studyCoefficient(word: Word): Long =
+        localDataSource.getStudyCoefficient(word)
+
+    //TODO: Возможно надо убрать, пока необходимо для тестирования
+    override suspend fun getAllWord(): List<Word> =
+        localDataSource.getAllWords().map { wordBD ->
+            wordBD.toModel()
+        }
 }

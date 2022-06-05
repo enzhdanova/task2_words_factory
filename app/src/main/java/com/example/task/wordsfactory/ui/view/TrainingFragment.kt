@@ -1,6 +1,5 @@
 package com.example.task.wordsfactory.ui.view
 
-import android.graphics.Color
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
@@ -32,17 +31,13 @@ class TrainingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.trainingUIState.observe(viewLifecycleOwner){
+        viewModel.trainingUIState.observe(viewLifecycleOwner) {
             binding?.textviewCountword?.text = getCountWordTextWithSpannable(it.countWord)
         }
-
-
-
     }
 
-    private fun getCountWordTextWithSpannable(count: Long): Spannable{
+    private fun getCountWordTextWithSpannable(count: Long): Spannable {
         val start = getString(R.string.there_are)
-        println("MyApp: count in fragment: $count")
         val end = getString(R.string.count_words_end)
         val countToString = count.toString()
         val spannable = SpannableString(
@@ -57,8 +52,6 @@ class TrainingFragment : Fragment() {
             startOrangeText,
             endOrangeText, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
-
-
         return spannable
     }
 
