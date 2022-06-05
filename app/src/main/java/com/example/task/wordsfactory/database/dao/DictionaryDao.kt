@@ -24,5 +24,5 @@ interface DictionaryDao {
     fun getMeaning(word_id: Long): List<MeaningBD>
 
     @Query ("SELECT COUNT(*) FROM WordBD")
-    fun getCountWord(): Long
+    fun getCountWords(): Long
 }

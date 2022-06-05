@@ -32,22 +32,34 @@ class TrainingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.trainingUIState.observe(viewLifecycleOwner){
+            binding?.textviewCountword?.text = getCountWordTextWithSpannable(it.countWord)
+        }
+
+
+
+    }
+
+    private fun getCountWordTextWithSpannable(count: Long): Spannable{
         val start = getString(R.string.there_are)
-        val count = viewModel.trainingUIState.value?.countWord.toString()
+        println("MyApp: count in fragment: $count")
         val end = getString(R.string.count_words_end)
+        val countToString = count.toString()
         val spannable = SpannableString(
             "$start " +
                     "$count $end"
         )
+        val startOrangeText = start.length + 1
+        val endOrangeText = startOrangeText + countToString.length
 
         spannable.setSpan(
             ForegroundColorSpan(requireContext().getColor(R.color.orange)),
-            start.length.plus(1),
-            start.length.plus(count.length + 1), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            startOrangeText,
+            endOrangeText, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
 
 
-        binding?.textviewCountword?.text = spannable
+        return spannable
     }
 
     companion object {

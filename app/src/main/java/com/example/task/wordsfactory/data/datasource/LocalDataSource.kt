@@ -52,4 +52,11 @@ class LocalDataSource @Inject constructor(
             }
         }
     }
+
+    suspend fun getCountWords(): Long =
+        withContext(Dispatchers.IO) {
+            val count = dictionaryDao.getCountWords()
+            println("MyApp: $count")
+            count
+        }
 }

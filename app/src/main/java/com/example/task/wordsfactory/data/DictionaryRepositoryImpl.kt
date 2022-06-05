@@ -23,4 +23,6 @@ class DictionaryRepositoryImpl @Inject constructor(
     override suspend fun addToDictionary(word: Word): Result<Boolean> {
         return localDataSource.addWord(word)
     }
+
+    override suspend fun getCountWords(): Long = localDataSource.getCountWords()
 }
