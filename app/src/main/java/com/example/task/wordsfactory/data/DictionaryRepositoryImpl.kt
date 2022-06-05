@@ -43,4 +43,9 @@ class DictionaryRepositoryImpl @Inject constructor(
         localDataSource.getAllWords().map { wordBD ->
             wordBD.toModel()
         }
+
+    override suspend fun getTrainingWord(): List<Word> =
+        localDataSource.getTrainingWord().map {
+            wordBD -> wordBD.toModel()
+        }
 }

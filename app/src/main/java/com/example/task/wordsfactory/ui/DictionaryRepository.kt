@@ -14,4 +14,6 @@ interface DictionaryRepository {
 
     //TODO: Возможно надо убрать, пока необходимо для тестирования
     suspend fun getAllWord(): List<Word>
+
+    suspend fun getTrainingWord(): List<Word>
 }

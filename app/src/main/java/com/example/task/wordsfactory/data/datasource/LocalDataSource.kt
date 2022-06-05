@@ -91,4 +91,8 @@ class LocalDataSource @Inject constructor(
     suspend fun getAllWords() = withContext(Dispatchers.IO) {
         dictionaryDao.getAllWord()
     }
+
+    suspend fun getTrainingWord() = withContext(Dispatchers.IO) {
+        dictionaryDao.getTrainingWords()
+    }
 }
