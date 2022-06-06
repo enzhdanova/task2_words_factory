@@ -42,4 +42,5 @@
     <string name="there_are">There are</string>
     <string name="count_words_end">words \nin your Dictionary.\n\nStart the Training?</string>
     <string name="add_word_in_dictionary">Добавьте слова в словарь</string>
+    <string name="go">GO!</string>
 </resources>
