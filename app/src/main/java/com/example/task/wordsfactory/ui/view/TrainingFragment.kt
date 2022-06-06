@@ -1,5 +1,6 @@
 package com.example.task.wordsfactory.ui.view
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
@@ -9,9 +10,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.constraintlayout.motion.widget.MotionLayout
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import com.example.task.wordsfactory.R
+import com.example.task.wordsfactory.TimerColors
 import com.example.task.wordsfactory.databinding.FragmentTrainingBinding
 import com.example.task.wordsfactory.ui.viewmodel.TrainingViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -52,7 +56,7 @@ class TrainingFragment : Fragment() {
         }
     }
 
-    private fun initView(){
+    private fun initView() {
         binding?.buttonStart?.setOnClickListener(startButtonOnClickListener)
         binding?.motionlayoutTimer?.addTransitionListener(transactionListener)
         binding?.motionlayoutTimer?.visibility = View.GONE
@@ -83,6 +87,24 @@ class TrainingFragment : Fragment() {
             startId: Int,
             endId: Int
         ) {
+            var timerColors: TimerColors = TimerColors.PROGRESS5
+
+                when (startId) {
+                    R.id.start5 -> timerColors = TimerColors.PROGRESS4
+                    R.id.start4 -> timerColors = TimerColors.PROGRESS4
+                    R.id.start3 -> timerColors = TimerColors.PROGRESS3
+                    R.id.start2 -> timerColors = TimerColors.PROGRESS2
+                    R.id.start1 -> timerColors = TimerColors.PROGRESS1
+                    R.id.start_go -> timerColors = TimerColors.PROGRESS_GO
+                }
+
+                binding?.progressTimer?.progressDrawable =
+                    ResourcesCompat.getDrawable(
+                        resources,
+                        timerColors.progressBarColor,
+                        requireContext().theme
+                    )
+                binding?.timerText?.setTextColor(requireContext().getColor(timerColors.textColor))
         }
 
         override fun onTransitionChange(
@@ -97,8 +119,7 @@ class TrainingFragment : Fragment() {
             motionLayout: MotionLayout?,
             currentId: Int
         ) {
-
-            when(currentId) {
+            when (currentId) {
                 R.id.end -> { //TODO: Это значит что таймер истек, переходим дальше
                     Toast.makeText(
                         context,
@@ -107,7 +128,9 @@ class TrainingFragment : Fragment() {
                     ).show()
                     binding?.motionlayoutTimer?.visibility = View.GONE
                 }
+                R.id.start_go -> binding?.progressTimer?.visibility = View.GONE
             }
+
         }
 
         override fun onTransitionTrigger(

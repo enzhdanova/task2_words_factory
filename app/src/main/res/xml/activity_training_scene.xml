@@ -7,12 +7,7 @@
             <CustomAttribute
                 app:attributeName="text"
                 app:customStringValue="5"/>
-            <CustomAttribute
-                app:attributeName="textColor"
-                app:customColorValue="@color/orange"
-                />
         </Constraint>
-
         <Constraint android:id="@+id/progress_timer">
             <CustomAttribute
                 app:attributeName="progress"
@@ -25,10 +20,6 @@
             <CustomAttribute
                 app:attributeName="text"
                 app:customStringValue="4"/>
-            <CustomAttribute
-                app:attributeName="textColor"
-                app:customColorValue="@color/gray"
-                />
         </Constraint>
         <Constraint android:id="@+id/progress_timer">
             <CustomAttribute
@@ -42,10 +33,6 @@
             <CustomAttribute
                 app:attributeName="text"
                 app:customStringValue="3"/>
-            <CustomAttribute
-                app:attributeName="textColor"
-                app:customColorValue="@color/teal_200"
-                />
         </Constraint>
         <Constraint android:id="@+id/progress_timer">
             <CustomAttribute
@@ -101,7 +88,7 @@
         app:constraintSetStart="@+id/start5"
         app:duration="1000"
         app:autoTransition="animateToEnd"
-        app:motionInterpolator="linear">
+        app:motionInterpolator="easeIn">
     </Transition>
 
     <Transition
@@ -109,7 +96,7 @@
         app:constraintSetStart="@+id/start4"
         app:duration="1000"
         app:autoTransition="animateToEnd"
-        app:motionInterpolator="linear">
+        app:motionInterpolator="easeOut">
     </Transition>
 
     <Transition
