@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.task.wordsfactory.database.dao.DictionaryDao
 import com.example.task.wordsfactory.ui.DictionaryRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -19,7 +18,7 @@ class TrainingViewModel @Inject constructor(
     val trainingUIState: LiveData<TrainingUIState> = _trainingUIState
 
     init {
-        getCountWord()
+       getCountWord()
     }
 
     private fun getCountWord() = viewModelScope.launch {

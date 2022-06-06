@@ -32,7 +32,12 @@ class TrainingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.trainingUIState.observe(viewLifecycleOwner) {
-            binding?.textviewCountword?.text = getCountWordTextWithSpannable(it.countWord)
+            if (it.countWord == 0L) {
+                binding?.textviewCountword?.text = getString(R.string.add_word_in_dictionary)
+                binding?.buttonStart?.visibility = View.GONE
+            } else {
+                binding?.textviewCountword?.text = getCountWordTextWithSpannable(it.countWord)
+            }
         }
     }
 
