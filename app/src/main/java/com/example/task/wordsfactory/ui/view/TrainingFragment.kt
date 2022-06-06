@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.fragment.app.viewModels
 import com.example.task.wordsfactory.R
@@ -96,6 +97,17 @@ class TrainingFragment : Fragment() {
             motionLayout: MotionLayout?,
             currentId: Int
         ) {
+
+            when(currentId) {
+                R.id.end -> { //TODO: Это значит что таймер истек, переходим дальше
+                    Toast.makeText(
+                        context,
+                        "Дальше будет переход в активити с вопросами",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    binding?.motionlayoutTimer?.visibility = View.GONE
+                }
+            }
         }
 
         override fun onTransitionTrigger(
