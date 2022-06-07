@@ -1,9 +1,7 @@
 package com.example.task.wordsfactory.ui.view
 
-import android.animation.ArgbEvaluator
-import android.animation.ObjectAnimator
+import android.animation.AnimatorSet
 import android.animation.ValueAnimator
-import android.graphics.Color
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
@@ -12,8 +10,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.ColorRes
-import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.viewModels
 import com.example.task.wordsfactory.R
 import com.example.task.wordsfactory.databinding.FragmentTrainingBinding
@@ -58,11 +54,9 @@ class TrainingFragment : Fragment() {
 
     private fun initView() {
         binding?.buttonStart?.setOnClickListener(startButtonOnClickListener)
+        binding?.progressTimer?.visibility = View.GONE
+        binding?.timerText?.visibility = View.GONE
 
-       // binding?.progressTimer?.visibility = View.GONE
-     //   binding?.timerText?.visibility = View.GONE
-
-        //binding?.progressTimer?.trackColor = requireContext().getColor(R.color.orange)
     }
 
     private fun getCountWordTextWithSpannable(count: Long): Spannable {
@@ -93,32 +87,49 @@ class TrainingFragment : Fragment() {
     }
 
     private fun timerAnimation(){
-       /* val animator = ValueAnimator.ofObject(ArgbEvaluator(), R.color.orange, R.color.teal_700).apply{
-            duration = 1000
-            start()
-        }*/
-        val progressBar = binding?.progressTimer
+        val listOfTimer = listOf("GO!", "1", "2", "3", "4", "5")
 
-        val animator = ValueAnimator.ofArgb(requireContext().getColor(R.color.orange),
-            requireContext().getColor(R.color.teal_200),
-            requireContext().getColor(R.color.purple_200)).apply {
-            duration = 2000
+        val progressBar = binding?.progressTimer
+        val textView = binding?.timerText
+
+        val animator = ValueAnimator.ofArgb(requireContext().getColor(R.color.progress5),
+            requireContext().getColor(R.color.progress4),
+            requireContext().getColor(R.color.progress3),
+            requireContext().getColor(R.color.progress2),
+            requireContext().getColor(R.color.progress1),
+            requireContext().getColor(R.color.progress5)).apply {
+            duration = 6000
             addUpdateListener {
-                progressBar?.setIndicatorColor(it.animatedValue as Int)
+                val color = it.animatedValue as Int
+                progressBar?.setIndicatorColor(color)
+                textView?.setTextColor(color)
             }
+        }
+
+        val animatorProgress = ValueAnimator.ofInt(100, 0).apply {
+            duration = 6000
+            addUpdateListener {
+                val progress = it.animatedValue as Int
+                progressBar?.progress = it.animatedValue as Int
+                if (progress.mod(20) == 0) {
+                    val indexForText = progress.div(20)
+                    textView?.text = listOfTimer[indexForText]
+                }
+            }
+        }
+
+        val animatorSet = AnimatorSet().apply {
+            play(animator).with(animatorProgress)
             start()
         }
 
+        
+//        }.apply {
+//            println("_________________________________________")
+//            Toast.makeText(context, "Тут будет переход дальше!", Toast.LENGTH_LONG)
+//        }
 
 
-
-
-       // binding?.progressTimer?.setIndicatorColor(requireContext().getColor(R.color.orange))
     }
 
-    /*
-    * ObjectAnimator.ofFloat(textView, "translationX", 100f).apply {
-    duration = 1000
-    start()
-}*/
 }
