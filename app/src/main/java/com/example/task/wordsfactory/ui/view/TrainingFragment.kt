@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Interpolator
 import android.view.animation.LinearInterpolator
 import android.widget.Toast
 import androidx.core.animation.doOnEnd
@@ -90,17 +89,19 @@ class TrainingFragment : Fragment() {
         timerAnimation()
     }
 
-    private fun timerAnimation(){
+    private fun timerAnimation() {
         val progressBar = binding?.progressTimer
         val textView = binding?.timerText
 
-        val animator = ValueAnimator.ofArgb(requireContext().getColor(R.color.progress5),
+        val animator = ValueAnimator.ofArgb(
+            requireContext().getColor(R.color.progress5),
             requireContext().getColor(R.color.progress4),
             requireContext().getColor(R.color.progress3),
             requireContext().getColor(R.color.progress2),
-            requireContext().getColor(R.color.progress1)).apply {
+            requireContext().getColor(R.color.progress1)
+        ).apply {
             duration = 5000
-            interpolator  = LinearInterpolator()
+            interpolator = LinearInterpolator()
             addUpdateListener {
                 val color = it.animatedValue as Int
                 progressBar?.setIndicatorColor(color)
@@ -110,7 +111,7 @@ class TrainingFragment : Fragment() {
 
         val animatorProgress = ValueAnimator.ofInt(100, 0).apply {
             duration = 5000
-            interpolator  = LinearInterpolator()
+            interpolator = LinearInterpolator()
 
             addUpdateListener {
                 val progress = it.animatedValue as Int
@@ -121,17 +122,18 @@ class TrainingFragment : Fragment() {
             }
         }
 
-        val animatorGo = ValueAnimator.ofArgb( requireContext().getColor(R.color.progress1),
-            requireContext().getColor(R.color.progress5)).apply {
+        val animatorGo = ValueAnimator.ofArgb(
+            requireContext().getColor(R.color.progress1),
+            requireContext().getColor(R.color.progress5)
+        ).apply {
             duration = 1000
-            interpolator  = LinearInterpolator()
+            interpolator = LinearInterpolator()
             addUpdateListener {
                 val color = it.animatedValue as Int
                 progressBar?.setIndicatorColor(color)
                 textView?.text = getString(R.string.go)
             }
         }
-
 
         val animatorSet = AnimatorSet().apply {
             play(animator).with(animatorProgress).before(animatorGo)
@@ -141,7 +143,5 @@ class TrainingFragment : Fragment() {
         animatorSet.doOnEnd {
             Toast.makeText(context, "Тут будет переход дальше!", Toast.LENGTH_LONG).show()
         }
-
     }
-
 }
