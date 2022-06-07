@@ -1,6 +1,9 @@
 package com.example.task.wordsfactory.ui.view
 
-import android.graphics.drawable.Drawable
+import android.animation.ArgbEvaluator
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
@@ -9,13 +12,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.appcompat.content.res.AppCompatResources
-import androidx.constraintlayout.motion.widget.MotionLayout
-import androidx.core.content.res.ResourcesCompat
+import androidx.annotation.ColorRes
+import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.viewModels
 import com.example.task.wordsfactory.R
-import com.example.task.wordsfactory.TimerColors
 import com.example.task.wordsfactory.databinding.FragmentTrainingBinding
 import com.example.task.wordsfactory.ui.viewmodel.TrainingViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -58,8 +58,11 @@ class TrainingFragment : Fragment() {
 
     private fun initView() {
         binding?.buttonStart?.setOnClickListener(startButtonOnClickListener)
-        binding?.motionlayoutTimer?.addTransitionListener(transactionListener)
-        binding?.motionlayoutTimer?.visibility = View.GONE
+
+       // binding?.progressTimer?.visibility = View.GONE
+     //   binding?.timerText?.visibility = View.GONE
+
+        //binding?.progressTimer?.trackColor = requireContext().getColor(R.color.orange)
     }
 
     private fun getCountWordTextWithSpannable(count: Long): Spannable {
@@ -81,73 +84,41 @@ class TrainingFragment : Fragment() {
         return spannable
     }
 
-    private val transactionListener = object : MotionLayout.TransitionListener {
-        override fun onTransitionStarted(
-            motionLayout: MotionLayout?,
-            startId: Int,
-            endId: Int
-        ) {
-        }
-
-        override fun onTransitionChange(
-            motionLayout: MotionLayout?,
-            startId: Int,
-            endId: Int,
-            progress: Float
-        ) {
-        }
-
-        override fun onTransitionCompleted(
-            motionLayout: MotionLayout?,
-            currentId: Int
-        ) {
-            when (currentId) {
-                R.id.end -> { //TODO: Это значит что таймер истек, переходим дальше
-                    Toast.makeText(
-                        context,
-                        "Дальше будет переход в активити с вопросами",
-                        Toast.LENGTH_LONG
-                    ).show()
-                    binding?.motionlayoutTimer?.visibility = View.GONE
-                    return
-                }
-            }
-
-            var timerColors: TimerColors = TimerColors.PROGRESS5
-
-            when (currentId) {
-                R.id.start5 -> timerColors = TimerColors.PROGRESS5
-                R.id.start4 -> timerColors = TimerColors.PROGRESS4
-                R.id.start3 -> timerColors = TimerColors.PROGRESS3
-                R.id.start2 -> timerColors = TimerColors.PROGRESS2
-                R.id.start1 -> timerColors = TimerColors.PROGRESS1
-                R.id.start_go -> timerColors = TimerColors.PROGRESS_GO
-            }
-
-            binding?.progressTimer?.progressDrawable =
-                ResourcesCompat.getDrawable(
-                    resources,
-                    timerColors.progressBarColor,
-                    requireContext().theme
-                )
-            binding?.timerText?.setTextColor(requireContext().getColor(timerColors.textColor))
-
-        }
-
-        override fun onTransitionTrigger(
-            motionLayout: MotionLayout?,
-            triggerId: Int,
-            positive: Boolean,
-            progress: Float
-        ) {
-        }
-
-    }
-
     private val startButtonOnClickListener = View.OnClickListener {
         binding?.buttonStart?.visibility = View.GONE
-        binding?.motionlayoutTimer?.visibility = View.VISIBLE
-        binding?.motionlayoutTimer?.transitionToStart()
+        binding?.progressTimer?.visibility = View.VISIBLE
+        binding?.timerText?.visibility = View.VISIBLE
+
+        timerAnimation()
     }
 
+    private fun timerAnimation(){
+       /* val animator = ValueAnimator.ofObject(ArgbEvaluator(), R.color.orange, R.color.teal_700).apply{
+            duration = 1000
+            start()
+        }*/
+        val progressBar = binding?.progressTimer
+
+        val animator = ValueAnimator.ofArgb(requireContext().getColor(R.color.orange),
+            requireContext().getColor(R.color.teal_200),
+            requireContext().getColor(R.color.purple_200)).apply {
+            duration = 2000
+            addUpdateListener {
+                progressBar?.setIndicatorColor(it.animatedValue as Int)
+            }
+            start()
+        }
+
+
+
+
+
+       // binding?.progressTimer?.setIndicatorColor(requireContext().getColor(R.color.orange))
+    }
+
+    /*
+    * ObjectAnimator.ofFloat(textView, "translationX", 100f).apply {
+    duration = 1000
+    start()
+}*/
 }
