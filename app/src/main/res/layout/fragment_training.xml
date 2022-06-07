@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="50dp"
-        android:layout_marginTop="220dp"
+        android:layout_marginTop="150dp"
         android:gravity="center_horizontal"
         android:textColor="@color/black"
         android:textSize="24sp"
@@ -48,6 +48,8 @@
         <ProgressBar
             android:id="@+id/progress_timer"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:progress="0"
+            android:progressDrawable="@drawable/custom_circular_progress_bar5"
             android:layout_width="170dp"
             android:layout_height="170dp"/>
 

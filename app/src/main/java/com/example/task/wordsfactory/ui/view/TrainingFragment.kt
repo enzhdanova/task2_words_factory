@@ -87,24 +87,6 @@ class TrainingFragment : Fragment() {
             startId: Int,
             endId: Int
         ) {
-            var timerColors: TimerColors = TimerColors.PROGRESS5
-
-                when (startId) {
-                    R.id.start5 -> timerColors = TimerColors.PROGRESS4
-                    R.id.start4 -> timerColors = TimerColors.PROGRESS4
-                    R.id.start3 -> timerColors = TimerColors.PROGRESS3
-                    R.id.start2 -> timerColors = TimerColors.PROGRESS2
-                    R.id.start1 -> timerColors = TimerColors.PROGRESS1
-                    R.id.start_go -> timerColors = TimerColors.PROGRESS_GO
-                }
-
-                binding?.progressTimer?.progressDrawable =
-                    ResourcesCompat.getDrawable(
-                        resources,
-                        timerColors.progressBarColor,
-                        requireContext().theme
-                    )
-                binding?.timerText?.setTextColor(requireContext().getColor(timerColors.textColor))
         }
 
         override fun onTransitionChange(
@@ -127,9 +109,28 @@ class TrainingFragment : Fragment() {
                         Toast.LENGTH_LONG
                     ).show()
                     binding?.motionlayoutTimer?.visibility = View.GONE
+                    return
                 }
-                R.id.start_go -> binding?.progressTimer?.visibility = View.GONE
             }
+
+            var timerColors: TimerColors = TimerColors.PROGRESS5
+
+            when (currentId) {
+                R.id.start5 -> timerColors = TimerColors.PROGRESS5
+                R.id.start4 -> timerColors = TimerColors.PROGRESS4
+                R.id.start3 -> timerColors = TimerColors.PROGRESS3
+                R.id.start2 -> timerColors = TimerColors.PROGRESS2
+                R.id.start1 -> timerColors = TimerColors.PROGRESS1
+                R.id.start_go -> timerColors = TimerColors.PROGRESS_GO
+            }
+
+            binding?.progressTimer?.progressDrawable =
+                ResourcesCompat.getDrawable(
+                    resources,
+                    timerColors.progressBarColor,
+                    requireContext().theme
+                )
+            binding?.timerText?.setTextColor(requireContext().getColor(timerColors.textColor))
 
         }
 
