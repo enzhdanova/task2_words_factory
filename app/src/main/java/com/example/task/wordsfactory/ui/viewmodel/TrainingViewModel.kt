@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.task.wordsfactory.R
 import com.example.task.wordsfactory.ui.DictionaryRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -18,11 +19,19 @@ class TrainingViewModel @Inject constructor(
     val trainingUIState: LiveData<TrainingUIState> = _trainingUIState
 
     init {
-       getCountWord()
+        getCountWord()
     }
 
     private fun getCountWord() = viewModelScope.launch {
-        val count = dictionaryRepository.getCountWords()
-        _trainingUIState.value = _trainingUIState.value?.copy(countWord = count)
+        val result = dictionaryRepository.getCountWords()
+
+        result.onSuccess {
+            _trainingUIState.value = _trainingUIState.value?.copy(countWord = it)
+        }.onFailure {
+            _trainingUIState.value = TrainingUIState(
+                error = true,
+                errorMessage = R.string.problem_with_get_data_error
+            )
+        }
     }
 }

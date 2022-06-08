@@ -46,30 +46,41 @@ class LocalDataSource @Inject constructor(
         }
     }
 
-    suspend fun getCountWords(): Long =
-        withContext(Dispatchers.IO) {
-            dictionaryDao.getCountWords()
-        }
-
-    suspend fun increaseCoefficient(word: Word) {
-        withContext(Dispatchers.IO) {
-            val newCoefficient = dictionaryDao.studyCoefficient(word.word) + 1
-            val wordBD = wordToWordDB(word, studyCoefficient = newCoefficient)
-            dictionaryDao.updateWord(wordBD)
+    suspend fun getCountWords(): Result<Long> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val count = dictionaryDao.getCountWords()
+                Result.success(count)
+            } catch (ioe: Exception) {
+                Result.failure(ioe)
+            }
         }
     }
 
-    suspend fun decreaseCoefficient(word: Word) {
-        withContext(Dispatchers.IO) {
+    suspend fun increaseCoefficient(word: Word): Result<Boolean>  {
+        return withContext(Dispatchers.IO) {
+            try {
+                val newCoefficient = dictionaryDao.studyCoefficient(word.word) + 1
+                val wordBD = wordToWordDB(word, studyCoefficient = newCoefficient)
+                dictionaryDao.updateWord(wordBD)
+                Result.success(true)
+            } catch (ioe: Exception) {
+                Result.failure(ioe)
+            }
+        }
+    }
+
+    suspend fun decreaseCoefficient(word: Word): Result<Boolean>  {
+        return withContext(Dispatchers.IO) {
+            try {
             val newCoefficient = dictionaryDao.studyCoefficient(word.word) - 1
             val wordBD = wordToWordDB(word, studyCoefficient = newCoefficient)
             dictionaryDao.updateWord(wordBD)
+                Result.success(true)
+            } catch (ioe: Exception) {
+                Result.failure(ioe)
+            }
         }
-    }
-
-    //TODO: Возможно надо убрать, пока необходимо для тестирования
-    suspend fun getStudyCoefficient(word: Word): Long = withContext(Dispatchers.IO) {
-        dictionaryDao.studyCoefficient(word.word)
     }
 
     private fun wordToWordDB(word: Word, studyCoefficient: Long) = WordBD(
@@ -86,13 +97,17 @@ class LocalDataSource @Inject constructor(
         word_id = wordId
     )
 
-
-    //TODO: Возможно надо убрать, пока необходимо для тестирования
-    suspend fun getAllWords() = withContext(Dispatchers.IO) {
-        dictionaryDao.getAllWord()
-    }
-
-    suspend fun getTrainingWord() = withContext(Dispatchers.IO) {
-        dictionaryDao.getTrainingWords()
+    suspend fun getTrainingWord(): Result<List<Word>> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val listWords = dictionaryDao.getTrainingWords()
+                val resultList = listWords.map { wordBD ->
+                    wordBD.toModel()
+                }
+                Result.success(resultList)
+            }  catch (ioe: Exception) {
+                Result.failure(ioe)
+            }
+        }
     }
 }

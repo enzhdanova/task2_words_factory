@@ -4,6 +4,7 @@ import com.example.task.wordsfactory.data.datasource.LocalDataSource
 import com.example.task.wordsfactory.data.datasource.RemoteDataSource
 import com.example.task.wordsfactory.data.model.Word
 import com.example.task.wordsfactory.ui.DictionaryRepository
+import java.lang.Exception
 import javax.inject.Inject
 
 class DictionaryRepositoryImpl @Inject constructor(
@@ -24,28 +25,24 @@ class DictionaryRepositoryImpl @Inject constructor(
         return localDataSource.addWord(word)
     }
 
-    override suspend fun getCountWords(): Long = localDataSource.getCountWords()
+    override suspend fun getCountWords(): Result<Long> {
+        val result = localDataSource.getCountWords()
+        return if (result.isSuccess){
+            result
+        } else {
+            Result.failure(Exception())
+        }
+    }
 
-    override suspend fun increaseCoefficient(word: Word) {
+    override suspend fun increaseCoefficient(word: Word): Result<Boolean> =
         localDataSource.increaseCoefficient(word)
-    }
 
-    override suspend fun decreaseCoefficient(word: Word) {
+
+    override suspend fun decreaseCoefficient(word: Word): Result<Boolean> =
         localDataSource.decreaseCoefficient(word)
-    }
 
-    //TODO: Возможно надо убрать, пока необходимо для тестирования
-    override suspend fun studyCoefficient(word: Word): Long =
-        localDataSource.getStudyCoefficient(word)
 
-    //TODO: Возможно надо убрать, пока необходимо для тестирования
-    override suspend fun getAllWord(): List<Word> =
-        localDataSource.getAllWords().map { wordBD ->
-            wordBD.toModel()
-        }
+    override suspend fun getTrainingWord(): Result<List<Word>> =
+        localDataSource.getTrainingWord()
 
-    override suspend fun getTrainingWord(): List<Word> =
-        localDataSource.getTrainingWord().map {
-            wordBD -> wordBD.toModel()
-        }
 }
