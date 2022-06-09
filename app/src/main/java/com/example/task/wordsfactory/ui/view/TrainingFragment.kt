@@ -19,6 +19,7 @@ import com.example.task.wordsfactory.R
 import com.example.task.wordsfactory.databinding.FragmentTrainingBinding
 import com.example.task.wordsfactory.ui.viewmodel.TrainingViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.math.max
 
 @AndroidEntryPoint
 class TrainingFragment : Fragment() {
@@ -32,6 +33,10 @@ class TrainingFragment : Fragment() {
         private const val showWordGoDuration = 1000L
         private const val startProgressValue = 100
         private const val endProgressValue = 0
+        private const val timerDurationInSecond = 5
+        private val progressPart = max(startProgressValue, endProgressValue).div(
+            timerDurationInSecond
+        )
 
         fun newInstance() = TrainingFragment()
     }
@@ -119,8 +124,8 @@ class TrainingFragment : Fragment() {
             addUpdateListener {
                 val progress = it.animatedValue as Int
                 progressBar?.progress = it.animatedValue as Int
-                if (progress.mod(20) == 0) {
-                    textView?.text = progress.div(20).toString()
+                if (progress.mod(progressPart) == 0) {
+                    textView?.text = progress.div(progressPart).toString()
                 }
             }
         }
