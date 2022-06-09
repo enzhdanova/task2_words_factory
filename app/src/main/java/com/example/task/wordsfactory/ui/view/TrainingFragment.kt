@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.view.animation.LinearInterpolator
 import android.widget.Toast
 import androidx.core.animation.doOnEnd
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.example.task.wordsfactory.R
 import com.example.task.wordsfactory.databinding.FragmentTrainingBinding
@@ -27,6 +28,10 @@ class TrainingFragment : Fragment() {
 
     companion object {
         val TAG: String = TrainingFragment::class.java.simpleName
+        private const val timerDuration = 5000L
+        private const val showWordGoDuration = 1000L
+        private const val startProgressValue = 100
+        private const val endProgressValue = 0
 
         fun newInstance() = TrainingFragment()
     }
@@ -45,20 +50,18 @@ class TrainingFragment : Fragment() {
         initView()
 
         viewModel.trainingUIState.observe(viewLifecycleOwner) {
-            if (it.countWord == 0L) {
-                binding?.textviewCountword?.text = getString(R.string.add_word_in_dictionary)
-                binding?.buttonStart?.visibility = View.GONE
-            } else {
-                binding?.textviewCountword?.text = getCountWordTextWithSpannable(it.countWord)
-                binding?.buttonStart?.visibility = View.VISIBLE
-            }
+            val (isVisible, textRes) = if (it.countWord == 0L) false to getString(R.string.add_word_in_dictionary)
+            else true to getCountWordTextWithSpannable(it.countWord)
+
+            binding?.textviewCountword?.text = textRes
+            binding?.buttonStart?.isVisible = isVisible
         }
     }
 
     private fun initView() {
         binding?.buttonStart?.setOnClickListener(startButtonOnClickListener)
-        binding?.progressTimer?.visibility = View.GONE
-        binding?.timerText?.visibility = View.GONE
+        binding?.progressTimer?.isVisible = false
+        binding?.timerText?.isVisible = false
 
     }
 
@@ -82,9 +85,9 @@ class TrainingFragment : Fragment() {
     }
 
     private val startButtonOnClickListener = View.OnClickListener {
-        binding?.buttonStart?.visibility = View.GONE
-        binding?.progressTimer?.visibility = View.VISIBLE
-        binding?.timerText?.visibility = View.VISIBLE
+        binding?.buttonStart?.isVisible = false
+        binding?.progressTimer?.isVisible = true
+        binding?.timerText?.isVisible = true
 
         timerAnimation()
     }
@@ -100,7 +103,7 @@ class TrainingFragment : Fragment() {
             requireContext().getColor(R.color.progress2),
             requireContext().getColor(R.color.progress1)
         ).apply {
-            duration = 5000
+            duration = timerDuration
             interpolator = LinearInterpolator()
             addUpdateListener {
                 val color = it.animatedValue as Int
@@ -109,8 +112,8 @@ class TrainingFragment : Fragment() {
             }
         }
 
-        val animatorProgress = ValueAnimator.ofInt(100, 0).apply {
-            duration = 5000
+        val animatorProgress = ValueAnimator.ofInt(startProgressValue, endProgressValue).apply {
+            duration = timerDuration
             interpolator = LinearInterpolator()
 
             addUpdateListener {
@@ -126,7 +129,7 @@ class TrainingFragment : Fragment() {
             requireContext().getColor(R.color.progress1),
             requireContext().getColor(R.color.progress5)
         ).apply {
-            duration = 1000
+            duration = showWordGoDuration
             interpolator = LinearInterpolator()
             addUpdateListener {
                 val color = it.animatedValue as Int
@@ -141,7 +144,7 @@ class TrainingFragment : Fragment() {
         }
 
         animatorSet.doOnEnd {
-            Toast.makeText(context, "Тут будет переход дальше!", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, getString(R.string.go_next_activity), Toast.LENGTH_LONG).show()
         }
     }
 }

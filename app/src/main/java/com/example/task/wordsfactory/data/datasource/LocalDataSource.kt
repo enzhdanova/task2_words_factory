@@ -1,6 +1,5 @@
 package com.example.task.wordsfactory.data.datasource
 
-import com.example.task.wordsfactory.data.model.Meaning
 import com.example.task.wordsfactory.data.model.Word
 import com.example.task.wordsfactory.database.dao.DictionaryDao
 import com.example.task.wordsfactory.database.entity.MeaningBD
@@ -33,10 +32,10 @@ class LocalDataSource @Inject constructor(
         return withContext(Dispatchers.IO) {
             try {
                 val wordId = dictionaryDao.insertWord(
-                    wordToWordDB(word, 0)
+                    WordBD.toWordDB(word)
                 )
                 val meaningsDB = word.meanings.map {
-                    meaningToMeaningDB(meaning = it, wordId = wordId)
+                    MeaningBD.meaningToMeaningDB(meaning = it, wordId = wordId)
                 }
                 dictionaryDao.insertMeanings(meaningsDB)
                 Result.success(true)
@@ -57,11 +56,10 @@ class LocalDataSource @Inject constructor(
         }
     }
 
-    suspend fun increaseCoefficient(word: Word): Result<Boolean>  {
+    suspend fun updateWord(word: Word): Result<Boolean> {
         return withContext(Dispatchers.IO) {
             try {
-                val newCoefficient = dictionaryDao.studyCoefficient(word.word) + 1
-                val wordBD = wordToWordDB(word, studyCoefficient = newCoefficient)
+                val wordBD = WordBD.toWordDB(word)
                 dictionaryDao.updateWord(wordBD)
                 Result.success(true)
             } catch (ioe: Exception) {
@@ -69,33 +67,6 @@ class LocalDataSource @Inject constructor(
             }
         }
     }
-
-    suspend fun decreaseCoefficient(word: Word): Result<Boolean>  {
-        return withContext(Dispatchers.IO) {
-            try {
-            val newCoefficient = dictionaryDao.studyCoefficient(word.word) - 1
-            val wordBD = wordToWordDB(word, studyCoefficient = newCoefficient)
-            dictionaryDao.updateWord(wordBD)
-                Result.success(true)
-            } catch (ioe: Exception) {
-                Result.failure(ioe)
-            }
-        }
-    }
-
-    private fun wordToWordDB(word: Word, studyCoefficient: Long) = WordBD(
-        id = word.id,
-        word = word.word,
-        phonetic = word.phonetic,
-        partOfSpeech = word.partOfSpeech,
-        studyCoefficient = studyCoefficient
-    )
-
-    private fun meaningToMeaningDB(meaning: Meaning, wordId: Long) = MeaningBD(
-        definition = meaning.definition,
-        example = meaning.example,
-        word_id = wordId
-    )
 
     suspend fun getTrainingWord(): Result<List<Word>> {
         return withContext(Dispatchers.IO) {
@@ -105,7 +76,7 @@ class LocalDataSource @Inject constructor(
                     wordBD.toModel()
                 }
                 Result.success(resultList)
-            }  catch (ioe: Exception) {
+            } catch (ioe: Exception) {
                 Result.failure(ioe)
             }
         }

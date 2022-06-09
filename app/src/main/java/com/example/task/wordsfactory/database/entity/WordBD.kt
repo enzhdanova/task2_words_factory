@@ -34,4 +34,14 @@ data class WordBD(
         partOfSpeech = partOfSpeech,
         meanings = meaning
     )
+
+    companion object {
+        fun toWordDB(word: Word) = WordBD(
+            id = word.id,
+            word = word.word,
+            phonetic = word.phonetic,
+            partOfSpeech = word.partOfSpeech,
+            studyCoefficient = word.studyCoefficient
+        )
+    }
 }

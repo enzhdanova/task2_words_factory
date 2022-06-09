@@ -27,20 +27,15 @@ class DictionaryRepositoryImpl @Inject constructor(
 
     override suspend fun getCountWords(): Result<Long> {
         val result = localDataSource.getCountWords()
-        return if (result.isSuccess){
+        return if (result.isSuccess) {
             result
         } else {
             Result.failure(Exception())
         }
     }
 
-    override suspend fun increaseCoefficient(word: Word): Result<Boolean> =
-        localDataSource.increaseCoefficient(word)
-
-
-    override suspend fun decreaseCoefficient(word: Word): Result<Boolean> =
-        localDataSource.decreaseCoefficient(word)
-
+    override suspend fun updateWord(word: Word): Result<Boolean> =
+        localDataSource.updateWord(word)
 
     override suspend fun getTrainingWord(): Result<List<Word>> =
         localDataSource.getTrainingWord()
