@@ -55,10 +55,10 @@ class TrainingFragment : Fragment() {
         initView()
 
         viewModel.trainingUIState.observe(viewLifecycleOwner) {
-            val (isVisible, textRes) = if (it.countWord == 0L) false to getString(R.string.add_word_in_dictionary)
+            val (isVisible, textString) = if (it.countWord == 0L) false to getString(R.string.add_word_in_dictionary)
             else true to getCountWordTextWithSpannable(it.countWord)
 
-            binding?.textviewCountword?.text = textRes
+            binding?.textviewCountword?.text = textString
             binding?.buttonStart?.isVisible = isVisible
         }
     }
