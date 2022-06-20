@@ -32,10 +32,10 @@ class LocalDataSource @Inject constructor(
         return withContext(Dispatchers.IO) {
             try {
                 val wordId = dictionaryDao.insertWord(
-                    WordBD.toWordDB(word)
+                    WordBD.fromDomain(word)
                 )
                 val meaningsDB = word.meanings.map {
-                    MeaningBD.meaningToMeaningDB(meaning = it, wordId = wordId)
+                    MeaningBD.fromDomain(meaning = it, wordId = wordId)
                 }
                 dictionaryDao.insertMeanings(meaningsDB)
                 Result.success(true)
@@ -59,7 +59,7 @@ class LocalDataSource @Inject constructor(
     suspend fun updateWord(word: Word): Result<Boolean> {
         return withContext(Dispatchers.IO) {
             try {
-                val wordBD = WordBD.toWordDB(word)
+                val wordBD = WordBD.fromDomain(word)
                 dictionaryDao.updateWord(wordBD)
                 Result.success(true)
             } catch (ioe: Exception) {

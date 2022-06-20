@@ -23,7 +23,7 @@ data class MeaningBD(
     )
 
     companion object {
-        fun meaningToMeaningDB(meaning: Meaning, wordId: Long) = MeaningBD(
+        fun fromDomain(meaning: Meaning, wordId: Long) = MeaningBD(
             definition = meaning.definition,
             example = meaning.example,
             word_id = wordId

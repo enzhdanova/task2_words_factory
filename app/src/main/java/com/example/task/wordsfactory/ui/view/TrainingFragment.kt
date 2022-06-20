@@ -29,13 +29,13 @@ class TrainingFragment : Fragment() {
 
     companion object {
         val TAG: String = TrainingFragment::class.java.simpleName
-        private const val timerDuration = 5000L
-        private const val showWordGoDuration = 1000L
-        private const val startProgressValue = 100
-        private const val endProgressValue = 0
-        private const val timerDurationInSecond = 5
-        private val progressPart = max(startProgressValue, endProgressValue).div(
-            timerDurationInSecond
+        private const val TIMER_DURATION = 5000L
+        private const val SHOW_WORD_GO_DURATION = 1000L
+        private const val START_PROGRESS_VALUE = 100
+        private const val END_PROGRESS_VALUE = 0
+        private const val TIMER_DURATION_IN_SECOND = 5
+        private val progressPart = max(START_PROGRESS_VALUE, END_PROGRESS_VALUE).div(
+            TIMER_DURATION_IN_SECOND
         )
 
         fun newInstance() = TrainingFragment()
@@ -55,8 +55,11 @@ class TrainingFragment : Fragment() {
         initView()
 
         viewModel.trainingUIState.observe(viewLifecycleOwner) {
-            val (isVisible, textString) = if (it.countWord == 0L) false to getString(R.string.add_word_in_dictionary)
-            else true to getCountWordTextWithSpannable(it.countWord)
+            val (isVisible, textString) = if (it.countWord == 0L) {
+                false to getString(R.string.add_word_in_dictionary)
+            } else {
+                true to getCountWordTextWithSpannable(it.countWord)
+            }
 
             binding?.textviewCountword?.text = textString
             binding?.buttonStart?.isVisible = isVisible
@@ -108,7 +111,7 @@ class TrainingFragment : Fragment() {
             requireContext().getColor(R.color.progress2),
             requireContext().getColor(R.color.progress1)
         ).apply {
-            duration = timerDuration
+            duration = TIMER_DURATION
             interpolator = LinearInterpolator()
             addUpdateListener {
                 val color = it.animatedValue as Int
@@ -117,8 +120,8 @@ class TrainingFragment : Fragment() {
             }
         }
 
-        val animatorProgress = ValueAnimator.ofInt(startProgressValue, endProgressValue).apply {
-            duration = timerDuration
+        val animatorProgress = ValueAnimator.ofInt(START_PROGRESS_VALUE, END_PROGRESS_VALUE).apply {
+            duration = TIMER_DURATION
             interpolator = LinearInterpolator()
 
             addUpdateListener {
@@ -134,7 +137,7 @@ class TrainingFragment : Fragment() {
             requireContext().getColor(R.color.progress1),
             requireContext().getColor(R.color.progress5)
         ).apply {
-            duration = showWordGoDuration
+            duration = SHOW_WORD_GO_DURATION
             interpolator = LinearInterpolator()
             addUpdateListener {
                 val color = it.animatedValue as Int

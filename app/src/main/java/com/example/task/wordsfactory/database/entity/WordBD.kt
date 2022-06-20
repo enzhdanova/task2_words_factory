@@ -36,7 +36,7 @@ data class WordBD(
     )
 
     companion object {
-        fun toWordDB(word: Word) = WordBD(
+        fun fromDomain(word: Word) = WordBD(
             id = word.id,
             word = word.word,
             phonetic = word.phonetic,
