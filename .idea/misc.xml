@@ -8,10 +8,19 @@
         <entry key="..\:/Users/katerinskiy/AndroidStudioProject/task2_words_factory/app/src/main/res/drawable/custom_circular_progress_bar3.xml" value="0.1" />
         <entry key="..\:/Users/katerinskiy/AndroidStudioProject/task2_words_factory/app/src/main/res/drawable/custom_circular_progress_bar4.xml" value="0.1" />
         <entry key="..\:/Users/katerinskiy/AndroidStudioProject/task2_words_factory/app/src/main/res/drawable/custom_circular_progress_bar5.xml" value="0.1" />
+        <entry key="..\:/Users/katerinskiy/AndroidStudioProject/task2_words_factory/app/src/main/res/drawable/round_background.xml" value="0.22" />
+        <entry key="..\:/Users/katerinskiy/AndroidStudioProject/task2_words_factory/app/src/main/res/drawable/round_button.xml" value="0.22" />
+        <entry key="..\:/Users/katerinskiy/AndroidStudioProject/task2_words_factory/app/src/main/res/layout/activity_menu.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/katerinskiy/AndroidStudioProject/task2_words_factory/app/src/main/res/layout/activity_on_boarding_screens.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/katerinskiy/AndroidStudioProject/task2_words_factory/app/src/main/res/layout/activity_question.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/katerinskiy/AndroidStudioProject/task2_words_factory/app/src/main/res/layout/activity_sign_up_screen.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/katerinskiy/AndroidStudioProject/task2_words_factory/app/src/main/res/layout/activity_splash_screen.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/katerinskiy/AndroidStudioProject/task2_words_factory/app/src/main/res/layout/activity_training.xml" value="0.24547101449275363" />
         <entry key="..\:/Users/katerinskiy/AndroidStudioProject/task2_words_factory/app/src/main/res/layout/dictionary_fragment.xml" value="0.16802536231884058" />
+        <entry key="..\:/Users/katerinskiy/AndroidStudioProject/task2_words_factory/app/src/main/res/layout/fragment_onboarding_screens.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/katerinskiy/AndroidStudioProject/task2_words_factory/app/src/main/res/layout/fragment_training.xml" value="0.536" />
         <entry key="..\:/Users/katerinskiy/AndroidStudioProject/task2_words_factory/app/src/main/res/layout/fragment_video.xml" value="0.1" />
+        <entry key="..\:/Users/katerinskiy/AndroidStudioProject/task2_words_factory/app/src/main/res/layout/item_meaning_word.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/kzhdanov/AndroidStudioProjects/WordsFactory/app/src/main/res/drawable-v24/button.xml" value="0.126" />
         <entry key="..\:/Users/kzhdanov/AndroidStudioProjects/WordsFactory/app/src/main/res/drawable-v24/plug_immage.xml" value="0.179" />
         <entry key="..\:/Users/kzhdanov/AndroidStudioProjects/WordsFactory/app/src/main/res/drawable/button.xml" value="0.1905" />

@@ -44,4 +44,7 @@
     <string name="add_word_in_dictionary">Добавьте слова в словарь</string>
     <string name="go">GO!</string>
     <string name="go_next_activity">Тут будет переход дальше!</string>
+    <string name="a">A.</string>
+    <string name="b">B.</string>
+    <string name="c">C.</string>
 </resources>
