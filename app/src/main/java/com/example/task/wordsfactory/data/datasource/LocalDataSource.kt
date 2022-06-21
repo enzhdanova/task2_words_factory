@@ -32,21 +32,50 @@ class LocalDataSource @Inject constructor(
         return withContext(Dispatchers.IO) {
             try {
                 val wordId = dictionaryDao.insertWord(
-                    WordBD(
-                        word = word.word,
-                        phonetic = word.phonetic,
-                        partOfSpeech = word.partOfSpeech
-                    )
+                    WordBD.fromDomain(word)
                 )
                 val meaningsDB = word.meanings.map {
-                    MeaningBD(
-                        definition = it.definition,
-                        example = it.example,
-                        word_id = wordId
-                    )
+                    MeaningBD.fromDomain(meaning = it, wordId = wordId)
                 }
                 dictionaryDao.insertMeanings(meaningsDB)
                 Result.success(true)
+            } catch (ioe: Exception) {
+                Result.failure(ioe)
+            }
+        }
+    }
+
+    suspend fun getCountWords(): Result<Long> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val count = dictionaryDao.getCountWords()
+                Result.success(count)
+            } catch (ioe: Exception) {
+                Result.failure(ioe)
+            }
+        }
+    }
+
+    suspend fun updateWord(word: Word): Result<Boolean> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val wordBD = WordBD.fromDomain(word)
+                dictionaryDao.updateWord(wordBD)
+                Result.success(true)
+            } catch (ioe: Exception) {
+                Result.failure(ioe)
+            }
+        }
+    }
+
+    suspend fun getTrainingWord(): Result<List<Word>> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val listWords = dictionaryDao.getTrainingWords()
+                val resultList = listWords.map { wordBD ->
+                    wordBD.toModel()
+                }
+                Result.success(resultList)
             } catch (ioe: Exception) {
                 Result.failure(ioe)
             }

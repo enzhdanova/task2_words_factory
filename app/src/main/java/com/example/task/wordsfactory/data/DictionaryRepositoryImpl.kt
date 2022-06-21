@@ -4,6 +4,7 @@ import com.example.task.wordsfactory.data.datasource.LocalDataSource
 import com.example.task.wordsfactory.data.datasource.RemoteDataSource
 import com.example.task.wordsfactory.data.model.Word
 import com.example.task.wordsfactory.ui.DictionaryRepository
+import java.lang.Exception
 import javax.inject.Inject
 
 class DictionaryRepositoryImpl @Inject constructor(
@@ -23,4 +24,20 @@ class DictionaryRepositoryImpl @Inject constructor(
     override suspend fun addToDictionary(word: Word): Result<Boolean> {
         return localDataSource.addWord(word)
     }
+
+    override suspend fun getCountWords(): Result<Long> {
+        val result = localDataSource.getCountWords()
+        return if (result.isSuccess) {
+            result
+        } else {
+            Result.failure(Exception())
+        }
+    }
+
+    override suspend fun updateWord(word: Word): Result<Boolean> =
+        localDataSource.updateWord(word)
+
+    override suspend fun getTrainingWord(): Result<List<Word>> =
+        localDataSource.getTrainingWord()
+
 }

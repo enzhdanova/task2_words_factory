@@ -38,7 +38,11 @@ class MenuActivity : AppCompatActivity() {
                 }
             }
             R.id.training -> {
-                //TODO: переход в training
+                supportFragmentManager.commit {
+                    setReorderingAllowed(true)
+                    replace(R.id.wordfactory_fragment, TrainingFragment())
+                    addToBackStack(TrainingFragment.TAG)
+                }
             }
             R.id.video -> {
                 supportFragmentManager.commit {

@@ -7,15 +7,21 @@ import com.example.task.wordsfactory.data.model.Meaning
 import com.example.task.wordsfactory.data.model.Word
 
 
-@Entity(indices = [Index(value = ["word"],
-    unique = true)])
+@Entity(
+    indices = [Index(
+        value = ["word"],
+        unique = true
+    )]
+)
 data class WordBD(
     @PrimaryKey(autoGenerate = true) val id: Long? = null,
     val word: String,
     val phonetic: String?,
-    val partOfSpeech: String
+    val partOfSpeech: String,
+    val studyCoefficient: Long
 ) {
     fun toModel() = Word(
+        id = id ?: 0,
         word = word,
         phonetic = phonetic,
         partOfSpeech = partOfSpeech,
@@ -28,4 +34,14 @@ data class WordBD(
         partOfSpeech = partOfSpeech,
         meanings = meaning
     )
+
+    companion object {
+        fun fromDomain(word: Word) = WordBD(
+            id = word.id,
+            word = word.word,
+            phonetic = word.phonetic,
+            partOfSpeech = word.partOfSpeech,
+            studyCoefficient = word.studyCoefficient
+        )
+    }
 }

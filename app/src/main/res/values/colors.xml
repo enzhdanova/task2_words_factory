@@ -15,5 +15,9 @@
     <color name="transparent">#00000000</color>
     <color name="selected_dot">#65AAEA</color>
     <color name="dots_color">#D5D4D4</color>
->>>>>>> main
+    <color name="progress5">#E3562A</color>
+    <color name="progress4">#65AAEA</color>
+    <color name="progress3">#5BA092</color>
+    <color name="progress2">#F2A03F</color>
+    <color name="progress1">#EF4949</color>
 </resources>
