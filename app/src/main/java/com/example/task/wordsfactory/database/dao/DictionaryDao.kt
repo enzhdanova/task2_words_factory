@@ -40,4 +40,9 @@ interface DictionaryDao {
             "WHERE studyCoefficient = (SELECT MIN(studyCoefficient) FROM WordBD)" +
             "LIMIT 5")
     fun getTrainingWords(): List<WordBD>
+
+    @Query("SELECT * FROM WordBD " +
+            "WHERE word != :rightWord ORDER BY RANDOM() " +
+            "LIMIT 2")
+    fun getWrongWordsForQuestion(rightWord: String): List<WordBD>
 }

@@ -8,4 +8,5 @@ interface DictionaryRepository {
     suspend fun getCountWords(): Result<Long>
     suspend fun updateWord(word: Word): Result<Boolean>
     suspend fun getTrainingWord(): Result<List<Word>>
+    suspend fun getWrongWordsForQuestion(rightWord: String): Result<List<Word>>
 }

@@ -1,5 +1,6 @@
 package com.example.task.wordsfactory.data.datasource
 
+import com.example.task.wordsfactory.data.model.Meaning
 import com.example.task.wordsfactory.data.model.Word
 import com.example.task.wordsfactory.database.dao.DictionaryDao
 import com.example.task.wordsfactory.database.entity.MeaningBD
@@ -73,9 +74,28 @@ class LocalDataSource @Inject constructor(
             try {
                 val listWords = dictionaryDao.getTrainingWords()
                 val resultList = listWords.map { wordBD ->
-                    wordBD.toModel()
+                    val word = wordBD.toModel()
+                    val meanings: List<Meaning> = dictionaryDao.getMeaning(word.id).map {
+                        it.toModel()
+                    }
+                    word.copy(meanings = meanings)
                 }
+
                 Result.success(resultList)
+            } catch (ioe: Exception) {
+                Result.failure(ioe)
+            }
+        }
+    }
+
+    suspend fun getWrongWordsForQuestion(rightWord: String): Result<List<Word>> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val otherWords = dictionaryDao.getWrongWordsForQuestion(rightWord)
+                    .map {
+                        it.toModel()
+                    }
+                Result.success(otherWords)
             } catch (ioe: Exception) {
                 Result.failure(ioe)
             }

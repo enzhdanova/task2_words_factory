@@ -13,10 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WordsFactory">
         <activity
-            android:name=".QuestionActivity"
-            android:exported="false" />
-        <activity
-            android:name=".TrainingActivity"
+            android:name=".ui.view.QuestionActivity"
             android:exported="false" />
         <activity
             android:name=".ui.view.SplashScreenActivity"

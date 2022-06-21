@@ -40,4 +40,9 @@ class DictionaryRepositoryImpl @Inject constructor(
     override suspend fun getTrainingWord(): Result<List<Word>> =
         localDataSource.getTrainingWord()
 
+    override suspend fun getWrongWordsForQuestion(rightWord: String): Result<List<Word>> =
+        localDataSource.getWrongWordsForQuestion(rightWord)
+
+
+
 }
