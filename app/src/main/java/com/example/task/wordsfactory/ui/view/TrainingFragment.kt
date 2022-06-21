@@ -2,6 +2,7 @@ package com.example.task.wordsfactory.ui.view
 
 import android.animation.AnimatorSet
 import android.animation.ValueAnimator
+import android.content.Intent
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
@@ -152,7 +153,8 @@ class TrainingFragment : Fragment() {
         }
 
         animatorSet.doOnEnd {
-            Toast.makeText(context, getString(R.string.go_next_activity), Toast.LENGTH_LONG).show()
+            val intent = Intent(requireContext(), QuestionActivity::class.java)
+            startActivity(intent)
         }
     }
 }

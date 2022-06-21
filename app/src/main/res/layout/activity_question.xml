@@ -133,9 +133,4 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.Group
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:constraint_referenced_ids="answer_1, answer_2, answer_3"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
