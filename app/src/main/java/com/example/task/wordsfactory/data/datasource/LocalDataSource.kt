@@ -62,6 +62,7 @@ class LocalDataSource @Inject constructor(
             try {
                 val wordBD = WordBD.fromDomain(word)
                 dictionaryDao.updateWord(wordBD)
+                println("MyApp: update word $wordBD")
                 Result.success(true)
             } catch (ioe: Exception) {
                 Result.failure(ioe)

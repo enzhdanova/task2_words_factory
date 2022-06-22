@@ -25,7 +25,8 @@ data class WordBD(
         word = word,
         phonetic = phonetic,
         partOfSpeech = partOfSpeech,
-        meanings = emptyList()
+        meanings = emptyList(),
+        studyCoefficient = studyCoefficient
     )
 
     fun toModelWithMeaning(meaning: List<Meaning>) = Word(

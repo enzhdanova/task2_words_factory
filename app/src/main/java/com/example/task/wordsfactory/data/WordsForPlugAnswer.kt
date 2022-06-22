@@ -2,8 +2,8 @@ package com.example.task.wordsfactory.data
 
 object WordsForPlugAnswer {
     val plugAnswers = listOf(
-        "Cooking",
-        "Smiling",
-        "Freezing"
+        "cooking",
+        "smiling",
+        "freezing"
     )
 }

@@ -4,7 +4,8 @@ data class QuestionUIState (
     val countQuestions: Int = 0,
     val numberNowQuestion: Int = 0,
     val nowQuestion: String = "",
-    val answer1: String = "",
-    val answer2: String = "",
-    val answer3: String = "",
+    val answer: List<String> = listOf(),
+    val rightAnswer: String = "",
+    val countRightAnswer: Int = 0,
+    val setAnswer: Boolean = false
 )

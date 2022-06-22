@@ -67,10 +67,11 @@ class DictionaryRepositoryImpl @Inject constructor(
 
     private fun shuffleAnswers(rightWord: String, answers: List<String>): List<String> {
         val resultAnswers = mutableListOf(rightWord)
-        if (answers.size < COUNT_ANSWER_IN_QUESTION) {
-            resultAnswers.addAll(getPlugAnswers(COUNT_ANSWER_IN_QUESTION - answers.size))
-        }
         resultAnswers.addAll(answers)
+        if (resultAnswers.size < COUNT_ANSWER_IN_QUESTION) {
+            resultAnswers.addAll(
+                getPlugAnswers(COUNT_ANSWER_IN_QUESTION - resultAnswers.size))
+        }
         resultAnswers.shuffle()
         return resultAnswers
     }
