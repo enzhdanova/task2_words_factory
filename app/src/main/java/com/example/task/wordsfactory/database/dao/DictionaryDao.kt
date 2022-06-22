@@ -41,8 +41,13 @@ interface DictionaryDao {
             "LIMIT 5")
     fun getTrainingWords(): List<WordBD>
 
-    @Query("SELECT * FROM WordBD " +
+    @Query("SELECT word FROM WordBD " +
             "WHERE word != :rightWord ORDER BY RANDOM() " +
             "LIMIT 2")
-    fun getWrongWordsForQuestion(rightWord: String): List<WordBD>
+    fun getWrongWordsForQuestion(rightWord: String): List<String>
+
+    @Query("SELECT definition FROM MeaningBD WHERE word_id = :word_id " +
+            "ORDER BY RANDOM()" +
+            "LIMIT 2")
+    fun getRandomMeaning(word_id: Long): String
 }

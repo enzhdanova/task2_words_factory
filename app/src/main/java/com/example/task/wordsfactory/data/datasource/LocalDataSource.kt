@@ -74,13 +74,8 @@ class LocalDataSource @Inject constructor(
             try {
                 val listWords = dictionaryDao.getTrainingWords()
                 val resultList = listWords.map { wordBD ->
-                    val word = wordBD.toModel()
-                    val meanings: List<Meaning> = dictionaryDao.getMeaning(word.id).map {
-                        it.toModel()
-                    }
-                    word.copy(meanings = meanings)
+                    wordBD.toModel()
                 }
-
                 Result.success(resultList)
             } catch (ioe: Exception) {
                 Result.failure(ioe)
@@ -88,14 +83,22 @@ class LocalDataSource @Inject constructor(
         }
     }
 
-    suspend fun getWrongWordsForQuestion(rightWord: String): Result<List<Word>> {
+    suspend fun getWrongWordsForQuestion(rightWord: String): Result<List<String>> {
         return withContext(Dispatchers.IO) {
             try {
                 val otherWords = dictionaryDao.getWrongWordsForQuestion(rightWord)
-                    .map {
-                        it.toModel()
-                    }
                 Result.success(otherWords)
+            } catch (ioe: Exception) {
+                Result.failure(ioe)
+            }
+        }
+    }
+
+    suspend fun getRandomMeaning(word_id: Long): Result<String> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val meaning = dictionaryDao.getRandomMeaning(word_id)
+                Result.success(meaning)
             } catch (ioe: Exception) {
                 Result.failure(ioe)
             }

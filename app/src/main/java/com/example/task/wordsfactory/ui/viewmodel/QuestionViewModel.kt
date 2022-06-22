@@ -35,39 +35,30 @@ class QuestionViewModel @Inject constructor(
         }
     }
 
-    fun getQuestion() : Boolean {
-        val numberQuestion = _questionUIState.value?.numberQuestion?.inc() ?: 1
+    fun getQuestion(): Boolean {
+        val numberQuestion = _questionUIState.value?.numberNowQuestion?.inc() ?: 1
 
+        //TODO: по идее, если у нас последний вопрос, то мы переходим дальше
         if (numberQuestion > wordsForTraining.size) return false
 
-        val rightWord = wordsForTraining[numberQuestion - 1].word
+        val rightWord = wordsForTraining[numberQuestion - 1]
 
-        viewModelScope.launch {
+        viewModelScope.launch{
+            val result = dictionaryRepository.getQuestion(rightWord)
 
-            val result = dictionaryRepository.getWrongWordsForQuestion(rightWord)
-
-            result.onSuccess { words ->
-                var answers: MutableList<String> = words.map { words ->
-                    words.word
-                }.toMutableList()
-                answers.add(rightWord)
-                answers.shuffle()
-
-
+            result.onSuccess {
                 _questionUIState.value = _questionUIState.value?.copy(
-                    numberQuestion = numberQuestion,
-                    countQuestion = wordsForTraining.size,
-                    nowQuestion = wordsForTraining[numberQuestion - 1].meanings.shuffled()
-                        .first().definition,
-                    answer1 = answers[0],
-                    answer2 = answers[1],
-                    answer3 = answers[2]
+                    countQuestions = wordsForTraining.size,
+                    numberNowQuestion = numberQuestion,
+                    nowQuestion = it.nowQuestion,
+                    answer1 = it.answers[0],
+                    answer2 = it.answers[1],
+                    answer3 = it.answers[2]
                 )
             }
         }
 
         return true
     }
-
 
 }
