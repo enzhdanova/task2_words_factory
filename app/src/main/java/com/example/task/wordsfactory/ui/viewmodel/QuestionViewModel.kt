@@ -43,8 +43,12 @@ class QuestionViewModel @Inject constructor(
         val numberQuestion = _questionUIState.value?.numberNowQuestion?.inc() ?: 1
 
         //TODO: по идее, если у нас последний вопрос, то мы переходим дальше
-        if (numberQuestion > wordsForTraining.size) return
-
+        if (numberQuestion > wordsForTraining.size) {
+            _questionUIState.value = _questionUIState.value?.copy(
+                numberNowQuestion = numberQuestion,
+            )
+            return
+        }
         val rightWord = wordsForTraining[numberQuestion - 1]
 
         viewModelScope.launch {

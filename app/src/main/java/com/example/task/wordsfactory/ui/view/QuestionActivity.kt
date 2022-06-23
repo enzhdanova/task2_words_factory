@@ -37,7 +37,6 @@ class QuestionActivity : AppCompatActivity() {
         viewModel.questionUIState.observe(this) { uiState ->
 
             if (uiState.countQuestions < uiState.numberNowQuestion) {
-                println("MyApp: finish")
                 Toast.makeText(this, "Тут все", Toast.LENGTH_LONG).show()
             }
 
@@ -71,9 +70,9 @@ class QuestionActivity : AppCompatActivity() {
                 }
                 it.background = getDrawable(backgroundColor)
                 viewModel.setAnswer(index)
-                animator?.pause()
-                timer.start()
+                animator?.cancel()
 
+                timer.start()
             }
         }
     }
@@ -100,20 +99,18 @@ class QuestionActivity : AppCompatActivity() {
     private fun startProgress() {
         animator = ValueAnimator.ofInt(START_PROGRESS, END_PROGRESS).apply {
             duration = DURATION_TIMER
+
             addUpdateListener {
                 binding?.progress?.progress = it.animatedValue as Int
             }
             start()
 
             doOnEnd {
-                println("MyApp: время окончено")
-                viewModel.setAnswer(UNSELECTED_ANSWER)
-                viewModel.getQuestion()
-
+                if (viewModel.questionUIState.value?.setAnswer == false) {
+                    viewModel.setAnswer(UNSELECTED_ANSWER)
+                    viewModel.getQuestion()
+                }
             }
         }
-
-
     }
-
 }

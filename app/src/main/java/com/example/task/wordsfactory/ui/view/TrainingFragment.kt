@@ -98,7 +98,9 @@ class TrainingFragment : Fragment() {
         binding?.progressTimer?.isVisible = true
         binding?.timerText?.isVisible = true
 
-        timerAnimation()
+       // timerAnimation()
+        val intent = Intent(requireContext(), QuestionActivity::class.java)
+        startActivity(intent)
     }
 
     private fun timerAnimation() {

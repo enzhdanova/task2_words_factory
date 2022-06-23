@@ -1,8 +1,6 @@
 package com.example.task.wordsfactory.data.datasource
 
-import com.example.task.wordsfactory.data.DictionaryRepositoryImpl
 import com.example.task.wordsfactory.data.WordsForPlugAnswer
-import com.example.task.wordsfactory.data.model.Meaning
 import com.example.task.wordsfactory.data.model.Word
 import com.example.task.wordsfactory.database.dao.DictionaryDao
 import com.example.task.wordsfactory.database.entity.MeaningBD
@@ -92,16 +90,18 @@ class LocalDataSource @Inject constructor(
     suspend fun getWordsForQuestion(rightWord: String): Result<List<String>> {
         return withContext(Dispatchers.IO) {
             try {
-                val otherWords = dictionaryDao.getWrongWordsForQuestion(rightWord).toMutableList()
-                otherWords.add(rightWord)
+                val words = dictionaryDao.getWrongWordsForQuestion(rightWord).toMutableList()
+                words.add(rightWord)
 
-                if (otherWords.size < COUNT_ANSWER_IN_QUESTION) {
-                    otherWords.addAll(
-                        getPlugAnswers(COUNT_ANSWER_IN_QUESTION - otherWords.size, otherWords)
+                if (words.size < COUNT_ANSWER_IN_QUESTION) {
+                    words.addAll(
+                        getPlugAnswers(COUNT_ANSWER_IN_QUESTION - words.size, words)
                     )
                 }
 
-                Result.success(otherWords)
+                words.shuffle()
+
+                Result.success(words)
             } catch (ioe: Exception) {
                 Result.failure(ioe)
             }
