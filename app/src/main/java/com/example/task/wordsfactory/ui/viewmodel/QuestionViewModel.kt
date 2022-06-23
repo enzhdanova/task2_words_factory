@@ -68,9 +68,6 @@ class QuestionViewModel @Inject constructor(
         val numberNowQuestion = _questionUIState.value?.numberNowQuestion ?: 0
         var studyCoefficient = wordsForTraining[numberNowQuestion - 1].studyCoefficient
 
-        println("MyApp: nowWord ${wordsForTraining[numberNowQuestion - 1]}")
-        println("MyApp: studyCoefficient    $studyCoefficient ")
-
         var answer = 0
         if (getRightAnswer(numberAnswer)) {
             answer = _questionUIState.value?.countRightAnswer ?: 0

@@ -14,10 +14,6 @@ class DictionaryRepositoryImpl @Inject constructor(
     private val localDataSource: LocalDataSource
 ) : DictionaryRepository {
 
-    companion object {
-        private const val COUNT_ANSWER_IN_QUESTION = 3
-    }
-
     override suspend fun getWord(searchWord: String): Result<Word> {
         val result = remoteDataSource.getWord(searchWord)
         return if (result.isSuccess) {
@@ -51,28 +47,15 @@ class DictionaryRepositoryImpl @Inject constructor(
             .getRandomMeaning(rightWord.id)
             .getOrNull()
         val answers = localDataSource
-            .getWrongWordsForQuestion(rightWord.word)
+            .getWordsForQuestion(rightWord.word)
             .getOrNull()
 
         return if (answers == null || meaning == null) {
             Result.failure(NullPointerException())
         } else {
-            val resultAnswers = shuffleAnswers(rightWord.word, answers)
-            Result.success(Question(nowQuestion = meaning, answers = resultAnswers))
+            Result.success(Question(nowQuestion = meaning, answers = answers))
         }
     }
 
-    private fun getPlugAnswers(countAnswer: Int): List<String> =
-        WordsForPlugAnswer.plugAnswers.shuffled().take(countAnswer)
 
-    private fun shuffleAnswers(rightWord: String, answers: List<String>): List<String> {
-        val resultAnswers = mutableListOf(rightWord)
-        resultAnswers.addAll(answers)
-        if (resultAnswers.size < COUNT_ANSWER_IN_QUESTION) {
-            resultAnswers.addAll(
-                getPlugAnswers(COUNT_ANSWER_IN_QUESTION - resultAnswers.size))
-        }
-        resultAnswers.shuffle()
-        return resultAnswers
-    }
 }

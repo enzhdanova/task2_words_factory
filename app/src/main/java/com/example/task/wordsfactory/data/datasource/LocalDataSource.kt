@@ -1,5 +1,7 @@
 package com.example.task.wordsfactory.data.datasource
 
+import com.example.task.wordsfactory.data.DictionaryRepositoryImpl
+import com.example.task.wordsfactory.data.WordsForPlugAnswer
 import com.example.task.wordsfactory.data.model.Meaning
 import com.example.task.wordsfactory.data.model.Word
 import com.example.task.wordsfactory.database.dao.DictionaryDao
@@ -12,6 +14,10 @@ import javax.inject.Inject
 class LocalDataSource @Inject constructor(
     private val dictionaryDao: DictionaryDao
 ) {
+    companion object {
+        private const val COUNT_ANSWER_IN_QUESTION = 3
+    }
+
     suspend fun getWord(searchWord: String): Result<Word> {
         return withContext(Dispatchers.IO) {
             try {
@@ -62,7 +68,6 @@ class LocalDataSource @Inject constructor(
             try {
                 val wordBD = WordBD.fromDomain(word)
                 dictionaryDao.updateWord(wordBD)
-                println("MyApp: update word $wordBD")
                 Result.success(true)
             } catch (ioe: Exception) {
                 Result.failure(ioe)
@@ -84,10 +89,18 @@ class LocalDataSource @Inject constructor(
         }
     }
 
-    suspend fun getWrongWordsForQuestion(rightWord: String): Result<List<String>> {
+    suspend fun getWordsForQuestion(rightWord: String): Result<List<String>> {
         return withContext(Dispatchers.IO) {
             try {
-                val otherWords = dictionaryDao.getWrongWordsForQuestion(rightWord)
+                val otherWords = dictionaryDao.getWrongWordsForQuestion(rightWord).toMutableList()
+                otherWords.add(rightWord)
+
+                if (otherWords.size < COUNT_ANSWER_IN_QUESTION) {
+                    otherWords.addAll(
+                        getPlugAnswers(COUNT_ANSWER_IN_QUESTION - otherWords.size, otherWords)
+                    )
+                }
+
                 Result.success(otherWords)
             } catch (ioe: Exception) {
                 Result.failure(ioe)
@@ -105,4 +118,11 @@ class LocalDataSource @Inject constructor(
             }
         }
     }
+
+    private fun getPlugAnswers(countAnswer: Int, words: List<String>): List<String> =
+        WordsForPlugAnswer.plugAnswers.filterNot { plug ->
+            words.contains(plug)
+        }.shuffled().take(countAnswer)
+
+
 }
