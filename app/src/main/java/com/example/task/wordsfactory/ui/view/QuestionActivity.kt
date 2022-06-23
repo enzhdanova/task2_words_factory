@@ -83,7 +83,6 @@ class QuestionActivity : AppCompatActivity() {
         val nowQuestion = uiState.numberNowQuestion
         binding?.countQuestion?.text = "$nowQuestion ${getString(R.string.of)} $countWord"
         binding?.meaningWord?.text = uiState.nowQuestion
-        println(uiState)
         if (uiState.answer.size == 3) {
             binding?.answer1?.text = uiState.answer[0]
             binding?.layoutAnswer1?.background = getDrawable(R.drawable.round_background)

@@ -48,4 +48,8 @@
     <string name="b">B.</string>
     <string name="c">C.</string>
     <string name="of">of</string>
+    <string name="training_is_finished">Training is finished</string>
+    <string name="correct">Correct:</string>
+    <string name="incorrect">Incorrect:</string>
+    <string name="again">Again</string>
 </resources>

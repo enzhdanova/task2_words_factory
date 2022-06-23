@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WordsFactory">
         <activity
+            android:name=".TrainingFinishActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.view.QuestionActivity"
             android:exported="false" />
         <activity
