@@ -100,7 +100,6 @@ class LocalDataSource @Inject constructor(
                 }
 
                 words.shuffle()
-
                 Result.success(words)
             } catch (ioe: Exception) {
                 Result.failure(ioe)

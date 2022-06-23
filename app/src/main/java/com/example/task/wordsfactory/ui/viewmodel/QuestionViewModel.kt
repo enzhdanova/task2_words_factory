@@ -20,7 +20,6 @@ class QuestionViewModel @Inject constructor(
     }
 
     private var wordsForTraining: MutableList<Word> = mutableListOf()
-
     private val _questionUIState = MutableLiveData(QuestionUIState())
     val questionUIState: LiveData<QuestionUIState> = _questionUIState
 
@@ -33,7 +32,6 @@ class QuestionViewModel @Inject constructor(
             dictionaryRepository.getTrainingWord().onSuccess {
                 wordsForTraining.clear()
                 wordsForTraining.addAll(it)
-
                 getQuestion()
             }
         }
@@ -76,8 +74,8 @@ class QuestionViewModel @Inject constructor(
     fun setAnswer(numberAnswer: Int) {
         val numberNowQuestion = _questionUIState.value?.numberNowQuestion ?: 0
         var studyCoefficient = wordsForTraining[numberNowQuestion - 1].studyCoefficient
-
         var answer = _questionUIState.value?.countRightAnswer ?: 0
+
         if (isRightAnswer(numberAnswer)) {
             answer += 1
             studyCoefficient += 1
@@ -86,7 +84,6 @@ class QuestionViewModel @Inject constructor(
         }
 
         updateStudyCoefficient(wordsForTraining[numberNowQuestion - 1], studyCoefficient)
-
         _questionUIState.value = _questionUIState.value?.copy(
             countRightAnswer = answer,
             setAnswer = true

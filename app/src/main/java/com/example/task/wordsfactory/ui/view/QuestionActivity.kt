@@ -35,7 +35,6 @@ class QuestionActivity : AppCompatActivity() {
         initView()
 
         viewModel.questionUIState.observe(this) { uiState ->
-
             if (uiState.countQuestions < uiState.numberNowQuestion) {
                 startFinishActivity(
                     correct = uiState.countRightAnswer,
@@ -65,7 +64,6 @@ class QuestionActivity : AppCompatActivity() {
 
         answersButton.forEachIndexed { index, constraintLayout ->
             constraintLayout?.setOnClickListener {
-
                 val backgroundColor = if (viewModel.isRightAnswer(index)) {
                     R.drawable.round_background_right
                 } else {
@@ -73,7 +71,6 @@ class QuestionActivity : AppCompatActivity() {
                 }
                 it.background = getDrawable(backgroundColor)
                 viewModel.setAnswer(index)
-
 
                 timer.start()
             }
@@ -86,6 +83,7 @@ class QuestionActivity : AppCompatActivity() {
         val nowQuestion = uiState.numberNowQuestion
         binding?.countQuestion?.text = "$nowQuestion ${getString(R.string.of)} $countWord"
         binding?.meaningWord?.text = uiState.nowQuestion
+
         if (uiState.answer.size == 3) {
             binding?.answer1?.text = uiState.answer[0]
             binding?.layoutAnswer1?.background = getDrawable(R.drawable.round_background)
