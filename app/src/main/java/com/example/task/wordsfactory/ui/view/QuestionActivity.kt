@@ -1,10 +1,10 @@
 package com.example.task.wordsfactory.ui.view
 
 import android.animation.ValueAnimator
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.animation.doOnEnd
 import com.example.task.wordsfactory.R
@@ -37,7 +37,10 @@ class QuestionActivity : AppCompatActivity() {
         viewModel.questionUIState.observe(this) { uiState ->
 
             if (uiState.countQuestions < uiState.numberNowQuestion) {
-                Toast.makeText(this, "Тут все", Toast.LENGTH_LONG).show()
+                startFinishActivity(
+                    correct = uiState.countRightAnswer,
+                    incorrect = uiState.countQuestions - uiState.countRightAnswer
+                )
             }
 
             if (!uiState.setAnswer)
@@ -70,7 +73,8 @@ class QuestionActivity : AppCompatActivity() {
                 }
                 it.background = getDrawable(backgroundColor)
                 viewModel.setAnswer(index)
-                animator?.cancel()
+                animator?.pause()
+                animator?.removeAllUpdateListeners()
 
                 timer.start()
             }
@@ -111,5 +115,13 @@ class QuestionActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun startFinishActivity(correct: Int, incorrect: Int) {
+        val intent = Intent(this, TrainingFinishActivity::class.java)
+        intent.putExtra(TrainingFinishActivity.CORRECT_ARG, correct)
+        intent.putExtra(TrainingFinishActivity.INCORRECT_ARG, incorrect)
+        startActivity(intent)
+        finish()
     }
 }
