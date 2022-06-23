@@ -56,6 +56,4 @@ class DictionaryRepositoryImpl @Inject constructor(
             Result.success(Question(nowQuestion = meaning, answers = answers))
         }
     }
-
-
 }

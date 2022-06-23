@@ -4,9 +4,9 @@ import android.animation.ValueAnimator
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.core.animation.doOnEnd
 import com.example.task.wordsfactory.R
 import com.example.task.wordsfactory.databinding.ActivityQuestionBinding
 import com.example.task.wordsfactory.ui.viewmodel.QuestionUIState
@@ -18,6 +18,14 @@ class QuestionActivity : AppCompatActivity() {
 
     private var binding: ActivityQuestionBinding? = null
     private val viewModel by viewModels<QuestionViewModel>()
+    private var animator: ValueAnimator? = null
+
+    companion object {
+        private const val START_PROGRESS = 0
+        private const val END_PROGRESS = 100
+        private const val DURATION_TIMER = 5000L
+        private const val UNSELECTED_ANSWER = -1
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +37,7 @@ class QuestionActivity : AppCompatActivity() {
         viewModel.questionUIState.observe(this) { uiState ->
 
             if (uiState.countQuestions < uiState.numberNowQuestion) {
+                println("MyApp: finish")
                 Toast.makeText(this, "Тут все", Toast.LENGTH_LONG).show()
             }
 
@@ -55,15 +64,16 @@ class QuestionActivity : AppCompatActivity() {
         answersButton.forEachIndexed { index, constraintLayout ->
             constraintLayout?.setOnClickListener {
 
-                val backgroundColor = if (viewModel.getRightAnswer(index)) {
+                val backgroundColor = if (viewModel.isRightAnswer(index)) {
                     R.drawable.round_background_right
                 } else {
                     R.drawable.round_background_mistake
                 }
                 it.background = getDrawable(backgroundColor)
                 viewModel.setAnswer(index)
-
+                animator?.pause()
                 timer.start()
+
             }
         }
     }
@@ -83,6 +93,27 @@ class QuestionActivity : AppCompatActivity() {
             binding?.answer3?.text = uiState.answer[2]
             binding?.layoutAnswer3?.background = getDrawable(R.drawable.round_background)
         }
+
+        startProgress()
+    }
+
+    private fun startProgress() {
+        animator = ValueAnimator.ofInt(START_PROGRESS, END_PROGRESS).apply {
+            duration = DURATION_TIMER
+            addUpdateListener {
+                binding?.progress?.progress = it.animatedValue as Int
+            }
+            start()
+
+            doOnEnd {
+                println("MyApp: время окончено")
+                viewModel.setAnswer(UNSELECTED_ANSWER)
+                viewModel.getQuestion()
+
+            }
+        }
+
+
     }
 
 }

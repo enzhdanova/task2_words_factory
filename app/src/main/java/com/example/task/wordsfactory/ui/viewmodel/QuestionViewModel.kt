@@ -15,6 +15,10 @@ class QuestionViewModel @Inject constructor(
     private val dictionaryRepository: DictionaryRepository
 ) : ViewModel() {
 
+    companion object {
+        private const val INCORRECT_INDEX = -1
+    }
+
     private var wordsForTraining: MutableList<Word> = mutableListOf()
 
     private val _questionUIState = MutableLiveData(QuestionUIState())
@@ -35,11 +39,11 @@ class QuestionViewModel @Inject constructor(
         }
     }
 
-    fun getQuestion(): Boolean {
+    fun getQuestion() {
         val numberQuestion = _questionUIState.value?.numberNowQuestion?.inc() ?: 1
 
         //TODO: по идее, если у нас последний вопрос, то мы переходим дальше
-        if (numberQuestion > wordsForTraining.size) return false
+        if (numberQuestion > wordsForTraining.size) return
 
         val rightWord = wordsForTraining[numberQuestion - 1]
 
@@ -57,20 +61,21 @@ class QuestionViewModel @Inject constructor(
                 )
             }
         }
-
-        return true
     }
 
-    fun getRightAnswer(numberAnswer: Int) =
-        _questionUIState.value?.rightAnswer == _questionUIState.value?.answer?.get(numberAnswer)
+    fun isRightAnswer(numberAnswer: Int) =
+        if (numberAnswer == INCORRECT_INDEX)
+            false
+        else {
+            _questionUIState.value?.rightAnswer == _questionUIState.value?.answer?.get(numberAnswer)
+        }
 
     fun setAnswer(numberAnswer: Int) {
         val numberNowQuestion = _questionUIState.value?.numberNowQuestion ?: 0
         var studyCoefficient = wordsForTraining[numberNowQuestion - 1].studyCoefficient
 
-        var answer = 0
-        if (getRightAnswer(numberAnswer)) {
-            answer = _questionUIState.value?.countRightAnswer ?: 0
+        var answer = _questionUIState.value?.countRightAnswer ?: 0
+        if (isRightAnswer(numberAnswer)) {
             answer += 1
             studyCoefficient += 1
         } else {
