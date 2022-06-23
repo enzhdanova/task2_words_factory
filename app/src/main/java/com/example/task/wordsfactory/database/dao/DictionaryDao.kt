@@ -38,7 +38,7 @@ interface DictionaryDao {
 
     @Query("SELECT * FROM WordBD " +
             "WHERE studyCoefficient = (SELECT MIN(studyCoefficient) FROM WordBD)" +
-            "LIMIT 5")
+            "LIMIT 10")
     fun getTrainingWords(): List<WordBD>
 
     @Query("SELECT word FROM WordBD " +

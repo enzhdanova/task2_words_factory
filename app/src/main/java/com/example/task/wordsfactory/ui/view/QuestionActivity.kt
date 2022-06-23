@@ -73,8 +73,7 @@ class QuestionActivity : AppCompatActivity() {
                 }
                 it.background = getDrawable(backgroundColor)
                 viewModel.setAnswer(index)
-                animator?.pause()
-                animator?.removeAllUpdateListeners()
+
 
                 timer.start()
             }
@@ -100,6 +99,9 @@ class QuestionActivity : AppCompatActivity() {
     }
 
     private fun startProgress() {
+        animator?.pause()
+        animator?.removeAllUpdateListeners()
+
         animator = ValueAnimator.ofInt(START_PROGRESS, END_PROGRESS).apply {
             duration = DURATION_TIMER
 
