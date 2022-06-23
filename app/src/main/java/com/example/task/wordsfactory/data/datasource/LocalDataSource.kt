@@ -79,7 +79,7 @@ class LocalDataSource @Inject constructor(
                 val listWords = dictionaryDao.getTrainingWords()
                 val resultList = listWords.map { wordBD ->
                     wordBD.toModel()
-                }
+                }.shuffled()
                 Result.success(resultList)
             } catch (ioe: Exception) {
                 Result.failure(ioe)

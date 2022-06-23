@@ -10,129 +10,135 @@
         android:id="@+id/count_question"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
         android:layout_marginTop="32dp"
         android:textColor="@color/dark_gray"
-        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/meaning_word"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:textSize="24sp"
-        android:textColor="@color/dark"
         android:paddingHorizontal="16dp"
         android:textAlignment="center"
-        app:layout_constraintTop_toBottomOf="@id/count_question"
+        android:textColor="@color/dark"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/count_question" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_answer_1"
         android:layout_width="match_parent"
         android:layout_height="58dp"
-        android:layout_marginTop="24dp"
         android:layout_marginHorizontal="16dp"
-        android:clickable="true"
+        android:layout_marginTop="24dp"
         android:background="@drawable/round_background"
-        app:layout_constraintTop_toBottomOf="@id/meaning_word"
+        android:clickable="true"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/meaning_word">
+
         <TextView
             android:id="@+id/number_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
             android:text="@string/a"
             android:textColor="@color/dark"
-            android:layout_marginStart="24dp"
             android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/answer_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/dark"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="24dp"
+            android:textColor="@color/dark"
             android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/number_1"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_answer_2"
         android:layout_width="match_parent"
         android:layout_height="58dp"
-        android:layout_marginTop="24dp"
         android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/round_background"
         android:clickable="true"
-        app:layout_constraintTop_toBottomOf="@id/layout_answer_1"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/layout_answer_1">
+
         <TextView
             android:id="@+id/number_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
             android:text="@string/b"
             android:textColor="@color/dark"
-            android:layout_marginStart="24dp"
             android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/answer_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/dark"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="24dp"
+            android:textColor="@color/dark"
             android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/number_2"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_answer_3"
         android:layout_width="match_parent"
         android:layout_height="58dp"
-        android:layout_marginTop="24dp"
         android:layout_marginHorizontal="16dp"
-        android:clickable="true"
+        android:layout_marginTop="24dp"
         android:background="@drawable/round_background"
-        app:layout_constraintTop_toBottomOf="@id/layout_answer_2"
+        android:clickable="true"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/layout_answer_2">
+
         <TextView
             android:id="@+id/number_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
             android:text="@string/c"
             android:textColor="@color/dark"
-            android:layout_marginStart="24dp"
             android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/answer_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/dark"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="24dp"
+            android:textColor="@color/dark"
             android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/number_3"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -142,8 +148,8 @@
         android:layout_height="5dp"
         android:layout_marginHorizontal="16dp"
         android:layout_marginBottom="32dp"
-        app:trackColor="@color/gray"
         app:indicatorColor="@color/orange"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:trackColor="@color/gray" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

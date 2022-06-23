@@ -81,7 +81,7 @@
         android:layout_marginHorizontal="25dp"
         android:text="@string/again"
         android:textAllCaps="false"
-        app:layout_constraintTop_toBottomOf="@id/incorrect_title"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/incorrect_title" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
