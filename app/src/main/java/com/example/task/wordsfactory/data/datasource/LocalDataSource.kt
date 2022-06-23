@@ -123,6 +123,4 @@ class LocalDataSource @Inject constructor(
         WordsForPlugAnswer.plugAnswers.filterNot { plug ->
             words.contains(plug)
         }.shuffled().take(countAnswer)
-
-
 }
