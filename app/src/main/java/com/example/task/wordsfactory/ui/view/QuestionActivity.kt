@@ -25,6 +25,8 @@ class QuestionActivity : AppCompatActivity() {
         private const val END_PROGRESS = 100
         private const val DURATION_TIMER = 5000L
         private const val UNSELECTED_ANSWER = -1
+        private const val TIMER_SHOW_BUTTON = 200L
+        private const val TIMER_INTERVAL = 1L
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,8 +49,8 @@ class QuestionActivity : AppCompatActivity() {
         }
     }
 
-    private val timer = object : CountDownTimer(200, 1) {
-        override fun onTick(millisUntilFinished: Long) {}
+    private val timer = object : CountDownTimer(TIMER_SHOW_BUTTON, TIMER_INTERVAL) {
+        override fun onTick(millisUntilFinished: Long) = Unit
 
         override fun onFinish() {
             viewModel.getQuestion()
