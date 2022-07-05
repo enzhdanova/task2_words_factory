@@ -36,8 +36,24 @@ interface DictionaryDao {
     @Query("SELECT * FROM WordBD")
     fun getAllWord(): List<WordBD>
 
-    @Query("SELECT * FROM WordBD " +
-            "WHERE studyCoefficient = (SELECT MIN(studyCoefficient) FROM WordBD)" +
-            "LIMIT 5")
+    @Query(
+        "SELECT * FROM WordBD " +
+                "WHERE studyCoefficient = (SELECT MIN(studyCoefficient) FROM WordBD)" +
+                "LIMIT 10"
+    )
     fun getTrainingWords(): List<WordBD>
+
+    @Query(
+        "SELECT word FROM WordBD " +
+                "WHERE word != :rightWord ORDER BY RANDOM() " +
+                "LIMIT 2"
+    )
+    fun getWrongWordsForQuestion(rightWord: String): List<String>
+
+    @Query(
+        "SELECT definition FROM MeaningBD WHERE word_id = :word_id " +
+                "ORDER BY RANDOM()" +
+                "LIMIT 2"
+    )
+    fun getRandomMeaning(word_id: Long): String
 }

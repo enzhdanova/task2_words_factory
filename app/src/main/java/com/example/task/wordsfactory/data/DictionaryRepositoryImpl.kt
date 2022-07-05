@@ -2,9 +2,11 @@ package com.example.task.wordsfactory.data
 
 import com.example.task.wordsfactory.data.datasource.LocalDataSource
 import com.example.task.wordsfactory.data.datasource.RemoteDataSource
+import com.example.task.wordsfactory.data.model.Question
 import com.example.task.wordsfactory.data.model.Word
 import com.example.task.wordsfactory.ui.DictionaryRepository
 import java.lang.Exception
+import java.lang.NullPointerException
 import javax.inject.Inject
 
 class DictionaryRepositoryImpl @Inject constructor(
@@ -40,4 +42,18 @@ class DictionaryRepositoryImpl @Inject constructor(
     override suspend fun getTrainingWord(): Result<List<Word>> =
         localDataSource.getTrainingWord()
 
+    override suspend fun getQuestion(rightWord: Word): Result<Question> {
+        val meaning = localDataSource
+            .getRandomMeaning(rightWord.id)
+            .getOrNull()
+        val answers = localDataSource
+            .getWordsForQuestion(rightWord.word)
+            .getOrNull()
+
+        return if (answers == null || meaning == null) {
+            Result.failure(NullPointerException())
+        } else {
+            Result.success(Question(nowQuestion = meaning, answers = answers))
+        }
+    }
 }

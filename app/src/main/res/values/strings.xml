@@ -44,4 +44,12 @@
     <string name="add_word_in_dictionary">Добавьте слова в словарь</string>
     <string name="go">GO!</string>
     <string name="go_next_activity">Тут будет переход дальше!</string>
+    <string name="a">A.</string>
+    <string name="b">B.</string>
+    <string name="c">C.</string>
+    <string name="of">of</string>
+    <string name="training_is_finished">Training is finished</string>
+    <string name="correct">Correct:</string>
+    <string name="incorrect">Incorrect:</string>
+    <string name="again">Again</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.example.task.wordsfactory.data.datasource
 
+import com.example.task.wordsfactory.data.WordsForPlugAnswer
 import com.example.task.wordsfactory.data.model.Word
 import com.example.task.wordsfactory.database.dao.DictionaryDao
 import com.example.task.wordsfactory.database.entity.MeaningBD
@@ -11,6 +12,10 @@ import javax.inject.Inject
 class LocalDataSource @Inject constructor(
     private val dictionaryDao: DictionaryDao
 ) {
+    companion object {
+        private const val COUNT_ANSWER_IN_QUESTION = 3
+    }
+
     suspend fun getWord(searchWord: String): Result<Word> {
         return withContext(Dispatchers.IO) {
             try {
@@ -74,11 +79,47 @@ class LocalDataSource @Inject constructor(
                 val listWords = dictionaryDao.getTrainingWords()
                 val resultList = listWords.map { wordBD ->
                     wordBD.toModel()
-                }
+                }.shuffled()
                 Result.success(resultList)
             } catch (ioe: Exception) {
                 Result.failure(ioe)
             }
         }
     }
+
+    suspend fun getWordsForQuestion(rightWord: String): Result<List<String>> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val words = dictionaryDao.getWrongWordsForQuestion(rightWord).toMutableList()
+                words.add(rightWord)
+
+                if (words.size < COUNT_ANSWER_IN_QUESTION) {
+                    words.addAll(
+                        getPlugAnswers(COUNT_ANSWER_IN_QUESTION - words.size, words)
+                    )
+                }
+
+                words.shuffle()
+                Result.success(words)
+            } catch (ioe: Exception) {
+                Result.failure(ioe)
+            }
+        }
+    }
+
+    suspend fun getRandomMeaning(word_id: Long): Result<String> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val meaning = dictionaryDao.getRandomMeaning(word_id)
+                Result.success(meaning)
+            } catch (ioe: Exception) {
+                Result.failure(ioe)
+            }
+        }
+    }
+
+    private fun getPlugAnswers(countAnswer: Int, words: List<String>): List<String> =
+        WordsForPlugAnswer.plugAnswers.filterNot { plug ->
+            words.contains(plug)
+        }.shuffled().take(countAnswer)
 }
