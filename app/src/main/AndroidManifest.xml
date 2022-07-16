@@ -12,6 +12,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WordsFactory">
+        <receiver
+            android:name=".ui.view.WordsFactoryWidget"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/words_factory_widget_info" />
+        </receiver>
+
         <activity
             android:name=".ui.view.TrainingFinishActivity"
             android:exported="false" />

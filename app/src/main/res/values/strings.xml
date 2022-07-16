@@ -52,4 +52,10 @@
     <string name="correct">Correct:</string>
     <string name="incorrect">Incorrect:</string>
     <string name="again">Again</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">Widget show count words in dictionary</string>
+    <string name="widgetTitle">WordsFactory</string>
+    <string name="my_dictionary">My dictionary</string>
+    <string name="i_already_remember">I already remember</string>
 </resources>
