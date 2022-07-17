@@ -5,9 +5,9 @@
     android:initialLayout="@layout/words_factory_widget"
     android:minWidth="300dp"
     android:minHeight="155dp"
-    android:minResizeHeight="155dp"
     android:minResizeWidth="300dp"
-    android:previewImage="@drawable/example_appwidget_preview"
+    android:minResizeHeight="155dp"
+    android:previewImage="@drawable/ic_words_factory"
     android:resizeMode="horizontal|vertical"
-    android:updatePeriodMillis="1000"
+    android:updatePeriodMillis="86400000"
     android:widgetCategory="home_screen" />

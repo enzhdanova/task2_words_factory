@@ -58,4 +58,5 @@
     <string name="widgetTitle">WordsFactory</string>
     <string name="my_dictionary">My dictionary</string>
     <string name="i_already_remember">I already remember</string>
+    <string name="words">words</string>
 </resources>

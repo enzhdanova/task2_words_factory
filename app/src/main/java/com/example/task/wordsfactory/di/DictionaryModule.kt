@@ -19,7 +19,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
-@InstallIn(ViewModelComponent::class)
+@InstallIn(SingletonComponent::class)
 abstract class DictionaryViewModelModule {
     @Binds
     abstract fun bindRepo(
@@ -58,7 +58,7 @@ class NetworkModule {
     @Singleton
     fun provideApi() = Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create())
-        .baseUrl( BuildConfig.BASE_URL)
+        .baseUrl(BuildConfig.BASE_URL)
         .build()
 
     @Provides

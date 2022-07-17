@@ -56,4 +56,7 @@ class DictionaryRepositoryImpl @Inject constructor(
             Result.success(Question(nowQuestion = meaning, answers = answers))
         }
     }
+
+    override suspend fun getCountLearnedWords(): Result<Long> =
+        localDataSource.getCountLearnedWords()
 }

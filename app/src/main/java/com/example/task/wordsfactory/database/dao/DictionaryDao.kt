@@ -56,4 +56,9 @@ interface DictionaryDao {
                 "LIMIT 2"
     )
     fun getRandomMeaning(word_id: Long): String
+
+    @Query(
+        "SELECT COUNT(*) FROM WordBD WHERE studyCoefficient = 5"
+    )
+    fun getCountLearnedWords(): Long
 }

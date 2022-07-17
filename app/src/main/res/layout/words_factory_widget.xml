@@ -56,7 +56,7 @@
         android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/count_words_remember_value"
+        android:id="@+id/count_words_learned_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@id/title_count_words_remember_title"
