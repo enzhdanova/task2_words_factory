@@ -122,4 +122,13 @@ class LocalDataSource @Inject constructor(
         WordsForPlugAnswer.plugAnswers.filterNot { plug ->
             words.contains(plug)
         }.shuffled().take(countAnswer)
+
+    suspend fun getCountLearnedWords(): Result<Long> = withContext(Dispatchers.IO) {
+        try {
+            val countLearnedWords = dictionaryDao.getCountLearnedWords()
+            Result.success(countLearnedWords)
+        } catch (ioe: Exception) {
+            Result.failure(ioe)
+        }
+    }
 }
